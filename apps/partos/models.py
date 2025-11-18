@@ -1,3 +1,4 @@
-from django.db import models
-
-# Create your models here.
+from .models.detalle_parto import (Analgesia, Complicacion, GrupoRobson,
+                                   TipoDeIngreso, ViaNacimiento)
+from .models.profesional import Profesional
+from .models.parto import Parto

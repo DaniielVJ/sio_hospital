@@ -5,6 +5,12 @@ class TipoPaciente(models.Model):
 
 
 class Paciente(models.Model):
+
+    class Actividad(models.TextChoices):
+        BAJA = 'baja', 'Baja'
+        MODERADA = 'moderada', 'Moderada'
+        ALTA = 'alta', 'Alta'
+
     # fonasa, isapre, etc.
     tipo = models.ForeignKey(TipoPaciente, on_delete=models.PROTECT, related_name="paciente")
     nombre = models.CharField(max_length=100)
@@ -22,7 +28,17 @@ class Paciente(models.Model):
     es_transexual = models.BooleanField(default=False)
     plan_de_parto = models.BooleanField(default=False)
     visita_guiada = models.BooleanField(default=False)
+    peso = models.FloatField()
+    altura = models.FloatField()
+    actividad = models.CharField(max_length=9,
+                                 choices=Actividad.choices,
+                                 default=Actividad.BAJA)
+
+    def __str__(self):
+        return super().__str__()
     
 
+    def calcular_Imc(self):
+        pass
     
 
