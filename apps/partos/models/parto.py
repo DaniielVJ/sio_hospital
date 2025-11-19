@@ -69,7 +69,7 @@ class Parto(models.Model):
     tiempo_dilatacion = models.PositiveSmallIntegerField()
     tiempo_expulsivo = models.PositiveSmallIntegerField()
     edad_madre = models.PositiveSmallIntegerField()
-    semana_gestaciones = models.PositiveSmallIntegerField()
+    semanas_gestacionales = models.PositiveSmallIntegerField()
     monitor = models.BooleanField(default=False)
     entrega_placenta = models.BooleanField(default=False)
     acompaniante = models.BooleanField(default=False)
