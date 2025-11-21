@@ -64,15 +64,17 @@ class Paciente(models.Model):
     segundo_apellido = models.CharField(max_length=100)
     
     # Info Documento
-    documento = models.CharField(max_length=3, choices=TipoDocumento.choices, default=TipoDocumento.RUT)
+    documento = models.CharField(max_length=3, 
+                                 choices=TipoDocumento.choices, 
+                                 default=TipoDocumento.RUT)
     identificacion = models.CharField(max_length=15, unique=True)
     
     fecha_ingreso = models.DateTimeField(auto_now_add=True)
     fecha_nacimiento = models.DateField()
-    es_descapacitado = models.BooleanField(default=False)
-    es_pueblo_originario = models.BooleanField(default=False)
-    es_privada_de_libertad = models.BooleanField(default=False)
-    es_transexual = models.BooleanField(default=False)
+    descapacitado = models.BooleanField(default=False)
+    pueblo_originario = models.BooleanField(default=False)
+    privada_de_libertad = models.BooleanField(default=False)
+    transexual = models.BooleanField(default=False)
     plan_de_parto = models.BooleanField(default=False)
     visita_guiada = models.BooleanField(default=False)
     peso = models.FloatField()
@@ -92,3 +94,5 @@ class Paciente(models.Model):
         pass
     
 
+    class Meta:
+        unique_together = ('documento', 'identificacion')

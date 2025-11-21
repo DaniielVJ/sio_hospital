@@ -1,9 +1,28 @@
 from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import HTML, Layout, Row, Column, Fieldset, ButtonHolder, Submit
+
 from ..models import Paciente
 from . import validators
 from . import utils
 
-class PacienteForm(forms.ModelForm):        
+class PacienteForm(forms.ModelForm):
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        print(self.fields['tipo'].widget)
+        for nombre_campo, campo  in self.fields.items():
+            widget = campo.widget
+            # Si quiero añadir mas clases, las voy agregando simplemente aqui
+            if isinstance(widget, forms.widgets.CheckboxInput):
+                widget.attrs['class'] = 'form-check-input'
+            elif isinstance(widget, forms.Select):
+                widget.attrs['class'] = 'form-select'
+            else:
+                widget.attrs['class'] = 'form-control'
+        
+       
     class Meta:
         model = Paciente
         exclude = ['fecha_ingreso', 'id']
@@ -11,10 +30,27 @@ class PacienteForm(forms.ModelForm):
            'fecha_nacimiento' : forms.DateInput(attrs={'type': 'date'})
         }
 
+        # Textos mostrados debajo de cada campo al renderizarlo
         help_texts = {
             'cesfam': 'Si no posee dejar en blanco',
-            'comuna': 'Si no aparece la comuna dejar en blanco'
+            'comuna': 'Si no aparece la comuna dejar en blanco',
+            'identificacion': 'Si es Rut sin puntos y con guion',
+            'altura': 'En centimetros',
+            'peso': 'En Kilogramos'
             }
+        
+        # El texto del label que describe o indica que valor recibe el campo
+        labels = {
+            'documento': "Tipo Documento",
+            'identificacion': 'N° de documento',
+            'tipo': 'Tipo de Paciente',
+            'descapacitado': 'Descapacitad@',
+            'pueblo_originario': 'Pueblo Originario',
+            'privada_de_libertad': 'Privada de Libertad',
+            'transexual': 'Transexual',
+            'fecha_nacimiento': 'Drogadicto'
+            
+        }
 
 
     def clean(self):
