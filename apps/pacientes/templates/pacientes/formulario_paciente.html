@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}
+
+{% endblock title %}
+
+
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        
+        {{form.as_div}}
+            
+        <input type="submit" value="Añadir" />
+    </form>
+{% endblock content %}
+    
