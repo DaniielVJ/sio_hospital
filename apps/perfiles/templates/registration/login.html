@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Login {% endblock title %}
+
+{% block estilos_personalizados %}
+    
+{% endblock estilos_personalizados %}
+    
+
+
+
+{% block content %}
+    
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_div}}
+
+    <div>
+        <button type="submit">Enviar</button>
+    </div>
+</form>
+
+
+{% endblock content %}
+    
+
+
+
+
+{% block scripts %}
+    
+{% endblock scripts %}
+    

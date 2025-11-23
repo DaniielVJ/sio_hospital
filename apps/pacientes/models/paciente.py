@@ -58,7 +58,7 @@ class Paciente(models.Model):
     nacionalidad = models.ForeignKey(Nacionalidad, on_delete=models.SET_NULL, related_name='paciente', null=True)
     comuna = models.ForeignKey(Comuna, on_delete=models.SET_NULL, related_name='paciente', null=True)
     cesfam = models.ForeignKey(Cesfam, on_delete=models.SET_NULL, related_name='paciente', null=True)
-
+    direccion = models.CharField(max_length=150, null=True)
     nombre = models.CharField(max_length=100)
     primer_apellido = models.CharField(max_length=100)
     segundo_apellido = models.CharField(max_length=100)
@@ -67,8 +67,10 @@ class Paciente(models.Model):
     documento = models.CharField(max_length=3, 
                                  choices=TipoDocumento.choices, 
                                  default=TipoDocumento.RUT)
-    identificacion = models.CharField(max_length=15, unique=True)
-    
+    identificacion = models.CharField(max_length=15)
+    telefono = models.CharField(max_length=15, blank=True)
+
+
     fecha_ingreso = models.DateTimeField(auto_now_add=True)
     fecha_nacimiento = models.DateField()
     descapacitado = models.BooleanField(default=False)
@@ -90,9 +92,11 @@ class Paciente(models.Model):
     def obtener_nombre_completo(self):
         return f'{self.nombre} {self.primer_apellido} {self.segundo_apellido}'
 
-    def calcular_Imc(self):
-        pass
+    def calcular_imc(self):
+       estatura_metros = self.altura / 100
+       return self.peso / (estatura_metros ** 2)
     
 
     class Meta:
+        # No puede haber una identificación repetida dentro del mismo grupo de tipo de documento
         unique_together = ('documento', 'identificacion')

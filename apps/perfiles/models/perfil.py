@@ -14,5 +14,4 @@ class Perfil(models.Model):
     class Meta:
         abstract = True
 
-
     

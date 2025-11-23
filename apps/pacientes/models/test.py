@@ -40,6 +40,8 @@ class TestVih(Test):
 class TestSgb(Test):
     pass
 
+
+
 class TestVdrl(Test):
     pass
 

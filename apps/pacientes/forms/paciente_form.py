@@ -1,13 +1,22 @@
 from django import forms
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import HTML, Layout, Row, Column, Fieldset, ButtonHolder, Submit
+from django.forms.utils import ErrorList
 
 from ..models import Paciente
 from . import validators
 from . import utils
 
-class PacienteForm(forms.ModelForm):
 
+
+class MyErrorList(ErrorList):
+    def as_divs(self):
+        return ''.join(f'<div class="text-red-600 text-sm mt-1">{e}</div>' for e in self)
+
+    def __str__(self):
+        return self.as_divs()
+
+
+class PacienteForm(forms.ModelForm):
+    error_class = MyErrorList
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -58,7 +67,7 @@ class PacienteForm(forms.ModelForm):
         documento = cleaned.get('documento')
         identificacion = cleaned.get('identificacion')
 
-        # RECORDAR EL CLEANED DATA YA ES VALIDADA Y COMO SE ALMACENARA EN LA DB
+        # RECORDAR EL CLEANED ES DATA YA ES VALIDADA Y COMO SE ALMACENARA EN LA DB
         # POR ESO EN MAYUSCULA
         if documento == "RUT":
             if not identificacion:

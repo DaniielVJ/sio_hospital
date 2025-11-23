@@ -18,19 +18,25 @@
 
 
 {% block content %}
-        
+     
     <div class="container my-4">
         <div class="mx-auto" style="max-width: 700px;">
         <form method="POST">
-            {% csrf_token %}
+            {% csrf_token %}    
+            {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
             {{form.errors}}
             {{form.fields.errors}}
+            </div>    
+            {% endif %}
+                
             <fieldset class="border rounded p-3 mb-4">
-                <legend class="float-none w-auto px-2 fs-5 fw-bold">Informacion Personal</legend>
+                <legend class="float-none w-auto px-2 fs-5 fw-bold " style="text-align:center;">Informacion Personal</legend>
                 <div class="row g-3">
                 <div class='col-sm'>
                     {{form.nombre.label_tag}}
                     {{form.nombre}}
+                    {{form.errors}}
                 </div>
                 <div class='col-sm'>
                     {{form.primer_apellido.label_tag}}
@@ -139,6 +145,7 @@
                     <div class="col">
                         {{form.cesfam.label_tag}}
                         {{form.cesfam}}
+                        <div class='form-text'>{{form.cesfam.help_text}}</div>
                     </div>
                 </div>
                 <div class="row g-3 mb-4">

@@ -1,2 +1,2 @@
-from .paciente_views import (CrearPacienteView, ListarPacientesView, DetallePacienteView, 
+from .paciente import (CrearPacienteView, ListarPacientesView, DetallePacienteView, 
                              EliminarPacienteView, ActualizarPacienteView)

@@ -11,7 +11,7 @@
 
 
 {% block content %}
-    <a href="{% url 'pacientes:agregar_paciente' %}">Añadir nuevo paciente</a>
+    <a href="{% url 'paciente:agregar_paciente' %}">Añadir nuevo paciente</a>
     {% for paciente in pacientes %}
         <p>{{paciente.obtener_nombre_completo}} - {{paciente.rut}} - {{paciente.tipo}}</p>
     {% empty %}
