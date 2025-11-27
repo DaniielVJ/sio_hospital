@@ -59,6 +59,7 @@ class Paciente(models.Model):
     comuna = models.ForeignKey(Comuna, on_delete=models.SET_NULL, related_name='paciente', null=True)
     cesfam = models.ForeignKey(Cesfam, on_delete=models.SET_NULL, related_name='paciente', null=True)
     direccion = models.CharField(max_length=150, null=True)
+    telefono = models.CharField(max_length=15, blank=True)
     nombre = models.CharField(max_length=100)
     primer_apellido = models.CharField(max_length=100)
     segundo_apellido = models.CharField(max_length=100)
@@ -68,7 +69,6 @@ class Paciente(models.Model):
                                  choices=TipoDocumento.choices, 
                                  default=TipoDocumento.RUT)
     identificacion = models.CharField(max_length=15)
-    telefono = models.CharField(max_length=15, blank=True)
 
 
     fecha_ingreso = models.DateTimeField(auto_now_add=True)

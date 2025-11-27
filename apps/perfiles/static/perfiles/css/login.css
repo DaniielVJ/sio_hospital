@@ -1,0 +1,260 @@
+/* ==========================================================================
+   CONFIGURACIÓN GLOBAL
+   ========================================================================== */
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+                 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    /* GRADIENT ROJO: claro -> cálido -> claro */
+    background: linear-gradient(
+        330deg,
+        #ffd5d5 0%,    /* rojo claro */
+        #fc6b72  50%,   /* rojo cálido */
+        #ffd5d5 100%   /* rojo claro */
+    );
+
+    display: flex;
+}
+
+/* Tarjeta */
+.login-card {
+    width: 100%;
+    max-width: 25rem;
+    background: #ffffff;
+    padding: 1.2rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* LAYOUT PRINCIPAL  */
+.login-layout {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh;
+}
+
+
+/* ==========================================================================
+   PANEL IZQUIERDO
+   ========================================================================== */
+
+.login-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding-left: 12.5rem;
+    padding-right: 8rem;
+
+    color: #ffffff;
+}
+
+.welcome-title {
+    font-size: 4.1rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: #ffffff;
+}
+
+.welcome-subtitle {
+    font-size: 1.6rem;
+    padding-bottom: 11rem;
+}
+
+.left-footer {
+    position: absolute;
+    bottom: 2rem;
+    left: 13rem;
+}
+
+.left-footer-text {
+    font-size: 1.2rem;
+    opacity: 0.95;
+    color: #ffffff;
+}
+
+
+/* ==========================================================================
+   PANEL DERECHO (LOGIN)
+   ========================================================================== */
+
+.login-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Header del login */
+.login-header {
+    text-align: center;
+}
+
+.login-logo {
+    display: block;
+    margin: 0 auto 0.1rem auto;
+}
+
+.login-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #000000;
+    margin-top: 2rem;
+}
+
+
+/* FORMULARIO  */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: none;
+    padding: 0;
+}
+
+.form-field label {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.form-field input {
+    padding: 0.75rem 1rem;
+    height: 1.8rem;
+    width: 22.7rem;
+    border-radius: 1rem;
+    border: 1px solid #696666;
+    font-size: 1.3rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-field input:focus {
+    border-color: #000000;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(243, 31, 31, 0.15);
+}
+
+.form-options {
+    display: flex;
+    justify-content: center;   /* CENTRA el link */
+}
+
+.login-error {
+    text-align: center;           /* Centrar el texto */
+    color: #c21b22;               /* Rojo intermedio de tu paleta */
+    font-size: 1.1rem;
+    margin-top: -0.5rem;          /* Muy leve ajuste para que quede pegadito al input */
+    margin-bottom: 0.5rem;        /* Espacio antes del botón */
+    /* display: none;                Oculto por defecto */
+}
+
+.alet {
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent; /* Borde transparente que se definirá con el color contextual */
+    border-radius: 0.375rem; /* Borde ligeramente redondeado */
+    font-size: 1rem;
+    line-height: 1.5;
+    position: relative;
+}
+
+.alert-danger {
+    color: #842029; /* Color del texto (rojo oscuro) */
+    background-color: #f8d7da; /* Color de fondo (rojo claro) */
+    border-color: #f5c2c7; /* Color del borde (rojo medio) */
+}
+
+
+.login-error.active {
+    display: block;               /* Se muestra solo cuando hay error */
+}
+
+/* BOTÓN  */
+.btn {
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border: none;
+    padding: 1rem 1rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #000000;
+    color: white;
+    width: 25rem;
+    border-radius: 18px;
+    margin-top: 1.3rem;
+    margin-bottom: 1.3rem;
+}
+
+.btn-primary:hover {
+    background-color: #171616;
+}
+
+.forgot-link {
+    font-size: 1.2rem;
+    color: #000000;
+    text-decoration: none;
+    margin: 0 auto;
+    display: inline-block;     /* IMPORTANTE: evita que el flex lo estire */
+    text-align: center;        /* Se asegura que el texto quede centrado */
+}
+
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+/* Footer del login */
+.login-footer {
+    text-align: center;
+    margin-bottom: 0.1rem;
+    margin-top: 1.8rem;
+}
+
+.login-footer-text {
+    color: #000000;
+    font-size: 0.81rem;
+    line-height: 1.2rem;
+    margin-top: 0.1rem;
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+    .login-layout {
+        grid-template-columns: 1fr; /* Solo se muestra el login */
+    }
+
+    .login-left {
+        display: none; /* Se oculta la parte izquierda */
+    }
+
+    .login-right {
+        padding: 1.5rem;
+    }
+
+    .login-card {
+        max-width: 360px;
+        padding: 2rem;
+    }
+}

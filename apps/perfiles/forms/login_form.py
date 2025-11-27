@@ -5,5 +5,11 @@ from django import forms
 # para validar la identidad del usuario
 class LoginEmailForm(AuthenticationForm):
     username = forms.EmailField(widget=forms.EmailInput(
-        attrs={'class': 'form-control'}
+    attrs={'placeholder': "Tu Correo Institucional"}
     ))
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password'].widget.attrs['placeholder'] = "••••••••"
+        self.fields['username'].label = "Email"
