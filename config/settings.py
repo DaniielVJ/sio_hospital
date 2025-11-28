@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'apps.perfiles',
     'apps.recien_nacidos',
     'apps.reportes',
+    'apps.dashboard.apps.DashboardConfig',
+    'tailwind',
 
 ]
 
