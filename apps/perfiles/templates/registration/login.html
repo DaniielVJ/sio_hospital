@@ -3,8 +3,8 @@
 {% block title %} Login {% endblock title %}
 
 {% block estilos_personalizados %}
-    {% comment %} {% include 'includes/bootstrap_css.html' %} {% endcomment %}
     <link rel="stylesheet" href="{% static 'perfiles/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/toastify.min.css' %}">
 {% endblock estilos_personalizados %}
     
 
@@ -19,13 +19,14 @@
         <header class="left-header">
             <div class="left-header-container">
                 <h1 class="welcome-title">Menos pasos. Más eficiencia.</h1>
-                <p class="welcome-subtitle">Todo tu trabajo, en un solo lugar.</p>
+                <p class="welcome-subtitle">Gestionar pacientes y enviar reportes nunca fue tan<strong> fácil.</strong></p>
             </div>
         </header>
 
         <footer class="left-footer">
             <small class="left-footer-text">
-                © 2025 Clínica Herminda Martín, Inc. Todos los derechos reservados.
+                © 2025 Clínica Herminda Martín, Inc. Departamento de Obstetricia y Ginecología.
+                Todos los derechos reservados.
             </small>
         </footer>
 
@@ -40,9 +41,9 @@
             <header class="login-header">
                 <img 
                     class="login-logo"
-                    src="{% static 'icons/HMTransparent.png' %}"
-                    width="190" 
-                    height="75"
+                    src="{% static 'perfiles/img/HermindaMartin.png' %}"
+                    width="260" 
+                    height="95"
                     alt="Logo Herminda Martín"
                     title="Logo Herminda Martín"
                 />
@@ -50,57 +51,45 @@
             </header>
 
             <!-- Formulario -->
-            <form class="login-form" method="POST">
-               {% csrf_token %}
-
+            <form class="login-form" method="post">
+                {% csrf_token %}
                 <fieldset class="form-fields">
 
-                    <!-- Correo -->
                     <div class="form-field">
-                       <label> {{form.username.label}}</label>
-
-                       {{form.username}}
+                        <label>{{form.username.label}}</label>
+                        {{form.username}}
                     </div>
 
-                    <!-- Contraseña -->
                     <div class="form-field">
-                        <label>{{form.password.label}}</label>
+                       <label>{{form.password.label}}</label>
                         {{form.password}}
                     </div>
 
+                    <button type="submit" class="btn btn-primary">Ingresar</button>
+
                 </fieldset>
 
-                <!-- Daniel, programa esto para cuando de error al registrarse, papi. -->
-                {% if messages %}
-
-                    {% for message in messages %}
-                        <div id="login-error" class="login-error">
-                            <span>{{message}}</span>
-                        </div>
-                    {% endfor %}
-                        
-                {% endif %}
-
-                <!-- Botón -->
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">
-                        Ingresar
-                    </button>
-                </div>
+            
+            {% if messages %}
+                
+                {% for message in messages %}    
+                    <div id="login-error" class="login-error">
+                        <span>{{message}}</span>
+                    </div>
+                {% endfor %}
+                    
+            {% endif %}
+                
 
             </form>
 
-        
-
-            
             <!-- Link recuperar contraseña -->
             <div class="form-options">
-                <a class="forgot-link" href="resetPassword.html">
+                <a class="forgot-link" href="NewPW/resetPassword.html">
                     ¿Olvidaste tu contraseña?
                 </a>
             </div>
 
-            <!-- Footer de la tarjeta -->
             <footer class="login-footer">
                 <p class="login-footer-text">
                     Acceso autorizado sólo para <strong>personal médico.</strong> Contacta a TI para soporte.
@@ -108,10 +97,8 @@
             </footer>
 
         </div>
-
     </section>
 </main>
-
 
 {% endblock content %}
     
@@ -120,6 +107,25 @@
 
 
 {% block scripts %}
+    <script src="{% static 'js/toastify.min.js' %}"></script>
+
     
+
+    {% for message in messages %}
+        
+        {% if message.tags == 'success' %}
+            <script>
+                    Toastify({
+                    text: "{{ message }}",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    style: { background: "green" }
+                }).showToast();
+            </script>
+        {% endif %}
+    {% endfor %}
+    
+        
 {% endblock scripts %}
     

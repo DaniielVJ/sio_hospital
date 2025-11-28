@@ -1,1 +1,2 @@
 from .login_form import LoginEmailForm
+from .modificar_password_form import ModificarPasswordForm

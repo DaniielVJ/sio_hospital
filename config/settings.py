@@ -48,6 +48,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Middlewares Propios
+    'apps.perfiles.middlewares.FirstLoginMiddleware'
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -125,9 +127,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # AUTENTICACION
 AUTH_USER_MODEL = 'perfiles.Usuario'
-# LOGIN_REDIRECT_URL = ''
+LOGIN_REDIRECT_URL = 'paciente:listar_pacientes'
 # LOGOUT_REDIRECT_URL = ''
-# LOGIN_URL = ''
+LOGIN_URL = 'login'
 
 
 
@@ -140,4 +142,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
-
+# Urls que puede acceder cualquier usuario, a traves de los middlewares
+PUBLIC_URLS = ['/login', '/perfiles/modificar-password', '/perfiles/verificar-email', '/admin']
