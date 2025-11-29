@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'apps.recien_nacidos',
     'apps.reportes',
     'tailwind',
-    'theme'
+    'theme',
 
 ]
 
