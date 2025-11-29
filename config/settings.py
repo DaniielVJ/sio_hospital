@@ -37,21 +37,24 @@ INSTALLED_APPS = [
     'django_extensions',
     'crispy_forms',
     'crispy_bootstrap5',
-    # 'tailwind',
-    # 'theme',
     # Apps del proyecto
     'apps.pacientes',
     'apps.partos',
     'apps.perfiles',
     'apps.recien_nacidos',
     'apps.reportes',
+    'tailwind',
+    'theme'
 
 ]
 
+if DEBUG:
+    # Add django_browser_reload only in DEBUG mode
+    INSTALLED_APPS += ["django_browser_reload"]
+
 TAILWIND_APP_NAME = 'theme'
 
-NPM_BIN_PATH = "/home/daniel/.nvm/versions/node/v24.11.1/bin/npm"
-
+NPM_BIN_PATH =  r"C:\Program Files\nodejs\npm.cmd"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -65,6 +68,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+
+if DEBUG:
+    # Add django_browser_reload middleware only in DEBUG mode
+    MIDDLEWARE += [
+        "django_browser_reload.middleware.BrowserReloadMiddleware",
+    ]
 
 TEMPLATES = [
     {
