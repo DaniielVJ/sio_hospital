@@ -1,0 +1,27 @@
+{
+  "name": "sio_hospital",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/DaniielVJ/sio_hospital#readme",
+  "bugs": {
+    "url": "https://github.com/DaniielVJ/sio_hospital/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaniielVJ/sio_hospital.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.22",
+    "cross-env": "^10.1.0",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^4.1.17"
+  }
+}
