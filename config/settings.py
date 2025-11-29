@@ -22,16 +22,24 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 # Application definition
 
+
+
+
 INSTALLED_APPS = [
+    # Apps por defecto
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Apps de Terceros
     'django_extensions',
     'crispy_forms',
     'crispy_bootstrap5',
+    # 'tailwind',
+    # 'theme',
+    # Apps del proyecto
     'apps.pacientes',
     'apps.partos',
     'apps.perfiles',
@@ -39,6 +47,10 @@ INSTALLED_APPS = [
     'apps.reportes',
 
 ]
+
+TAILWIND_APP_NAME = 'theme'
+
+NPM_BIN_PATH = "/home/daniel/.nvm/versions/node/v24.11.1/bin/npm"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -131,16 +143,12 @@ LOGIN_REDIRECT_URL = 'paciente:listar_pacientes'
 # LOGOUT_REDIRECT_URL = ''
 LOGIN_URL = 'login'
 
-
-
-
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-
 # Urls que puede acceder cualquier usuario, a traves de los middlewares
 PUBLIC_URLS = ['/login', '/perfiles/modificar-password', '/perfiles/verificar-email', '/admin']
+

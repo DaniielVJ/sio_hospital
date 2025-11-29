@@ -4,7 +4,6 @@ from django.urls import path, include
 from django.contrib.auth.views import LogoutView
 from apps.perfiles.views import LoginView
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(), name="login"),
@@ -16,3 +15,5 @@ urlpatterns = [
     path('rn/', include('apps.recien_nacidos.urls')),
     path('reportes/', include('apps.reportes.urls')),
 ]
+
+

@@ -1,3 +1,10 @@
 from django.shortcuts import render
 
-# Create your views here.
+from .utils import generar_tabla_gonorrea
+
+
+
+
+
+
+
