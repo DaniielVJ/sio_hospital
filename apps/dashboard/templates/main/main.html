@@ -1,51 +1,60 @@
 {% block content %}
 
-<div class="w-full min-h-screen bg-gray-100 p-4 md:p-8 flex flex-col gap-10">
+<div class="w-full min-h-screen bg-gray-100 p-4 md:p-8 flex flex-col gap-[1rem]">
 
     <!-- TÍTULO -->
-    <h1 class="text-3xl md:text-4xl font-bold text-center tracking-wide">
-        Dashboard Hospital
-    </h1>
+     <div class="border-2 m-[1rem] p-[1rem] rounded-xl bg-white shadow-md">
+        <h1 class="text-3xl md:text-4xl font-bold text-center tracking-wide">
+            Dashboard
+        </h1>
+    </div>
 
     <!-- ========================== -->
     <!--         KPI CARDS         -->
     <!-- ========================== -->
-    <div class="grid grid-cols-1 md:grid-cols-2 items-center justify-center gap-6">
+    <div class="relative rounded-xl overflow-hidden border-2 gap-[1rem]">
 
-        <!-- TOP KPIs 1 y 2 (uno sobre otro) -->
-        <div class="flex flex-col items-center justify-center gap-4">
-            <div class="bg-white p-6 rounded-xl shadow-md border w-[8rem] h-[8rem] md:w-[20rem] md:h-[8rem]">
-                <h3 class="text-sm font-medium text-gray-500">Embarazos del Mes</h3>
-                <p id="kpi_embarazos_mes" class="text-3xl font-bold text-blue-600 mt-2">--</p>
+        <!-- Fondo (imagen) -->
+        <div class="absolute inset-0 bg-cover bg-center bg-blue-500/50" style="background-image: url('/static/imagenes/LogoHospital.png');"></div>
+
+        <!-- Contenido de KPIs -->
+        <div class="relative z-10 p-6 grid grid-cols-1 md:grid-cols-2 items-center justify-center gap-6">
+
+            <!-- TOP KPIs 1 y 2 (uno sobre otro) -->
+            <div class="flex flex-col items-center justify-center gap-4">
+                <div class="bg-white/90 p-6 rounded-xl shadow-md border w-[8rem] h-[8rem] md:w-[20rem] md:h-[8rem]">
+                    <h3 class="text-sm font-medium text-gray-500">Embarazos del Mes</h3>
+                    <p id="kpi_embarazos_mes" class="text-3xl font-bold text-blue-600 mt-2">--</p>
+                </div>
+                <div class="bg-white/90 p-6 rounded-xl shadow-md border w-[8rem] h-[8rem] md:w-[20rem] md:h-[8rem]">
+                    <h3 class="text-sm font-medium text-gray-500">Embarazos del Año</h3>
+                    <p id="kpi_embarazos_anio" class="text-3xl font-bold text-blue-600 mt-2">--</p>
+                </div>
             </div>
-            <div class="bg-white p-6 rounded-xl shadow-md border w-[8rem] h-[8rem] md:w-[20rem] md:h-[8rem]">
-                <h3 class="text-sm font-medium text-gray-500">Embarazos del Año</h3>
-                <p id="kpi_embarazos_anio" class="text-3xl font-bold text-blue-600 mt-2">--</p>
+            <!-- KPIs -->
+            <div class="grid grid-rows-2 grid-cols-2 gap-[1rem]">
+                <div class="bg-white/90 p-6 rounded-xl shadow-md border">
+                    <h3 class="text-sm font-medium text-gray-500">Promedio de Edad</h3>
+                    <p id="kpi_1" class="text-3xl font-bold text-green-600 mt-2">--</p>
+                </div>
+
+                <div class="bg-white/90 p-6 rounded-xl shadow-md border">
+                    <h3 class="text-sm font-medium text-gray-500">Controles Realizados</h3>
+                    <p id="kpi_2" class="text-3xl font-bold text-purple-600 mt-2">--</p>
+                </div>
+
+                <div class="bg-white/90 p-6 rounded-xl shadow-md border">
+                    <h3 class="text-sm font-medium text-gray-500">Pacientes Activos</h3>
+                    <p id="kpi_3" class="text-3xl font-bold text-red-600 mt-2">--</p>
+                </div>
+
+                <div class="bg-white/90 p-6 rounded-xl shadow-md border">
+                    <h3 class="text-sm font-medium text-gray-500">Pacientes Activos</h3>
+                    <p id="kpi_4" class="text-3xl font-bold text-red-600 mt-2">--</p>
+                </div>
             </div>
+
         </div>
-        <!-- KPIs -->
-        <div class="grid grid-rows-2 grid-cols-2 gap-4">
-            <div class="bg-white p-6 rounded-xl shadow-md border">
-                <h3 class="text-sm font-medium text-gray-500">Promedio de Edad</h3>
-                <p id="kpi_1" class="text-3xl font-bold text-green-600 mt-2">--</p>
-            </div>
-
-            <div class="bg-white p-6 rounded-xl shadow-md border">
-                <h3 class="text-sm font-medium text-gray-500">Controles Realizados</h3>
-                <p id="kpi_2" class="text-3xl font-bold text-purple-600 mt-2">--</p>
-            </div>
-
-            <div class="bg-white p-6 rounded-xl shadow-md border">
-                <h3 class="text-sm font-medium text-gray-500">Pacientes Activos</h3>
-                <p id="kpi_3" class="text-3xl font-bold text-red-600 mt-2">--</p>
-            </div>
-
-            <div class="bg-white p-6 rounded-xl shadow-md border">
-                <h3 class="text-sm font-medium text-gray-500">Pacientes Activos</h3>
-                <p id="kpi_4" class="text-3xl font-bold text-red-600 mt-2">--</p>
-            </div>
-        </div>
-
     </div>
 
     <!-- DATOS EMBEBIDOS -->
@@ -59,7 +68,7 @@
     <!-- ========================== -->
     <!--         GRÁFICOS           -->
     <!-- ========================== -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-[1rem]">
 
         <div class="bg-white p-6 rounded-xl shadow-md border">
             <div id="chart_gestacion" class="w-full h-[300px] md:h-[350px]"></div>
