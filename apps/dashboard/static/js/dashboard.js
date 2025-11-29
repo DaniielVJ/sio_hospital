@@ -1,49 +1,28 @@
-import * as echarts from "echarts";
-
 document.addEventListener("DOMContentLoaded", () => {
 
-    // -----------------------
-    // LEER DATA-* DEL TEMPLATE
-    // -----------------------
-    const divInfo = document.getElementById("user_info");
 
-    const meses = JSON.parse(divInfo.dataset.meses);
-    const embarazos = JSON.parse(divInfo.dataset.embarazos);
-    const lista = JSON.parse(divInfo.dataset.lista);
+    const divInfo = document.getElementById("user_info");
+    const chartDiv = document.getElementById("chart_gestacion");
+
+    // Datos ficticios por defecto
+    const Meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun"];
+    const Embarazos = [5, 8, 6, 7, 4, 9];
+
+    const meses = divInfo ? (divInfo.dataset.meses, Meses) : Meses;
+    const embarazos = divInfo ? (divInfo.dataset.embarazos, Embarazos) : Embarazos;
 
     console.log("Meses:", meses);
     console.log("Embarazos:", embarazos);
-    console.log("Lista extra:", lista);
 
-    // -----------------------
-    // DATA PARA EL GRÁFICO
-    // -----------------------
-    const chartDiv = document.getElementById("chart_gestacion");
-    const dataChart = JSON.parse(chartDiv.dataset.chart);
-
-    // -----------------------
-    // INICIALIZAR ECHARTS
-    // -----------------------
+    // Inicializar ECharts
     const chart = echarts.init(chartDiv);
 
     const option = {
-        title: {
-            text: "Número de Embarazos por Mes",
-            left: "center"
-        },
+        title: { text: "Número de Embarazos por Mes", left: "center" },
         tooltip: { trigger: "axis" },
-        xAxis: {
-            type: "category",
-            data: meses
-        },
+        xAxis: { type: "category", data: meses },
         yAxis: { type: "value" },
-        series: [
-            {
-                name: "Embarazos",
-                type: "bar",
-                data: embarazos
-            }
-        ]
+        series: [{ name: "Embarazos", type: "bar", data: embarazos }]
     };
 
     chart.setOption(option);
