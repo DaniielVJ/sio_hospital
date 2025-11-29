@@ -24,6 +24,15 @@
 
     <!-- CUSTOM SCRIPT -->
     {% block scripts %}
+    <!-- Cargar primero los scripts que definen las funciones globales de los gráficos -->
+    <script src="{% static 'js/maingrafico.js' %}"></script>
+    <script src="{% static 'js/grafico2.js' %}"></script>
+    <script src="{% static 'js/grafico3.js' %}"></script>
+    <script src="{% static 'js/grafico4.js' %}"></script>
+    <script src="{% static 'js/grafico5.js' %}"></script>
+    <script src="{% static 'js/kpis.js' %}"></script>
+
+    <!-- Finalmente el controlador que llama a esas funciones -->
     <script type="module" src="{% static 'js/dashboard.js' %}"></script>
     {% endblock scripts %}
 
