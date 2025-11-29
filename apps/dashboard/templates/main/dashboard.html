@@ -1,14 +1,5 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Dashboard{% endblock %}
-
-{% block estilos_personalizados %}
-<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
-{% endblock estilos_personalizados %}
-
 {% block content %}
-<h1 class="text-3xl font-bold mb-4">Dashboard Hospital</h1>
+<h1 class="text-[10rem] font-bold mb-4 bg-red">Dashboard Hospital</h1>
 
 <div class="container mx-auto">
 
@@ -28,6 +19,3 @@
 </div>
 {% endblock %}
 
-{% block scripts %}
-<script src="{% static 'js/dashboard.js' %}"></script>
-{% endblock scripts %}

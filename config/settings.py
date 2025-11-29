@@ -37,10 +37,12 @@ INSTALLED_APPS = [
     'apps.perfiles',
     'apps.recien_nacidos',
     'apps.reportes',
-    'apps.dashboard.apps.DashboardConfig',
-    'tailwind',
+    'apps.dashboard',
 
 ]
+
+# Tailwind config
+TAILWIND_APP_NAME = 'dashboard'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

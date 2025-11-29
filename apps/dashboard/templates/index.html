@@ -1,4 +1,3 @@
-{% raw %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -6,18 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title%} index {%  endblock title %}</title>
-    <!-- CUSTOM CSS -->
 
-    <!---------------------------------------------------------------------------------->
+    <!-- CUSTOM CSS -->
+    {% block estilos_personalizados %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    {% endblock estilos_personalizados %}
 </head>
+
 <body>
     {% block content %}
+        {% include 'main/dashboard.html' %}
     {% endblock content %}
-<!---------------------------------------------------------------------------------->
-<!-- CUSTOM SCRIPTS -->
+
+    <!-- CUSTOM SCRIPT -->
     {% block scripts %}
-    {% endblock scripts %}  
-<!---------------------------------------------------------------------------------->
+    <script src="{% static 'js/dashboard.js' %}"></script>
+    {% endblock scripts %}
+
 </body>
 </html>
 <!--Made By:       _     
