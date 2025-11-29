@@ -7,9 +7,9 @@ body {
                  'Open Sans', 'Helvetica Neue', sans-serif;
 
     background: radial-gradient(
-    circle at right,
-    #ff444d 0%,
-    #ffafb3 20%,
+    circle at left,
+    #ff414a 0%,
+    #ffc3c6 20%,
     #ffffff 80%
     );
     
@@ -42,20 +42,20 @@ body {
     font-size: 4.1rem;
     font-weight: 700;
     line-height: 1.15;
-    color: #000000;
+    color: #ffffff;
 
     opacity: 0;
-    animation: slideFadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slideFadeIn 10.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .welcome-subtitle {
     font-size: 1.6rem;
     padding-bottom: 11rem;
-    color: #000000;
+    color: #ffffff;
 
     opacity: 0;
-    animation: slideFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 0.20;
+    animation: slideFadeIn 10s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 10.20;
 }
 
 .left-footer {
@@ -64,13 +64,13 @@ body {
     left: 13rem;
 
     opacity: 0;
-    animation: slideFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slideFadeIn 10.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .left-footer-text {
-    font-size: 1.2rem;
-    opacity: 0.95;
-    color: #000000;
+    font-size: 1rem;
+    opacity: 0.99;
+    color: #ffffff;
 }
 
 
@@ -80,7 +80,7 @@ body {
 .login-card {
     width: 100%;
     max-width: 20rem;
-    background: #ffffff;
+    background: #fff5f5;
     padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
@@ -139,20 +139,29 @@ body {
 }
 
 .form-field input {
-    width: 100%;                 /* <--- ESTA ES LA CLAVE */
+    width: 100%;                
     padding: 0.75rem 1rem;
     border-radius: 1.1rem;
-    border: 1.5px solid #d1d5db;
-    font-size: 1rem;
+    border: 1.5px solid #fff;
+    background-color: #ffffff;
+    font-size: 0.95rem;
     transition: border-color 0.2s ease;
-    box-sizing: border-box;      /* asegura que padding + border NO rompan la card */
+    box-sizing: border-box; 
 }
 
+.form-field input::placeholder {
+    color: #939393;     
+    transition: color 0.2s ease;
+}
+
+.form-field input:hover::placeholder {
+    color: #444444;   
+    opacity: 1;
+}
 
 .form-input:focus {
-    border-color: #000000;
+    border-color: #ffffff;
     outline: none;
-    box-shadow: 0 0 0 3px rgba(243, 31, 31, 0.15);
 }
 
 .form-options {
@@ -188,12 +197,10 @@ body {
     background-color: #000000;
     color: white;
     width: 100%;          /* ahora ocupa bien el espacio */
-    max-width: 11rem;     /* no se vuelve gigante */
+    max-width: 19.6rem;     /* no se vuelve gigante */
     border-radius: 20px;
-    
     margin: 0 auto;       /* lo centra */
     display: block;
-
     margin-top: 0.5rem;   /* MUCHO más pequeño */
 }
 
@@ -238,6 +245,7 @@ body {
     60% {
         opacity: 1;
         transform: translateX(4px);
+        
     }
     100% {
         opacity: 1;

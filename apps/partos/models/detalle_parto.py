@@ -18,6 +18,7 @@ class ViaNacimiento(models.Model):
     tipo = models.CharField(max_length=60)
     descripcion = models.TextField()
 
+
 class Analgesia(models.Model):
     tipo = models.CharField(max_length=45)
     descripcion = models.TextField()
