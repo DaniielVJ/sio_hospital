@@ -45,7 +45,7 @@ body {
     color: #ffffff;
 
     opacity: 0;
-    animation: slideFadeIn 10.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slideFadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .welcome-subtitle {
@@ -55,7 +55,7 @@ body {
 
     opacity: 0;
     animation: slideFadeIn 10s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 10.20;
+    animation-delay: 0.20;
 }
 
 .left-footer {
@@ -245,7 +245,6 @@ body {
     60% {
         opacity: 1;
         transform: translateX(4px);
-        
     }
     100% {
         opacity: 1;
