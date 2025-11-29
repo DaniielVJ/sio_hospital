@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'crispy_forms',
     'crispy_bootstrap5',
-    # 'tailwind',
-    # 'theme',
+    'tailwind',
+    'theme',
     # Apps del proyecto
     'apps.pacientes',
     'apps.partos',
@@ -51,7 +51,7 @@ INSTALLED_APPS = [
 
 TAILWIND_APP_NAME = 'theme'
 
-NPM_BIN_PATH = "/home/daniel/.nvm/versions/node/v24.11.1/bin/npm"
+NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
