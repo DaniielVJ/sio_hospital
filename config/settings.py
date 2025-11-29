@@ -41,8 +41,6 @@ INSTALLED_APPS = [
 
 ]
 
-# Tailwind config
-TAILWIND_APP_NAME = 'dashboard'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
