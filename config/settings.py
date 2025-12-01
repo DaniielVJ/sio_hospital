@@ -5,11 +5,8 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # cargamos como variables de entorno (S.O) todas las del archivo .env
 load_dotenv(BASE_DIR / ".env")
-
-
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -21,10 +18,6 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 
 # Application definition
-
-
-
-
 INSTALLED_APPS = [
     # Apps por defecto
     'django.contrib.admin',
@@ -33,28 +26,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Apps de Terceros
-    'django_extensions',
-    'crispy_forms',
-    'crispy_bootstrap5',
     # Apps del proyecto
     'apps.pacientes',
     'apps.partos',
     'apps.perfiles',
     'apps.recien_nacidos',
     'apps.reportes',
-    'tailwind',
     'theme'
 
 ]
 
-if DEBUG:
-    # Add django_browser_reload only in DEBUG mode
-    INSTALLED_APPS += ["django_browser_reload"]
-
 TAILWIND_APP_NAME = 'theme'
-
-NPM_BIN_PATH =  r"C:\Program Files\nodejs\npm.cmd"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -68,13 +50,8 @@ MIDDLEWARE = [
     'apps.perfiles.middlewares.FirstLoginMiddleware'
 ]
 
-ROOT_URLCONF = 'config.urls'
 
-if DEBUG:
-    # Add django_browser_reload middleware only in DEBUG mode
-    MIDDLEWARE += [
-        "django_browser_reload.middleware.BrowserReloadMiddleware",
-    ]
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -162,3 +139,15 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Urls que puede acceder cualquier usuario, a traves de los middlewares
 PUBLIC_URLS = ['/login', '/perfiles/modificar-password', '/perfiles/verificar-email', '/admin']
 
+
+# Configuraciones de desarrollo
+if DEBUG:
+    # Add django_browser_reload only in DEBUG mode
+    INSTALLED_APPS += ['django_extensions',
+                       'tailwind', 
+                       "django_browser_reload"]
+    MIDDLEWARE += [
+        "django_browser_reload.middleware.BrowserReloadMiddleware",
+    ]
+    # Ruta NPM para compilar el archivo o generar el archivo css con las clases que use de tailwind
+    NPM_BIN_PATH=os.environ.get('NPM_BIN_PATH', '')
