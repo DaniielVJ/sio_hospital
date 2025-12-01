@@ -1,1 +1,2 @@
 from .first_login import FirstLoginMiddleware
+from .verificacion_email import VerificacionEmailMiddleware

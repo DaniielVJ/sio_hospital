@@ -27,7 +27,6 @@ if settings.DEBUG:
         return render(request, 'tailwindsito.html')
 
     urlpatterns += [
-        path("__reload__/", include("django_browser_reload.urls")),
         path('tailwind/', tailwind_testear)
     ]
 

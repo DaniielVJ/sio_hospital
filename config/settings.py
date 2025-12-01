@@ -47,7 +47,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # Middlewares Propios
-    'apps.perfiles.middlewares.FirstLoginMiddleware'
+    'apps.perfiles.middlewares.FirstLoginMiddleware',
+    'apps.perfiles.middlewares.VerificacionEmailMiddleware'
 ]
 
 
@@ -137,17 +138,31 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Urls que puede acceder cualquier usuario, a traves de los middlewares
-PUBLIC_URLS = ['/login', '/perfiles/modificar-password', '/perfiles/verificar-email', '/admin']
+PUBLIC_URLS = [
+    '/login', 
+    '/perfiles/modificar-password', 
+    '/perfiles/verificacion-email', 
+    '/admin']
+
+
+if not DEBUG:
+    # Si no estamos en desarrollo usamos el servidor de correos para autenticarnos
+    # y mandar correos a cuentas reales
+    EMAIL_HOST=os.environ.get("EMAIL_HOST")
+    EMAIL_PORT=int(os.environ.get("EMAIL_PORT", 587))
+    EMAIL_USE_TLS=os.environ.get("EMAIL_USE_TLS") == "True"
+    EMAIL_HOST_USER=os.environ.get("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD=os.environ.get("EMAIL_HOST_PASSWORD")
+    DEFAULT_FROM_EMAIL=EMAIL_HOST_USER
+    EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
 
 
 # Configuraciones de desarrollo
-if DEBUG:
-    # Add django_browser_reload only in DEBUG mode
+else:
     INSTALLED_APPS += ['django_extensions',
                        'tailwind', 
-                       "django_browser_reload"]
-    MIDDLEWARE += [
-        "django_browser_reload.middleware.BrowserReloadMiddleware",
-    ]
+                       ]
     # Ruta NPM para compilar el archivo o generar el archivo css con las clases que use de tailwind
     NPM_BIN_PATH=os.environ.get('NPM_BIN_PATH', '')
+    EMAIL_BACKEND="django.core.mail.backends.console.EmailBackend"
+
