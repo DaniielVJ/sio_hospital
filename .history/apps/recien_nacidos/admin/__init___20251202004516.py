@@ -1,0 +1,1 @@
+from .detalle_rn_admin 
