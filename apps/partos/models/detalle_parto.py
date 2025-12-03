@@ -1,24 +1,22 @@
 from django.db import models
 
 class TipoDeIngreso(models.Model):
-    nombre = models.CharField(max_length=50)
+    nombre = models.CharField(max_length=50, unique=True)
 
 
 class GrupoRobson(models.Model):
-    grupo = models.CharField(max_length=50)
+    grupo = models.CharField(max_length=50, unique=True)
     descripcion = models.TextField()
 
 
 class Complicacion(models.Model):
-    nombre = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=100, unique=True)
     descripcion = models.TextField()
 
 
 class ViaNacimiento(models.Model):
-    tipo = models.CharField(max_length=60)
+    tipo = models.CharField(max_length=60, unique=True)
     descripcion = models.TextField()
 
 
-class Analgesia(models.Model):
-    tipo = models.CharField(max_length=45)
-    descripcion = models.TextField()
+
