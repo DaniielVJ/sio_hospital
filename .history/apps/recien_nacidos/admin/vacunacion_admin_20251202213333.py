@@ -1,0 +1,6 @@
+from django.contrib import admin
+from ..models import Vacunacion
+
+@admin.register(Vacunacion)
+class VacunacionAdmin(admin.ModelAdmin):
+    pass
