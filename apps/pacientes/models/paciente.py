@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import Decimal, ROUND_UP
 from django.db import models
 from django.conf import settings
 
@@ -85,8 +85,8 @@ class Paciente(models.Model):
     transexual = models.BooleanField(default=False)
     plan_de_parto = models.BooleanField(default=False)
     visita_guiada = models.BooleanField(default=False)
-    peso = models.DecimalField(max_digits=5, decimal_places=2)
-    altura = models.DecimalField(max_digits=5, decimal_places=2)
+    peso = models.DecimalField(max_digits=5, decimal_places=2, blank=True)
+    altura = models.DecimalField(max_digits=5, decimal_places=2, blank=True)
     actividad = models.CharField(max_length=9,
                                  choices=Actividad.choices,
                                  default=Actividad.BAJA)
@@ -99,8 +99,9 @@ class Paciente(models.Model):
         return f'{self.nombre} {self.primer_apellido} {self.segundo_apellido}'
 
     def calcular_imc(self):
-       estatura_metros = self.altura / Decimal("100")
-       return self.peso / (estatura_metros ** 2)
+        if self.altura and self.peso:
+            estatura_metros = self.altura / Decimal("100")
+            return (self.peso / (estatura_metros ** 2)).quantize(Decimal("0.01"), rounding=ROUND_UP)
     
 
     class Meta:
