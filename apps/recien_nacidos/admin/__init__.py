@@ -1,3 +1,3 @@
-from .detalle_rn_admin import *
-from .rn_admin import * 
-from .vacunacion_admin import *
+from .detalle_rn_admin import ComplicacionPostPartoAdmin, PresentacionFetalAdmin, ReanimacionNeonatalAdmin
+from .rn_admin import RecienNacidoAdmin
+from .vacunacion_admin import VacunacionAdmin

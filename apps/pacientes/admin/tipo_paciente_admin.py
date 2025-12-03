@@ -3,4 +3,5 @@ from ..models import TipoPaciente
 
 @admin.register(TipoPaciente)
 class TipoPacienteAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('nombre',)
+    search_fields = ('nombre',)
