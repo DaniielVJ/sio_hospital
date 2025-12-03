@@ -54,7 +54,7 @@ class Parto(models.Model):
 
 
    tipo_de_ingreso = models.ForeignKey(TipoDeIngreso, on_delete=models.PROTECT, related_name='partos')
-   grupo_robson = models.ForeignKey(GrupoRobson, on_delete=models.PROTECT, related_name="partos")
+   grupo_robson = models.ForeignKey(GrupoRobson, on_delete=models.PROTECT, related_name="partos", blank=True)
    via_nacimiento = models.ForeignKey(ViaNacimiento, on_delete=models.PROTECT, related_name="partos")
    gestacion = models.OneToOneField(Gestacion, on_delete=models.PROTECT, related_name="parto")
    complicaciones = models.ManyToManyField(Complicacion, related_name="partos")

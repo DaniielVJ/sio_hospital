@@ -25,7 +25,7 @@ class RecienNacido(models.Model):
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='rns', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='rns_actualizados', null=True)
-    updated_by = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
     presentacion_fetal = models.ForeignKey(PresentacionFetal, on_delete=models.PROTECT, related_name='rns')
     complicaciones_postparto = models.ManyToManyField(ComplicacionPostParto, related_name='rns')
     reanimaciones_neonatales = models.ManyToManyField(ReanimacionNeonatal, related_name='rns')
