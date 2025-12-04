@@ -11,7 +11,6 @@ class CrearTestHepatitisBView(CreateView):
     form_class = TestHepatitisBForm
 
 
-
 class CrearTestSgbView(CreateView):
     model=TestSgb
     template_name = "paciente/formulario_tests.html"
@@ -22,8 +21,6 @@ class CrearTestVdrlForm(CreateView):
     model=TestVdrl
     template_name = "paciente/formulario_tests.html"
     form_class = TestVdrlForm
-
-
 
 
 class CrearTestVihForm(CreateView):

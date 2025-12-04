@@ -7,5 +7,5 @@ urlpatterns = [
     path('add/hepatitisb/', CrearTestHepatitisBView.as_view(), name="crear_test_hepatitisb"),
     path('add/vih/', CrearTestVihForm.as_view(), name="crear_test_vih"),
     path('add/sgb/', CrearTestSgbView.as_view(), name="crear_test_sgb"),
-    path('add/vdrl/', CrearTestHepatitisBView.as_view(), name="crear_test_vdrl")
+    path('add/vdrl/', CrearTestVdrlForm.as_view(), name="crear_test_vdrl")
 ]
