@@ -12,7 +12,7 @@ class RecienNacidoAdmin(admin.ModelAdmin):
     
 
     fieldsets = (
-        ('Identificación RN',{
+        ('Identificación Rut',{
             'fields': ()
         })
     ), 

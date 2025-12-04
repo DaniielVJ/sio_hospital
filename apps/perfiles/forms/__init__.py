@@ -1,2 +1,2 @@
-from .login_form import LoginEmailForm
+from .login_form import LoginEmailForm, CodigoVerificacionEmailForm
 from .modificar_password_form import ModificarPasswordForm

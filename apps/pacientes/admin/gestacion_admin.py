@@ -1,32 +1,85 @@
 from django.contrib import admin
 from ..models import Gestacion
 
+
 @admin.register(Gestacion)
 class GestacionAdmin(admin.ModelAdmin):
-    list_display = ('paciente', 'matrona', 'semana_gestacion', 'dias_gestacion', 'multiple', 'numero_fetos', 'riezgo','terminado', 'aborto')
-    search_fields = ('paciente__nombre', 'primer_apellido', 'paciente__identificacion', 'matrona__username')
-    list_filter = ('riezgo','multiple','terminado', 'aborto', 'enfermedad_cardiaca', 'hipertension', 'diabetes', 'fecha_ingreso')
 
-    ordering = ('-fecha_ingreso',)
+    list_display = (
+        'paciente',
+        'numero_gestacion',
+        'riesgo',
+        'estado',
+        'multiple',
+        'numero_fetos',
+        'created_at',
+        'updated_at',
+    )
+
+    search_fields = (
+        'paciente__nombre',
+        'paciente__primer_apellido',
+        'paciente__segundo_apellido',
+        'paciente__identificacion',
+    )
+
+    list_filter = (
+        'riesgo',
+        'estado',
+        'multiple',
+        'enfermedad_cardiaca',
+        'hipertension',
+        'diabetes',
+        'created_at',
+    )
+
+    ordering = ('-created_at',)
     list_per_page = 20
 
+    readonly_fields = (
+        'created_at',
+        'updated_at',
+        'fecha_inicio_gestacion',
+    )
+
     fieldsets = (
-        ('Información de Gestación', {
+        ('Información del Paciente', {
             'fields': (
-                ('paciente', 'matrona','semana_gestacion','dias_gestacion','multiple', 'numero_fetos','riezgo',)
-        )}),
-        ('Estado Final', {
-            'fields': ('terminado', 'aborto',),
+                'paciente',
+                'numero_gestacion',
+            )
         }),
 
-        ('Complicaciones', {
-            'fields': ('enfermedad_cardiaca', 'hipertension', 'diabetes',)
+        ('Detalles Clínicos', {
+            'fields': (
+                'riesgo',
+                'estado',
+                'multiple',
+                'numero_fetos',
+                'enfermedad_cardiaca',
+                'hipertension',
+                'diabetes',
+            )
         }),
 
-        ('Historial', {
-            'fields': ('fecha_ingreso', 'fecha_actualizacion'),
+        ('Método de Datación', {
+            'fields': (
+                'origen_datacion',
+                'fur',
+                'fecha_eco',
+                'semanas_eco',
+                'dias_eco',
+                'fecha_inicio_gestacion',
+            )
+        }),
+
+        ('Registro del Sistema', {
+            'fields': (
+                'created_by',
+                'created_at',
+                'updated_by',
+                'updated_at',
+            ),
             'classes': ('collapse',)
         }),
     )
-
-    readonly_fields = ('fecha_ingreso', 'fecha_actualizacion',)

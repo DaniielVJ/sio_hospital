@@ -13,3 +13,8 @@ class LoginEmailForm(AuthenticationForm):
         super().__init__(*args, **kwargs)
         self.fields['password'].widget.attrs['placeholder'] = "••••••••"
         self.fields['username'].label = "Email"
+
+
+
+class CodigoVerificacionEmailForm(forms.Form):
+    codigo = forms.IntegerField(min_value=100_000, max_value=999_999, widget=forms.HiddenInput(attrs={'id':'otp-hidden'}))

@@ -1,52 +1,34 @@
-# Register your models here.
 from django.contrib import admin
 from ..models import Parto
 
-
 @admin.register(Parto)
 class PartoAdmin(admin.ModelAdmin):
-
     list_display = (
-        'id',
-        'gestacion',
-        'usuario',
-        'via_nacimiento',
-        'estado',
-        'fecha_ingreso',
-    )
+    'id',
+    'gestacion',
+    'created_by',
+    'via_nacimiento',
+    'estado',
+    'created_at',)
 
-    # ACORDARSE QUE ESTE CAMPO DEPENDE DEL SEARCH_FIELD DEL OTRO MODELO SI APUNTA AL OTRO MODELO
-    # EN ESTE CASO PERMITE AUTOCOMPLETADO EN GESTACION Y BUSCAR POR RUT PACIENTE
-    autocomplete_fields = ('gestacion', )
-    
     list_filter = (
-        'via_nacimiento',
-        'estado',
-        'tipo_de_ingreso',
-        'grupo_robson',
-        'profesionales',
-        'analgesias',
-        'complicaciones',
-    )
+    'via_nacimiento',
+    'estado',
+    'tipo_de_ingreso',
+    'grupo_robson',)
 
     search_fields = (
-        'gestacion__paciente__rut',  
-        'usuario__username',
-        'usuario__perfilmatrona__rut'
-    )
+    'gestacion__paciente__identificacion',)
 
-    filter_horizontal = (
-        'analgesias',
-        'complicaciones',
-        'profesionales',
-    )
+
+
+    readonly_fields = ('created_at', 'updated_at', 'updated_by')
 
     fieldsets = (
         ('Información general', {
             'fields': (
-                'usuario',
+                'created_by',
                 'gestacion',
-                # 'fecha_ingreso',
                 'estado',
             )
         }),
@@ -57,17 +39,12 @@ class PartoAdmin(admin.ModelAdmin):
                 'grupo_robson',
                 'via_nacimiento',
                 'posicion',
-                'estado_perine',
                 'rotura_membrana',
                 'tiempo_membrana_rota',
                 'tiempo_dilatacion',
                 'tiempo_expulsivo',
                 'numero_aro',
-                'paridad',
-                'n_gestaciones',
-                'n_tactos_vaginales',
                 'edad_madre',
-                'semanas_gestacionales',
             )
         }),
 
@@ -77,25 +54,29 @@ class PartoAdmin(admin.ModelAdmin):
                 'aceleracion',
                 'oxitocina_profilactica',
                 'entrega_placenta',
-                'esterilizacion',
                 'monitor',
                 'uso_sala_saip',
                 'acompaniante',
                 'ttc',
+                'tipo_regimen',
+                'n_tactos_vaginales',
             )
         }),
 
         ('Analgesias y complicaciones', {
-            'fields': (
-                'analgesias',
-                'complicaciones',
-            )
+            'fields': ('complicaciones',)
         }),
 
         ('Profesionales presentes', {
             'fields': ('profesionales',)
         }),
+
+        ('Registro del Sistema', {
+            'fields': (
+                'updated_by',
+                'updated_at',
+                'observaciones',
+            ),
+            'classes': ('collapse',)
+        }),
     )
-
-
-
