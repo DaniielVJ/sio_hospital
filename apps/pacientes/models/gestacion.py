@@ -30,6 +30,7 @@ class Gestacion(models.Model):
                                  on_delete=models.CASCADE, 
                                  related_name="gestaciones")
     
+    # ESTOS CAMPOS NO VAN EN EL FORMULARIO ******************************
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="gestaciones", null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='gestaciones_actualizadas', null=True)
@@ -61,7 +62,7 @@ class Gestacion(models.Model):
     dias_eco = models.PositiveSmallIntegerField(null=True, blank=True)
     
     
-    
+    # NO VA EN EL FORMULARIO
     fecha_inicio_gestacion = models.DateField(null=True, blank=True)
 
 

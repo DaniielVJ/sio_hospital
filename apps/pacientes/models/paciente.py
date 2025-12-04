@@ -1,13 +1,18 @@
 from decimal import Decimal, ROUND_UP
 from django.db import models
+from django.utils import timezone
 from django.conf import settings
 
+
+# ESTE MODELO NO TIENE FORMULARIO
 class TipoPaciente(models.Model):
     nombre = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.nombre
 
+
+# ESTE MODELO NO TIENE FORMULARIO
 class Comuna(models.Model):
     nombre = models.CharField(max_length=100, unique=True)
     
@@ -17,7 +22,7 @@ class Comuna(models.Model):
     def __str__(self):
         return self.nombre
 
-
+# ESTE MODELO NO TIENE FORMULARIO
 class Nacionalidad(models.Model):
     nombre = models.CharField(max_length=100, unique=True)
 
@@ -27,7 +32,7 @@ class Nacionalidad(models.Model):
     def __str__(self):
         return self.nombre
 
-
+# ESTE MODELO NO TIENE FORMULARIO
 class Cesfam(models.Model):
     nombre = models.CharField(max_length=120, unique=True)
     comuna = models.ForeignKey(Comuna, on_delete=models.PROTECT)
@@ -52,7 +57,7 @@ class Paciente(models.Model):
         EXT = 'EXT', 'Documento extranjero'
         TMP = 'TMP', 'Sin documento / Temporal'  
 
-
+    # NO VA EN EL FORMULARIO
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='pacientes', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='pacientes_actualizados', null=True)
@@ -103,6 +108,15 @@ class Paciente(models.Model):
             estatura_metros = self.altura / Decimal("100")
             return (self.peso / (estatura_metros ** 2)).quantize(Decimal("0.01"), rounding=ROUND_UP)
     
+
+    def calcular_edad_paciente(self):
+       
+        hoy = timezone.localdate()
+        edad = hoy.year - self.fecha_nacimiento.year
+        
+        if self.fecha_nacimiento.month > hoy.month or (self.fecha_nacimiento.month == hoy.month and self.fecha_nacimiento.day > hoy.day):
+            edad -= 1
+        return edad
 
     class Meta:
         # No puede haber una identificación repetida dentro del mismo grupo de tipo de documento

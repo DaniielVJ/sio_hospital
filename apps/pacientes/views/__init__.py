@@ -6,5 +6,4 @@ from .gestacion_view import (CrearGestacionView)
 
 
 
-from .test_view import (CrearTestHepatitisBView, CrearTestSgbView, 
-                        CrearTestVdrlForm, CrearTestVihForm)
+from .test_view import (CrearTestHepatitisBView,CrearTestSgbView, CrearTestVdrlView, CrearTestVihView)

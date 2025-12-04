@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
-
-
+{% load static %}
 
 
 {% block title %}
@@ -17,6 +16,23 @@
     {% empty %}
         <h2>NO HAY PACIENTES</h2>
     {% endfor %}
-        
+    
+    
+
+    <button hx-get="{% url 'test:crear_test_vih' %}" hx-target="#resultado">
+        Añadir Test
+    </button>
+    <div id="resultado">
+    </div>
+
+
+
 {% endblock content %}
+    
+
+
+{% block scripts %}
+<script src="{% static 'js/htmx.min.js' %}"></script>    
+
+{% endblock scripts %}
     

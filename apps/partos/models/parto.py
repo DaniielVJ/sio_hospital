@@ -1,5 +1,7 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
+
 
 from .detalle_parto import (Complicacion, 
                             GrupoRobson, TipoDeIngreso,
@@ -44,6 +46,7 @@ class Parto(models.Model):
       CUCLILLAS = 'cuclillas', 'Cuclillas'
       OTRO = 'otro', 'Otro'
 
+   # NO VAN EN EL FORMULARIO
    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT,
                               related_name='partos', null=True)
    created_at = models.DateTimeField(auto_now_add=True)
@@ -84,6 +87,7 @@ class Parto(models.Model):
    tiempo_membrana_rota = models.DurationField()
    tiempo_dilatacion = models.DurationField()
    tiempo_expulsivo = models.DurationField()
+   # NO VA EN EL FORMULARIO
    edad_madre = models.PositiveSmallIntegerField()
    monitor = models.BooleanField(default=False)
    entrega_placenta = models.BooleanField(default=False)
@@ -97,6 +101,11 @@ class Parto(models.Model):
    def __str__(self):
       return f"Parto de gestación {self.gestacion.pk}"
 
+
+   def save(self, *args, **kwargs):
+      if not self.edad_madre:
+         self.edad_madre = self.gestacion.paciente.calcular_edad_paciente()
+      super().save(*args, **kwargs)
 
 
 

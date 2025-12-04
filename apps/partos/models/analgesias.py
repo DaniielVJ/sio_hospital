@@ -4,6 +4,8 @@ from .parto import Parto
 
 # No la dejo como M2M pq cada analgesia que se le suministra no es solo una relacion si no
 # que tmb se detalla mas info y tipo
+
+# ESTE MODELO NO TIENE FORMULARIO
 class TipoAnalgesia(models.Model):
     nombre = models.CharField(max_length=100, unique=True)
     '''
@@ -53,6 +55,7 @@ class AnalgesiaParto(models.Model):
 
     notas = models.TextField(blank=True, null=True)
 
+    # NO VAN EN EL FORMULARIO
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='analgesias', null=True)
 
