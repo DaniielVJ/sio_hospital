@@ -19,7 +19,7 @@ class Gestacion(models.Model):
     class OrigenDatacion(models.TextChoices):
         FUR = "fur", "FUR"
         ECO = "eco", "ECO"
-
+        SIN_DATACION = 'sin', 'Sin Datacion Disponible'
 
     class Estado(models.TextChoices):
         TERMINADA = 'terminada', 'Terminada'
@@ -44,6 +44,14 @@ class Gestacion(models.Model):
                               choices=Estado.choices,
                               default=Estado.EN_CURSO)
 
+
+    # Matrona o usuario aqui elige que metodo se uso para calcular la fecha de inicio 
+    # de la edad de gestacion si fue FUR o ECO
+    origen_datacion = models.CharField(max_length=3,
+                                       choices=OrigenDatacion.choices,
+                                      default=OrigenDatacion.SIN_DATACION,
+                                       help_text="La fecha de inicio de gestación se tomará según el origen que seleccione: FUR o ECO.")
+
     # Fecha de ultima regla
     fur = models.DateField(null=True, blank=True)
     # Fecha de cuando se tomo la ecografia para obtener edad gestacional
@@ -52,12 +60,7 @@ class Gestacion(models.Model):
     semanas_eco = models.PositiveSmallIntegerField(null=True, blank=True)
     dias_eco = models.PositiveSmallIntegerField(null=True, blank=True)
     
-    # Matrona o usuario aqui elige que metodo se uso para calcular la fecha de inicio 
-    # de la edad de gestacion si fue FUR o ECO
-    origen_datacion = models.CharField(max_length=3,
-                                       choices=OrigenDatacion.choices,
-                                       null=True,
-                                       blank=True)
+    
     
     fecha_inicio_gestacion = models.DateField(null=True, blank=True)
 
@@ -71,17 +74,18 @@ class Gestacion(models.Model):
 
 
     def __str__(self):
-        return f"Gestacion Paciente: {self.paciente.rut}"
+        return f"Paciente: {self.paciente.obtener_nombre_completo()} Rut: {self.paciente.identificacion}"
 
     def save(self, *args, **kwargs):
         # Antes de almacenar una gestacion verificamos que debe guardarse segun el oriden de datacion
         if self.origen_datacion == self.OrigenDatacion.FUR:
             if self.fur:
                 self.fecha_inicio_gestacion = self.fur
-        else:
+        elif self.origen_datacion == self.OrigenDatacion.ECO:
             if self.semanas_eco is not None and self.dias_eco is not None and self.fecha_eco:
                 dias_totales = self.semanas_eco * 7 + self.dias_eco
                 self.fecha_inicio_gestacion = self.fecha_eco - timezone.timedelta(days=dias_totales)
+        
         super().save(*args, **kwargs)
 
 

@@ -25,10 +25,7 @@ class PacienteForm(forms.ModelForm):
        
     class Meta:
         model = Paciente
-        exclude = ['fecha_ingreso', 'id']
-        widgets = {
-           'fecha_nacimiento' : forms.DateInput(attrs={'type': 'date'})
-        }
+        exclude = ['created_by', 'created_at', 'updated_by', 'updated_at']
 
         # Textos mostrados debajo de cada campo al renderizarlo
         help_texts = {
@@ -40,8 +37,23 @@ class PacienteForm(forms.ModelForm):
             'telefono': 'Para números nacionales NO ES OBLIGATORIO usar el código +56 añada el 9',
             'nacionalidad': "Si no aparece la nacinalidad marcar OTRA"
             }
-        placeholders = {
-
+        
+        widgets = {
+            'direccion': forms.TextInput(attrs={
+                'placeholder': 'Dirección del paciente',
+                'maxlength': 150,
+                }),
+            'telefono': forms.TextInput(attrs={
+                'placeholder': 'Telefono del paciente',
+                'maxlength': 15,
+                'minlength': 5
+            }),
+            'nombre': forms.TextInput(attrs={
+                'placeholder': 'Nombre del Paciente',
+                'maxlength': 100,
+                'minlength': 5,
+                'required': ''
+            })
         }
 
 
@@ -124,15 +136,13 @@ class PacienteForm(forms.ModelForm):
         
     def clean_fecha_nacimiento(self):
         fecha_nacimiento = self.cleaned_data["fecha_nacimiento"]
-        fecha_actual = timezone.now()
+        fecha_actual = timezone.now().date()
 
         if fecha_nacimiento > fecha_actual:
             return forms.ValidationError('La fecha de nacimiento no puede superar a la fecha actual')
         
         return fecha_nacimiento
     
-
-
 
 
     def clean(self):

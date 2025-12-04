@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.exceptions import ValidationError
+from django.utils import timezone
 from .gestacion import Gestacion
 from ..fields import OrderField
 
@@ -19,16 +21,17 @@ class Test(models.Model):
     resultado = models.CharField(max_length=15,
                                  choices=Resultado.choices,
                                  default=Resultado.NO_REACTIVO)
-    fecha_toma = models.DateField(help_text="Fecha en la que se toma el examen")
+    fecha_toma = models.DateField(help_text="Fecha en la que se tomo el examen")
     created_at = models.DateTimeField(auto_now_add=True, null=True)
-    durante_parto = models.BooleanField(default=False)
-    observaciones = models.TextField(blank=True, max_length=1000)
-    antibiotico = models.BooleanField(default=False)
     lugar_toma = models.CharField(max_length=12,
                                   choices=LugarToma.choices,
                                   default=LugarToma.PREPARTO)
-    
+    antibiotico = models.BooleanField(default=False)
+    durante_parto = models.BooleanField(default=False)
+    observaciones = models.TextField(blank=True, max_length=1000)
+
     orden = OrderField(for_fields=['gestacion'])
+
 
     class Meta:
         abstract = True
@@ -45,6 +48,8 @@ class TestVih(Test):
     trimestre = models.CharField(max_length=20, 
                                  choices=Trimestre.choices,
                                  default=Trimestre.PRIMERO)
+
+
 
 
 class TestSgb(Test):
