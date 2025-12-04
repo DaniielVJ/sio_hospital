@@ -5,11 +5,8 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # cargamos como variables de entorno (S.O) todas las del archivo .env
 load_dotenv(BASE_DIR / ".env")
-
-
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -21,10 +18,6 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 
 # Application definition
-
-
-
-
 INSTALLED_APPS = [
     # Apps por defecto
     'django.contrib.admin',
@@ -33,24 +26,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Apps de Terceros
-    'django_extensions',
-    'crispy_forms',
-    'crispy_bootstrap5',
-    # 'tailwind',
-    # 'theme',
     # Apps del proyecto
     'apps.pacientes',
     'apps.partos',
     'apps.perfiles',
     'apps.recien_nacidos',
     'apps.reportes',
+    'theme'
 
 ]
 
 TAILWIND_APP_NAME = 'theme'
-
-NPM_BIN_PATH = "/home/daniel/.nvm/versions/node/v24.11.1/bin/npm"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -61,8 +47,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # Middlewares Propios
-    'apps.perfiles.middlewares.FirstLoginMiddleware'
+    'apps.perfiles.middlewares.FirstLoginMiddleware',
+    'apps.perfiles.middlewares.VerificacionEmailMiddleware'
 ]
+
 
 ROOT_URLCONF = 'config.urls'
 
@@ -150,5 +138,31 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Urls que puede acceder cualquier usuario, a traves de los middlewares
-PUBLIC_URLS = ['/login', '/perfiles/modificar-password', '/perfiles/verificar-email', '/admin']
+PUBLIC_URLS = [
+    '/login', 
+    '/perfiles/modificar-password', 
+    '/perfiles/verificacion-email', 
+    '/admin']
+
+
+if not DEBUG:
+    # Si no estamos en desarrollo usamos el servidor de correos para autenticarnos
+    # y mandar correos a cuentas reales
+    EMAIL_HOST=os.environ.get("EMAIL_HOST")
+    EMAIL_PORT=int(os.environ.get("EMAIL_PORT", 587))
+    EMAIL_USE_TLS=os.environ.get("EMAIL_USE_TLS") == "True"
+    EMAIL_HOST_USER=os.environ.get("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD=os.environ.get("EMAIL_HOST_PASSWORD")
+    DEFAULT_FROM_EMAIL=EMAIL_HOST_USER
+    EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
+
+
+# Configuraciones de desarrollo
+else:
+    INSTALLED_APPS += ['django_extensions',
+                       'tailwind', 
+                       ]
+    # Ruta NPM para compilar el archivo o generar el archivo css con las clases que use de tailwind
+    NPM_BIN_PATH=os.environ.get('NPM_BIN_PATH', '')
+    EMAIL_BACKEND="django.core.mail.backends.console.EmailBackend"
 
