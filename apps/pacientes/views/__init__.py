@@ -1,4 +1,4 @@
-from .paciente import (CrearPacienteView, ListarPacientesView, DetallePacienteView, 
+from .paciente_view import (CrearPacienteView, ListarPacientesView, DetallePacienteView, 
                              EliminarPacienteView, ActualizarPacienteView)
 
 

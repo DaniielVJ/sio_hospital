@@ -32,7 +32,7 @@ class RecienNacido(models.Model):
     complicaciones_postparto = models.ManyToManyField(ComplicacionPostParto, related_name='rns')
     reanimaciones_neonatales = models.ManyToManyField(ReanimacionNeonatal, related_name='rns')
     fecha_hora = models.DateTimeField()
-    nombre_completo = models.CharField(max_length=150, blank=True)
+    nombre_completo_madre = models.CharField(max_length=150, blank=True)
     peso = models.PositiveIntegerField() # Se mide en gramos asi que es un valor numerico entero
     talla = models.DecimalField(max_digits=4, decimal_places=1)
     apgar_1 = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
@@ -51,6 +51,15 @@ class RecienNacido(models.Model):
     destino = models.CharField(max_length=50, 
                                choices=Destino.choices,
                                default=Destino.ALOJAMIENTO)
+
+    def save(self, *args, **kwargs):
+        if not self.nombre_completo_madre:
+            parto = Parto.objects.select_related('gestacion__paciente').get(pk=self.parto.pk)
+            madre = parto.gestacion.paciente
+            self.nombre_completo_madre = madre.obtener_nombre_completo()
+        super().save()
+
+
 
 '''
 B. Validaciones de consistencia lógica
