@@ -1,12 +1,11 @@
 from django.db import models
 from django.conf import settings
-from django.utils import timezone
+from django.core.validators import MaxValueValidator
 
 
 from .detalle_parto import (Complicacion, 
                             GrupoRobson, TipoDeIngreso,
                             ViaNacimiento)
-from .profesional import Profesional
 from apps.pacientes.models.gestacion import Gestacion
 
 
@@ -61,11 +60,10 @@ class Parto(models.Model):
    via_nacimiento = models.ForeignKey(ViaNacimiento, on_delete=models.PROTECT, related_name="partos")
    gestacion = models.OneToOneField(Gestacion, on_delete=models.PROTECT, related_name="parto")
    complicaciones = models.ManyToManyField(Complicacion, related_name="partos")
-   profesionales = models.ManyToManyField(Profesional, related_name="partos")
    hora_inicio = models.DateTimeField()
    numero_aro = models.PositiveSmallIntegerField()
    
-   n_tactos_vaginales = models.PositiveSmallIntegerField()
+   n_tactos_vaginales = models.PositiveSmallIntegerField(validators=[MaxValueValidator(40)])
    
    rotura_membrana = models.CharField(max_length=50,
                                     choices=TipoRotura.choices,
@@ -110,44 +108,6 @@ class Parto(models.Model):
 
 
 '''
-VALIDACIONES FUNDAMENTALES PARA EL MODELO PARTO
-(Sin lógica clínica, solo integridad de datos)
-
-1. Gestación
-   - Verificar que la gestación no tenga otro parto (OneToOne).
-   - No permitir registrar dos partos para la misma gestación.
-
-2. Edad de la madre
-   - Debe ser un número entre 10 y 60 años.
-
-3. Coherencia de tiempos
-   - tiempo_membrana_rota >= 0
-   - tiempo_dilatacion >= 0
-   - tiempo_expulsivo >= 0
-   - Valores no negativos. (Opcional: establecer máximos razonables para evitar errores.)
-
-4. Número de tactos vaginales
-   - Debe ser >= 0.
-   - (Opcional) Máximo razonable, ej. 40, para evitar datos erróneos por tipeo.
-
-5. Coherencia paridad / gestaciones
-   - paridad <= n_gestaciones.
-
-6. Número de aro
-   - Debe ser >= 1.
-
-7. Profesionales
-   - Validar que al menos un profesional esté seleccionado.
-
-8. Campos con choices (via_nacimiento, rotura, estado_perine, etc.)
-   - Valores deben corresponder a choices definidos.
-   - Django ya valida esto automáticamente.
-
-9. Fecha de ingreso
-   - No modificable manualmente (auto_now_add).
-   - Validar en el formulario que no se inyecten fechas externas.
-
 10. Integridad de FK/M2M
    - Validar que las instancias de tipo_de_ingreso, robson, via_nacimiento, profesionales existan.
-
 '''

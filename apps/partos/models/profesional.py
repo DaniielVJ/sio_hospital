@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.conf import settings
+from .parto import Parto
 
 class Profesional(models.Model):
     class Tipo(models.TextChoices):
@@ -24,3 +25,14 @@ class Profesional(models.Model):
 
     def __str__(self):
         return f"{self.nombre} {self.primer_apellido} {self.segundo_apellido} ({self.get_tipo_display()})"
+
+
+
+class Participacion(models.Model):
+    parto = models.ForeignKey(Parto, on_delete=models.CASCADE, related_name='participaciones')
+    profesional = models.ForeignKey(Profesional, on_delete=models.PROTECT, related_name='participaciones')
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='participaciones', null=True)
+
+    class Meta:
+        unique_together = ('parto', 'profesional')

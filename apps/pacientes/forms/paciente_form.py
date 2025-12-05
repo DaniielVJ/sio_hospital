@@ -137,14 +137,13 @@ class PacienteForm(forms.ModelForm):
     def clean_fecha_nacimiento(self):
         fecha_nacimiento = self.cleaned_data["fecha_nacimiento"]
         fecha_actual = timezone.now().date()
-        
+        edad = fecha_actual.year - fecha_actual.year
         if fecha_nacimiento >= fecha_actual:
             return forms.ValidationError('La fecha de nacimiento no puede superar a la fecha actual')
         
-        
-        
-
-
+        if edad < 10 or edad > 60:
+            return forms.ValidationError('No se puede registar una persona menor a 10 años o mayor a 60')
+            
         return fecha_nacimiento
     
 

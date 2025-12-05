@@ -20,6 +20,6 @@ class Vacunacion(models.Model):
     
     # ESTOS CAMPOS NO VAN EN EL FORMULARIO
     created_at = models.DateTimeField(auto_now_add=True, null=True)
-    created_by = models.ForeignKey(settings.AUTH_MODEL_USER, on_delete=models.PROTECT, related_name='vacunaciones', null=True)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='vacunaciones', null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
-    updated_by = models.ForeignKey(settings.AUTH_MODEL_USER, on_delete=models.PROTECT, related_name='vacunaciones_actualizacion', null=True)
+    updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='vacunaciones_actualizacion', null=True)
