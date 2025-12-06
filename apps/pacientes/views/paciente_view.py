@@ -1,14 +1,22 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from core.mixins import MatronaRequiredMixin, SupervisorRequiredMixin, MatronaSupervisorRequiredMixin
 from..forms import PacienteForm
 from ..models import Paciente
 
 
 
+class MostrarMenuInicioPaciente(MatronaSupervisorRequiredMixin, TemplateView):
+    template_name="pacientes/menu_inicio_paciente.html"
+
+
 # View encargada de listar todos los pacientes al usuario que lo solicite
-class ListarPacientesView(ListView):
+class ListarPacientesView(MatronaSupervisorRequiredMixin, PermissionRequiredMixin, ListView):
     model = Paciente
-    template_name = 'paciente/listar_pacientes.html'
+    permission_required = "pacientes.view_paciente"
+    raise_exception = True
+    template_name = 'pacientes/listar_pacientes.html'
     context_object_name = 'pacientes'
 
 
@@ -19,9 +27,11 @@ class ListarPacientesView(ListView):
 
 
 # View encargada de mostrar los detalles de cada paciente
-class DetallePacienteView(DetailView):
+class DetallePacienteView(MatronaSupervisorRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Paciente
-    template_name = 'paciente/detalle_paciente.html'
+    permission_required = "pacientes.view_paciente"
+    raise_exception = True
+    template_name = 'pacientes/detalle_paciente.html'
     context_object_name = 'paciente'
 
     def get_queryset(self):
@@ -29,10 +39,11 @@ class DetallePacienteView(DetailView):
         return qs
 
 
+
 # View para añadir o crear un nuevo Paciente en el servidor
-class CrearPacienteView(CreateView):
+class CrearPacienteView(MatronaRequiredMixin, CreateView):
     model = Paciente
-    template_name = 'paciente/formulario_paciente.html'
+    template_name = 'pacientes/formulario_paciente.html'
     form_class = PacienteForm
     success_url = reverse_lazy('pacientes:listar_pacientes')
 

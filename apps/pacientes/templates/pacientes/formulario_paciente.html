@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+
+{% block title %}
+
+{% endblock title %}
+
+
+{% block estilos_personalizados %}
+    <link rel="stylesheet" href="{% static 'cssbase/bootstrap.min.css' %}">
+{% endblock estilos_personalizados %}
+
+
+
+
+{% block content %}
+    <div class="container my-4">
+        <div class="mx-auto" style="max-width: 700px;">
+        <form method="POST">
+            {% csrf_token %}    
+            
+            {{form.as_div}}
+            
+            <div>
+                <input type="submit" value="Añadir" class="btn btn-success"/>    
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+
+
+
+
+{% endblock content %}  
+    
+
+
+
+{% block scripts %}
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+{% endblock scripts %}
+    

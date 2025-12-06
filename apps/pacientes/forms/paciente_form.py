@@ -2,10 +2,11 @@ from django.utils import timezone
 from django import forms
 from django.forms.utils import ErrorList
 import phonenumbers
+from core import validators
 
 from ..models import Paciente
-from . import validators
-from . import utils
+
+from core import utils
 
 
 class PacienteForm(forms.ModelForm):

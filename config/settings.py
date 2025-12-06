@@ -57,7 +57,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ BASE_DIR / "templates"],
+        'DIRS': [ BASE_DIR / "templates", BASE_DIR / "errors"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,8 +127,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # AUTENTICACION
 AUTH_USER_MODEL = 'perfiles.Usuario'
-LOGIN_REDIRECT_URL = 'paciente:listar_pacientes'
-# LOGOUT_REDIRECT_URL = ''
+LOGIN_REDIRECT_URL = 'pantalla_principal'
+LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

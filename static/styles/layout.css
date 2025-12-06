@@ -1,0 +1,43 @@
+/* =============== LAYOUT GENERAL =============== */
+
+body {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "sidebar topbar"
+        "sidebar main";
+    min-height: 100vh;
+}
+
+/* Sidebar */
+#sidebar-container {
+    grid-area: sidebar;
+}
+
+/* Topbar */
+#topbar-container {
+    grid-area: topbar;
+    padding: 1rem 1.5rem;
+}
+
+/* Main content */
+#app {
+    grid-area: main;
+    padding: 2rem;
+}
+
+/* =============== RESPONSIVE =============== */
+
+@media (max-width: 900px) {
+    body {
+        grid-template-columns: 0 1fr;
+        grid-template-areas:
+            "topbar topbar"
+            "main   main";
+    }
+
+    #sidebar-container {
+        display: none;
+    }
+}
