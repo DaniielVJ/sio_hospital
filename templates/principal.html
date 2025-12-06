@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+{% block title %}Inicio{% endblock title %}
+    
+
+{% block estilos_personalizados %}
+    <link rel="stylesheet" href="{% static 'styles/cards.css' %}">
+{% endblock estilos_personalizados %}
+    
+
+
+
+{% block menus_navegacion %}
+     {% comment %} HEADER {% endcomment %}
+    {% include 'includes/topbar.html' %}
+    {% include 'includes/sidebar.html' %}
+{% endblock menus_navegacion %}
+    
+
+
+{% block content %}
+
+
+    {% comment %} AQUI SE IRAN CARGANDO LOS MENU DE INICIO {% endcomment %}
+       <!-- ===== Contenedor de las cards ===== -->
+        <main class="main-container">
+
+            <div class="welcome-header">
+                <h1 class="main-title">Bienvenida, 
+                    
+                    {% if request.user.es_matrona %}
+                        Matrona
+                    {% else %}
+                        Supervisor
+                    {% endif %}
+                        
+                    
+                    {{request.user.get_full_name}}</h1>
+                <p class="subtitle-desc">Ponte cómoda y al día con tus actividades.</p>
+            </div>
+
+            <div class="layout-grid">
+
+                <section class="left-column">
+                    <h2 class="second-title">Accesos rápidos</h2>
+                    
+                    <div class="cards-container">
+                        <div class="card">
+                            <a href="{% url 'paciente:listar_pacientes' %}" class="card-button">
+                                <img alt="Pacientes" src="{% static 'icons/pacienteicon.png' %}" class="card-icon"/>
+                                <h3 class="third-title">Pacientes</h3>
+                                <p>Gestiona a tus pacientes</p>
+                            </a>
+                        </div>
+                        
+                        <div class="card">
+                            <a href="{% url 'gestacion:listar_gestaciones' %}" class="card-button">
+                                <img alt="Gestaciones" src="{% static 'icons/gestacionicon.png' %}" class="card-icon"/>
+                                <h3 class="third-title">Gestaciones</h3>
+                                <p>Mira tus gestaciones</p>
+                            </a>
+                        </div>
+
+                        <div class="card">
+                            <a href="{% url 'parto:listar_partos' %}" class="card-button">
+                                <img alt="Partos" src="{% static 'icons/partoicon.png' %}" class="card-icon"/>
+                                <h3 class="third-title">Partos</h3>
+                                <p>Gestiona tus partos</p>
+                            </a>
+                        </div>
+
+                        <div class="card">
+                            <a href='../Matrona/RecienNacido/recienNacido.html' class="card-button">
+                                <img alt="Recién Nacidos" src="{% static 'icons/reciennacidoicon.png' %}" class="card-icon"/>
+                                <h3 class="third-title">Recién Nacidos</h3>
+                                <p>Gestiona recién nacidos</p>
+                            </a>
+                        </div>
+
+                        <div class="card">
+                            <a href='../Reportes/reportes.html' class="card-button">
+                                <img alt="Reportes" src="{% static 'icons/wizardicon.png' %}" class="card-icon"/>
+                                <h3 class="third-title">Wizard</h3>
+                                <p>Gestiona tus reportes</p>
+                            </a>
+                        </div>
+
+                        <div class="card">
+                            <a href='../Reportes/reportes.html' class="card-button">
+                                <img alt="Reportes" src="{% static 'icons/auditoriaicon.png' %}" class="card-icon"/>
+                                <h3 class="third-title">Turnos</h3>
+                                <p>Gestiona tus próximos turnos</p>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <aside class="right-column">
+                    <h2 class="second-title">Resumen</h2> <div class="dashboard-panel">
+                        <div class="stat-item">
+                            <span class="stat-label">Pacientes registrados este mes</span>
+                            <span class="stat-number contador" data-val="{{pc_mes}}">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Partos registrados este mes</span>
+                            <span class="stat-number contador" data-val="{{pt_mes}}">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Recien nacidos registrados este mes</span>
+                            <span class="stat-number contador" data-val="{{rn_mes}}">0</span>
+                        </div>
+                          <div class="stat-item">
+                            <span class="stat-label">Pacientes registrados esta semana</span>
+                            <span class="stat-number contador" data-val="{{pc_sem}}">0</span>
+                        </div>
+                          <div class="stat-item">
+                            <span class="stat-label">Partos registrados esta semana</span>
+                            <span class="stat-number contador" data-val="{{pt_sem}}">0</span>
+                        </div>
+                          <div class="stat-item">
+                            <span class="stat-label">Recien nacidos registrados esta semana</span>
+                            <span class="stat-number contador" data-val="{{rn_sem}}" >0</span>
+                        </div>
+                        <div class="dashboard-placeholder">
+                            <p>Gráfico de Benjamín</p>
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+        </main>
+{% endblock content %}
+    
+
+
+
+{% block scripts %}
+    <script src="{% static 'js/htmx.min.js' %}" defer></script>
+    <script src="{% static 'js/contador.js' %}"></script>
+{% endblock scripts %}
+

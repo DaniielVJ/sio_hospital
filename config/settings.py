@@ -57,7 +57,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ BASE_DIR / "templates"],
+        'DIRS': [ BASE_DIR / "templates", BASE_DIR / "errors"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,12 +127,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # AUTENTICACION
 AUTH_USER_MODEL = 'perfiles.Usuario'
-LOGIN_REDIRECT_URL = 'paciente:listar_pacientes'
-# LOGOUT_REDIRECT_URL = ''
+LOGIN_REDIRECT_URL = 'pantalla_principal'
+LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
-
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -160,9 +157,9 @@ if not DEBUG:
 # Configuraciones de desarrollo
 else:
     INSTALLED_APPS += ['django_extensions',
-                       'tailwind', 
+                        'tailwind', 
                        ]
     # Ruta NPM para compilar el archivo o generar el archivo css con las clases que use de tailwind
-    NPM_BIN_PATH=os.environ.get('NPM_BIN_PATH', '')
+    NPM_BIN_PATH= os.environ.get('NPM_BIN_PATH', '')
     EMAIL_BACKEND="django.core.mail.backends.console.EmailBackend"
 

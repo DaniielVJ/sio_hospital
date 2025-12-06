@@ -1,0 +1,273 @@
+/* =========================================
+   CONTENEDOR DEL FORMULARIO
+   ========================================= */
+.form-card {
+    background: var(--bg-panel);
+    border-radius: 2rem;       /* Curvas grandes estilo Finexy */
+    padding: 2rem;
+    box-shadow: var(--shadow-m);
+    max-width: 800px;          /* Para que no se estire infinito en pantallas grandes */
+    margin: 0 auto;            /* Centrado si está solo */
+}
+
+.form-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 1rem;
+}
+
+.form-title {
+    font: var(--h2);
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+}
+.form-subtitle {
+    font: var(--p);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   GRID Y LAYOUT
+   ========================================= */
+.main-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Espacio vertical entre filas */
+}
+
+/* Filas de 2 columnas responsive */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 50% - 50% */
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr; /* 1 columna en móvil */
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Espacio entre Label e Input */
+}
+
+/* =========================================
+   LABELS E INPUTS (ESTÉTICA SOFT)
+   ========================================= */
+label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-left: 0.5rem; /* Alineado visualmente con el inicio del texto del input */
+}
+
+/* El input en sí mismo */
+.form-group input {
+    background: var(--bg-input); /* Gris suave (o gris oscuro en dark mode) */
+    border: 1px solid transparent; /* Transparente para evitar saltos al enfocar */
+    border-radius: 1rem;         /* Bordes redondeados pero cómodos para escribir */
+    padding: 1rem 1.2rem;
+    
+    font-family: var(--ff);
+    font-size: 0.95rem;
+    color: var(--text-main);
+    width: 100%;
+    outline: none; /* Quitamos el borde azul feo del navegador */
+    transition: all 0.3s ease;
+}
+
+/* styles/form.css (o donde tengas tus estilos) */
+
+.form-group.has-error input {
+    border-color: #dc3545; /* Rojo de error */
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.85em;
+    margin-top: 5px;
+}
+
+/* Placeholder suave */
+.form-group input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+/* ESTADO FOCUS (Cuando escribes) */
+.form-group input:focus {
+    background: var(--bg-panel);   /* Se vuelve blanco (o negro panel) */
+    border-color: var(--primary);  /* Borde naranja vibrante */
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.1); /* Resplandor naranja sutil */
+}
+
+/* El input en sí mismo */
+.form-group select {
+    background: var(--bg-input); /* Gris suave (o gris oscuro en dark mode) */
+    border: 1px solid transparent; /* Transparente para evitar saltos al enfocar */
+    border-radius: 1rem;         /* Bordes redondeados pero cómodos para escribir */
+    padding: 1rem 1.2rem;
+    
+    font-family: var(--ff);
+    font-size: 0.95rem;
+    color: var(--text-main);
+    width: 100%;
+    outline: none; /* Quitamos el borde azul feo del navegador */
+    transition: all 0.3s ease;
+}
+
+/* Placeholder suave */
+.form-group select::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+/* ESTADO FOCUS (Cuando escribes) */
+.form-group select:focus {
+    background: var(--bg-panel);   /* Se vuelve blanco (o negro panel) */
+    border-color: var(--primary);  /* Borde naranja vibrante */
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.1); /* Resplandor naranja sutil */
+}
+
+
+
+/* Ajuste para Textareas */
+textarea.input-field {
+    resize: vertical; /* Solo redimensionar verticalmente */
+    min-height: 100px;
+}
+
+/* =========================================
+   BOTONES DEL FORMULARIO
+   ========================================= */
+.form-actions {
+    display: flex;
+    justify-content: flex-end; /* Botones a la derecha */
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+}
+
+/* Botón Principal (Guardar) */
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50px; /* Pastilla perfecta */
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
+}
+
+/* Botón Secundario (Cancelar) */
+.btn-secondary {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid transparent;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-secondary:hover {
+    background: var(--bg-input);
+    color: var(--text-main);
+}
+
+/* --- UTILIDAD: 3 Columnas para nombres y métricas --- */
+.form-row.three-cols {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+@media (max-width: 768px) {
+    .form-row.three-cols {
+        grid-template-columns: 1fr; /* En móvil todo a 1 columna */
+    }
+}
+
+.form-section {
+    border: 0 none !important;  /* ¡IMPORTANTE! Mata las líneas verticales */
+    padding: 0;
+    margin: 0;
+    margin-bottom: 2.5rem;      /* Espacio generoso entre secciones */
+    min-width: 0;               /* Evita bugs de ancho en Grid */
+    width: 100%;
+}
+
+/* --- ESTILO PARA LEYENDAS DE SECCIÓN --- */
+.section-legend {
+    display: block;
+    width: 100%;
+    
+    /* Tipografía */
+    font-family: var(--ff);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary);      /* Tu color Naranja/Salmón */
+    text-transform: uppercase;
+    letter-spacing: 0.08em;     /* Letras un poco separadas (Premium) */
+    
+    /* Línea divisoria debajo del título */
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-subtle); /* Línea suave */
+    margin-bottom: 1.5rem;      /* Separación con los inputs */
+}
+
+/* --- CHECKBOX GRID (Tarjetas seleccionables) --- */
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.checkbox-card {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem;
+    background: var(--bg-input);
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.checkbox-card:hover {
+    background: var(--bg-body);
+}
+
+/* Cuando el checkbox está marcado (truco visual avanzado) */
+.checkbox-card:has(input:checked) {
+    background: var(--hover-bg); /* Fondo naranja suave */
+    border-color: var(--primary);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Checkbox nativo un poco más grande */
+.checkbox-card input[type="checkbox"] {
+    accent-color: var(--primary); /* Checkbox naranja */
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+/* Textos de ayuda pequeños bajo el input */
+.field-help {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-left: 0.5rem;
+    margin-top: 0.2rem;
+}
