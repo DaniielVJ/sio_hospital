@@ -14,9 +14,6 @@ class ModificarPasswordView(LoginRequiredMixin, View):
     # Este se encarga de obtener el formulario vacio si es GET y si es POST le carga los datos
     # enviados desde el navegador
     def get_form(self, data=None):
-        if data is None:
-            return self.form_class()
-        
         return self.form_class(data)
 
     # Metodo que ejecuta toda la logica o encapsula la logica si el formulario es valido

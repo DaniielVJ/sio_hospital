@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}Validar Codigo{% endblock title %}
+    
+
+
+{% block estilos_personalizados %}
+    <link rel="stylesheet" href="{% static 'cssbase/toastify.min.css' %}">
+{% endblock estilos_personalizados %}
+    
+
+{% block content %}
+    
+    
+    {% for message in messages %}
+        {% if message.tags == "info" %}
+            <p>Puede solicitar un nuevo codigo luego de <span id="timer">{{message}}</span> minutos</p>
+        {% endif %}
+            
+    {% endfor %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{form.codigo}}
+        <div>
+            <input type="text" maxlength="1" class="otp-box" required>
+            <input type="text" maxlength="1" class="otp-box" required>
+            <input type="text" maxlength="1" class="otp-box" required>
+            <input type="text" maxlength="1" class="otp-box" required>
+            <input type="text" maxlength="1" class="otp-box" required>
+            <input type="text" maxlength="1" class="otp-box" required>    
+        </div>
+        <button type="submit">Enviar Codigo</button>
+    </form>
+{% endblock content %}
+    
+
+
+
+
+{% block scripts %}
+    <script src="{% static 'perfiles/js/codigoOtp.js' %}"></script>
+    <script src="{% static 'js/toastify.min.js' %}"></script>
+    <script src="{% static 'perfiles/js/actualizarTiempoAutomatico.js' %}"></script>
+    {% for message in messages %}
+        {% if  message.tags == "success" %}
+            <script>
+                Toastify({
+                    text: "{{ message }}",
+                    duration: 2000,
+                    gravity: "top",
+                    position: "right",
+                    style: { background: "#6ecf76ff", borderRadius: "12px"}
+                }).showToast();
+            </script>
+        {% elif message.tags == "warning" %}
+            <script>
+                Toastify({
+                    text: "{{ message }}",
+                    duration: 2000,
+                    gravity: "top",
+                    position: "right",
+                    style: { background: "#ff9900ff", borderRadius: "12px"}
+                }).showToast();
+            </script>
+        {% elif message.tags == "error" %}
+            <script>
+                Toastify({
+                    text: "{{ message }}",
+                    duration: 2000,
+                    gravity: "top",
+                    position: "right",
+                    style: { background: "#fa0101ff", borderRadius: "12px"}
+                }).showToast();
+            </script>
+        {% endif %}
+            
+        
+{% endfor %}
+
+{% endblock scripts %}
+    
