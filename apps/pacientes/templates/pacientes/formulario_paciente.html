@@ -60,10 +60,25 @@
                 <div class="form-group {% if form.primer_apellido.errors %} has-error{% endif %}">
                     <label for="primer_apellido">{{form.primer_apellido.label}}</label>
                     {{form.primer_apellido}}
+                     {% if form.primer_apellido.errors %}
+                        <div class="error-message">
+                        {% for error in form.primer_apellido.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %}
                 </div>
+
                 <div class="form-group {% if form.segundo_apellido.errors %} has-error{% endif %}" >
                     <label for="segundo_apellido">{{form.segundo_apellido.label}}</label>
                     {{form.segundo_apellido}}
+                    {% if form.segundo_apellido.errors %}
+                        <div class="error-message">
+                        {% for error in form.segundo_apellido.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %}
                 </div>
             </div>
 
@@ -71,11 +86,25 @@
                 <div class="form-group {% if form.documento.errors %}has-error{% endif %}">
                     <label for="documento">{{form.documento.label}}</label>
                     {{form.documento}}
+                    {% if form.documento.errors %}
+                        <div class="error-message">
+                        {% for error in form.documento.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %}
                 </div>
                 <div class="form-group {% if form.identificacion.errors %} has-error{% endif %}">
                     <label for="identificacion">{{form.identificacion.label}}</label>
                     {{form.identificacion}}
                     <span class="field-help">{{form.identificacion.help_text}}</span>
+                    {% if form.identificacion.errors %}
+                        <div class="error-message">
+                        {% for error in form.identificacion.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %} 
                 </div>
             </div>
 
@@ -83,11 +112,25 @@
                 <div class="form-group {% if form.fecha_nacimiento.errors %} has-error{% endif %}">
                     <label for="id_fecha_nacimiento">{{form.fecha_nacimiento.label}}</label>
                     {{form.fecha_nacimiento}}
+                    {% if form.fecha_nacimiento.errors %}
+                        <div class="error-message">
+                        {% for error in form.fecha_nacimiento.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %} 
                 </div>
                 <div class="form-group {% if form.nacionalidad.errors %} has-error{% endif %}">
                     <label for="nacionalidad">{{form.nacionalidad.label}}</label>
                     {{form.nacionalidad}}
                     <span class="field-help">{{form.nacionalidad.help_text}}</span> 
+                    {% if form.nacionalidad.errors %}
+                        <div class="error-message">
+                        {% for error in form.nacionalidad.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %} 
                 </div>
             </div>
         </fieldset>
@@ -99,11 +142,25 @@
                 <div class="form-group {% if form.tipo.errors %} has-error{% endif %}">
                     <label for="tipo_paciente">{{form.tipo.label}}</label>
                     {{form.tipo}}
+                    {% if form.tipo.errors %}
+                        <div class="error-message">
+                        {% for error in form.tipo.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %} 
                 </div>
                 <div class="form-group {% if form.telefono.errors %} has-error{% endif %}">
                     <label for="telefono">{{form.telefono.label}}</label>
                     {{form.telefono}}
                     <span class="field-help">{{form.telefono.help_text}}</span>
+                    {% if form.telefono.errors %}
+                        <div class="error-message">
+                        {% for error in form.telefono.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %} 
                 </div>
             </div>
 
@@ -112,12 +169,26 @@
                     <label for="comuna">{{form.comuna.label}}</label>
                     {{form.comuna}}
                     <span class="field-help">{{form.comuna.help_text}}</span>
-
+                    {% if form.comuna.errors %}
+                        <div class="error-message">
+                        {% for error in form.comuna.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %} 
                 </div>
                 <div class="form-group {% if form.cesfam.errors %} has-error{% endif %}">
                     <label for="cesfam">CESFAM</label>
                     {{form.cesfam}}
                     <span class="field-help">{{form.cesfam.help_text}}</span>
+                    {% if form.cesfam.errors %}
+                        <div class="error-message">
+                        {% for error in form.cesfam.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %} 
+
                 </div>
             </div>
 
@@ -125,7 +196,14 @@
                 <label for="direccion">{{form.direccion.label}}</label>
                 {{form.direccion}}
                 <span class="field-help">{{form.direccion.help_text}}</span>
-                
+                {% if form.direccion.errors %}
+                    <div class="error-message">
+                    {% for error in form.direccion.errors %}
+                        <p>{{ error }}</p> 
+                    {% endfor %}
+                    </div>                   
+                {% endif %} 
+            
             </div>
         </fieldset>
 
@@ -136,15 +214,36 @@
                     <label for="peso">{{form.peso.label}} (Kilogramos)</label>
                     {{form.peso}}
                     <span class="field-help">{{form.peso.help_text}}</span>
+                    {% if form.peso.errors %}
+                        <div class="error-message">
+                        {% for error in form.peso.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %} 
                 </div>
                 <div class="form-group {% if form.altura.errors %} has-error{% endif %}">
                     <label for="altura">{{form.altura.label}} (Centimetros)</label>
                     {{form.altura}}
                     <span class="field-help">{{form.altura.help_text}}</span>
+                    {% if form.altura.errors %}
+                        <div class="error-message">
+                        {% for error in form.altura.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %} 
                 </div>
                 <div class="form-group {% if form.actividad.errors %} has-error{% endif %}">
                     <label for="actividad">{{form.actividad.label}} Fisica</label>
                     {{form.actividad}}
+                    {% if form.actividad.errors %}
+                        <div class="error-message">
+                        {% for error in form.actividad.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %} 
                 </div>
             </div>
         </fieldset>

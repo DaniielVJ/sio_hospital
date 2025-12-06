@@ -2,7 +2,7 @@ from .paciente_view import (CrearPacienteView, ListarPacientesView, DetallePacie
                              EliminarPacienteView, ActualizarPacienteView, MostrarMenuInicioPaciente)
 
 
-from .gestacion_view import (CrearGestacionView)
+from .gestacion_view import (CrearGestacionView, ListarGestacionesView)
 
 
 

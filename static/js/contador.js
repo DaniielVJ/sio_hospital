@@ -2,7 +2,7 @@
 function animarContador(elemento) {
     let startValue = 0;
     let endValue = parseInt(elemento.getAttribute("data-val"));
-    let duration = 3000; // Duración en milisegundos (2 segundos)
+    let duration = 2000; // Duración en milisegundos (2 segundos)
     let startTime = null;
 
     function step(currentTime) {

@@ -57,7 +57,7 @@
                         </div>
                         
                         <div class="card">
-                            <a href='../Matrona/Gestaciones/gestaciones.html' class="card-button">
+                            <a href="{% url 'gestacion:listar_gestaciones' %}" class="card-button">
                                 <img alt="Gestaciones" src="{% static 'icons/gestacionicon.png' %}" class="card-icon"/>
                                 <h3 class="third-title">Gestaciones</h3>
                                 <p>Mira tus gestaciones</p>
@@ -102,27 +102,27 @@
                     <h2 class="second-title">Resumen</h2> <div class="dashboard-panel">
                         <div class="stat-item">
                             <span class="stat-label">Pacientes registrados este mes</span>
-                            <span class="stat-number contador" data-val="100">0</span>
+                            <span class="stat-number contador" data-val="{{pc_mes}}">0</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">Partos registrados este mes</span>
-                            <span class="stat-number contador" data-val="100">0</span>
+                            <span class="stat-number contador" data-val="{{pt_mes}}">0</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">Recien nacidos registrados este mes</span>
-                            <span class="stat-number contador" data-val="100">0</span>
+                            <span class="stat-number contador" data-val="{{rn_mes}}">0</span>
                         </div>
                           <div class="stat-item">
                             <span class="stat-label">Pacientes registrados esta semana</span>
-                            <span class="stat-number contador" data-val="100">0</span>
+                            <span class="stat-number contador" data-val="{{pc_sem}}">0</span>
                         </div>
                           <div class="stat-item">
                             <span class="stat-label">Partos registrados esta semana</span>
-                            <span class="stat-number contador" data-val="100">0</span>
+                            <span class="stat-number contador" data-val="{{pt_sem}}">0</span>
                         </div>
                           <div class="stat-item">
                             <span class="stat-label">Recien nacidos registrados esta semana</span>
-                            <span class="stat-number contador" data-val="100" >0</span>
+                            <span class="stat-number contador" data-val="{{rn_sem}}" >0</span>
                         </div>
                         <div class="dashboard-placeholder">
                             <p>Gráfico de Benjamín</p>
