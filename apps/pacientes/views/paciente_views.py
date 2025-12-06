@@ -2,7 +2,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from core.mixins import MatronaRequiredMixin, SupervisorRequiredMixin, MatronaSupervisorRequiredMixin
-from..forms import PacienteForm
+from ..forms import PacienteForm
 from ..models import Paciente
 
 

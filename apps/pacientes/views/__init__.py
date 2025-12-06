@@ -1,9 +1,9 @@
-from .paciente_view import (CrearPacienteView, ListarPacientesView, DetallePacienteView, 
+from .paciente_views import (CrearPacienteView, ListarPacientesView, DetallePacienteView, 
                              EliminarPacienteView, ActualizarPacienteView, MostrarMenuInicioPaciente)
 
 
-from .gestacion_view import (CrearGestacionView, ListarGestacionesView)
+from .gestacion_views import (CrearGestacionView, ListarGestacionesView)
 
 
 
-from .test_view import (CrearTestHepatitisBView,CrearTestSgbView, CrearTestVdrlView, CrearTestVihView)
+from .test_views import (CrearTestHepatitisBView,CrearTestSgbView, CrearTestVdrlView, CrearTestVihView)
