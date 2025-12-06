@@ -4,37 +4,196 @@
 {% load static %}
 
 
-{% block title %}
+{% block title %}{{form.instance.pk|yesno:"Actualizar Paciente, Añadir Nuevo Paciente"}}{% endblock title %}
 
-{% endblock title %}
 
 
 {% block estilos_personalizados %}
-    <link rel="stylesheet" href="{% static 'cssbase/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/form.css' %}">
 {% endblock estilos_personalizados %}
 
 
 
+{% block menus_navegacion %}
+    {% include 'includes/topbar.html' %}
+    {% include 'includes/sidebar.html' %}
+{% endblock menus_navegacion %}
+    
+
 
 {% block content %}
-    <div class="container my-4">
-        <div class="mx-auto" style="max-width: 700px;">
-        <form method="POST">
-            {% csrf_token %}    
-            
-            {{form.as_div}}
-            
-            <div>
-                <input type="submit" value="Añadir" class="btn btn-success"/>    
-            </div>
-            
-        </form>
+    <main class="main-container">
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumbs">
+        <a href="{% url 'pantalla_principal' %}">Inicio</a>
+        <span>›</span>
+        <a href="{% url 'paciente:listar_pacientes' %}">Pacientes</a>
+        <span>›</span>
+        <span>{{form.instance.pk|yesno:"Actualizar, Añadir"}}</span>
+    </nav>
+
+<section class="form-card">
+    
+    <div class="form-header">
+        <h2 class="form-title">Nuevo Paciente</h2>
+        <p class="form-subtitle">Complete la ficha clínica. Los campos marcados con (*) obligatorios.</p>
     </div>
-</div>
+    {{form.errors}}
+    <form method="POST" class="main-form">
+        {% csrf_token %}
+        <fieldset class="form-section">
+            <legend class="section-legend">Identificación Personal</legend>
+            
+            <div class="form-row three-cols">
+                <div class="form-group {% if form.nombre.errors %} has-error{% endif %}">
+                    <label for="nombre">{{form.nombre.label}}s</label>
+                    {{form.nombre}}
+                    {% if form.nombre.errors %}
+                        <div class="error-message">
+                        {% for error in form.nombre.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %}
+                </div>
+                <div class="form-group {% if form.primer_apellido.errors %} has-error{% endif %}">
+                    <label for="primer_apellido">{{form.primer_apellido.label}}</label>
+                    {{form.primer_apellido}}
+                </div>
+                <div class="form-group {% if form.segundo_apellido.errors %} has-error{% endif %}" >
+                    <label for="segundo_apellido">{{form.segundo_apellido.label}}</label>
+                    {{form.segundo_apellido}}
+                </div>
+            </div>
 
+            <div class="form-row">
+                <div class="form-group {% if form.documento.errors %}has-error{% endif %}">
+                    <label for="documento">{{form.documento.label}}</label>
+                    {{form.documento}}
+                </div>
+                <div class="form-group {% if form.identificacion.errors %} has-error{% endif %}">
+                    <label for="identificacion">{{form.identificacion.label}}</label>
+                    {{form.identificacion}}
+                    <span class="field-help">{{form.identificacion.help_text}}</span>
+                </div>
+            </div>
 
+            <div class="form-row">
+                <div class="form-group {% if form.fecha_nacimiento.errors %} has-error{% endif %}">
+                    <label for="id_fecha_nacimiento">{{form.fecha_nacimiento.label}}</label>
+                    {{form.fecha_nacimiento}}
+                </div>
+                <div class="form-group {% if form.nacionalidad.errors %} has-error{% endif %}">
+                    <label for="nacionalidad">{{form.nacionalidad.label}}</label>
+                    {{form.nacionalidad}}
+                    <span class="field-help">{{form.nacionalidad.help_text}}</span> 
+                </div>
+            </div>
+        </fieldset>
 
+        <fieldset class="form-section">
+            <legend class="section-legend">Datos Clínicos y Contacto</legend>
 
+            <div class="form-row">
+                <div class="form-group {% if form.tipo.errors %} has-error{% endif %}">
+                    <label for="tipo_paciente">{{form.tipo.label}}</label>
+                    {{form.tipo}}
+                </div>
+                <div class="form-group {% if form.telefono.errors %} has-error{% endif %}">
+                    <label for="telefono">{{form.telefono.label}}</label>
+                    {{form.telefono}}
+                    <span class="field-help">{{form.telefono.help_text}}</span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group {% if form.comuna.errors %} has-error{% endif %}">
+                    <label for="comuna">{{form.comuna.label}}</label>
+                    {{form.comuna}}
+                    <span class="field-help">{{form.comuna.help_text}}</span>
+
+                </div>
+                <div class="form-group {% if form.cesfam.errors %} has-error{% endif %}">
+                    <label for="cesfam">CESFAM</label>
+                    {{form.cesfam}}
+                    <span class="field-help">{{form.cesfam.help_text}}</span>
+                </div>
+            </div>
+
+            <div class="form-group {% if form.direccion.errors %} has-error{% endif %}">
+                <label for="direccion">{{form.direccion.label}}</label>
+                {{form.direccion}}
+                <span class="field-help">{{form.direccion.help_text}}</span>
+                
+            </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+            <legend class="section-legend">Métricas Físicas</legend>
+            <div class="form-row three-cols">
+                <div class="form-group {% if form.peso.errors %} has-error{% endif %}">
+                    <label for="peso">{{form.peso.label}} (Kilogramos)</label>
+                    {{form.peso}}
+                    <span class="field-help">{{form.peso.help_text}}</span>
+                </div>
+                <div class="form-group {% if form.altura.errors %} has-error{% endif %}">
+                    <label for="altura">{{form.altura.label}} (Centimetros)</label>
+                    {{form.altura}}
+                    <span class="field-help">{{form.altura.help_text}}</span>
+                </div>
+                <div class="form-group {% if form.actividad.errors %} has-error{% endif %}">
+                    <label for="actividad">{{form.actividad.label}} Fisica</label>
+                    {{form.actividad}}
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+            <legend class="section-legend">Características Especiales</legend>
+            <div class="checkbox-grid">
+                <label class="checkbox-card">
+                    {{form.descapacitado}}
+                    <span class="checkbox-text">Discapacidad</span>
+                </label>
+
+                <label class="checkbox-card">
+                    {{form.pueblo_originario}}
+                    <span class="checkbox-text">Pueblo Originario</span>
+                </label>
+
+                <label class="checkbox-card">
+                    {{form.privada_de_libertad}}
+                    <span class="checkbox-text">Privada de Libertad</span>
+                </label>
+
+                <label class="checkbox-card">
+                    {{form.transexual}}
+                    <span class="checkbox-text">Transexual</span>
+                </label>
+
+                <label class="checkbox-card">
+                    {{form.visita_guiada}}
+                    <span class="checkbox-text">Visita Guiada</span>
+                </label>
+                
+                <label class="checkbox-card">
+                    {{form.plan_de_parto}}
+                    <span class="checkbox-text">Plan de Parto</span>
+                </label>
+            </div>
+            <span class="field-help">Marque las opciones que correspondan con el paciente</span>
+        </fieldset>
+
+        <div class="form-actions">
+            <a type="button" class="btn-secondary" href="{{request.META.HTTP_REFERER}}">Cancelar</a>
+            <button type="submit" class="btn-primary">Guardar Paciente</button>
+        </div>
+
+    </form>
+</section>
+
+</main>
 
 {% endblock content %}  
     
@@ -42,6 +201,7 @@
 
 
 {% block scripts %}
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/deshabilitador-input.js' %}"></script>
+    <script src="{% static 'js/manejo-error-form.js' %}"></script>
 {% endblock scripts %}
     

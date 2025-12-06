@@ -45,7 +45,13 @@ class CrearPacienteView(MatronaRequiredMixin, CreateView):
     model = Paciente
     template_name = 'pacientes/formulario_paciente.html'
     form_class = PacienteForm
-    success_url = reverse_lazy('pacientes:listar_pacientes')
+    success_url = reverse_lazy('paciente:listar_pacientes')
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
+    
 
     
 # view encargada se ejecutar la logica para actualizar los datos de un paciente

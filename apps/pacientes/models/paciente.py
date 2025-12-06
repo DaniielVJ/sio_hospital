@@ -81,7 +81,7 @@ class Paciente(models.Model):
     documento = models.CharField(max_length=3, 
                                  choices=TipoDocumento.choices, 
                                  default=TipoDocumento.RUT)
-    identificacion = models.CharField(max_length=15)
+    identificacion = models.CharField(max_length=50, blank=True)
 
     fecha_nacimiento = models.DateField()
     descapacitado = models.BooleanField(default=False)
@@ -90,8 +90,8 @@ class Paciente(models.Model):
     transexual = models.BooleanField(default=False)
     plan_de_parto = models.BooleanField(default=False)
     visita_guiada = models.BooleanField(default=False)
-    peso = models.DecimalField(max_digits=5, decimal_places=2, blank=True)
-    altura = models.DecimalField(max_digits=5, decimal_places=2, blank=True)
+    peso = models.DecimalField(max_digits=5, decimal_places=2, blank=True, default=0)
+    altura = models.DecimalField(max_digits=5, decimal_places=2, blank=True, default=0)
     actividad = models.CharField(max_length=9,
                                  choices=Actividad.choices,
                                  default=Actividad.BAJA)
