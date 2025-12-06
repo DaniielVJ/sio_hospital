@@ -1,13 +1,18 @@
-from decimal import Decimal
+from decimal import Decimal, ROUND_UP
 from django.db import models
+from django.utils import timezone
 from django.conf import settings
 
+
+# ESTE MODELO NO TIENE FORMULARIO
 class TipoPaciente(models.Model):
     nombre = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.nombre
 
+
+# ESTE MODELO NO TIENE FORMULARIO
 class Comuna(models.Model):
     nombre = models.CharField(max_length=100, unique=True)
     
@@ -17,7 +22,7 @@ class Comuna(models.Model):
     def __str__(self):
         return self.nombre
 
-
+# ESTE MODELO NO TIENE FORMULARIO
 class Nacionalidad(models.Model):
     nombre = models.CharField(max_length=100, unique=True)
 
@@ -27,7 +32,7 @@ class Nacionalidad(models.Model):
     def __str__(self):
         return self.nombre
 
-
+# ESTE MODELO NO TIENE FORMULARIO
 class Cesfam(models.Model):
     nombre = models.CharField(max_length=120, unique=True)
     comuna = models.ForeignKey(Comuna, on_delete=models.PROTECT)
@@ -52,7 +57,7 @@ class Paciente(models.Model):
         EXT = 'EXT', 'Documento extranjero'
         TMP = 'TMP', 'Sin documento / Temporal'  
 
-
+    # NO VA EN EL FORMULARIO
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='pacientes', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='pacientes_actualizados', null=True)
@@ -76,7 +81,7 @@ class Paciente(models.Model):
     documento = models.CharField(max_length=3, 
                                  choices=TipoDocumento.choices, 
                                  default=TipoDocumento.RUT)
-    identificacion = models.CharField(max_length=15)
+    identificacion = models.CharField(max_length=50, blank=True)
 
     fecha_nacimiento = models.DateField()
     descapacitado = models.BooleanField(default=False)
@@ -85,8 +90,8 @@ class Paciente(models.Model):
     transexual = models.BooleanField(default=False)
     plan_de_parto = models.BooleanField(default=False)
     visita_guiada = models.BooleanField(default=False)
-    peso = models.DecimalField(max_digits=5, decimal_places=2)
-    altura = models.DecimalField(max_digits=5, decimal_places=2)
+    peso = models.DecimalField(max_digits=5, decimal_places=2, blank=True, default=0)
+    altura = models.DecimalField(max_digits=5, decimal_places=2, blank=True, default=0)
     actividad = models.CharField(max_length=9,
                                  choices=Actividad.choices,
                                  default=Actividad.BAJA)
@@ -99,9 +104,19 @@ class Paciente(models.Model):
         return f'{self.nombre} {self.primer_apellido} {self.segundo_apellido}'
 
     def calcular_imc(self):
-       estatura_metros = self.altura / Decimal("100")
-       return self.peso / (estatura_metros ** 2)
+        if self.altura and self.peso:
+            estatura_metros = self.altura / Decimal("100")
+            return (self.peso / (estatura_metros ** 2)).quantize(Decimal("0.01"), rounding=ROUND_UP)
     
+
+    def calcular_edad_paciente(self):
+       
+        hoy = timezone.localdate()
+        edad = hoy.year - self.fecha_nacimiento.year
+        
+        if self.fecha_nacimiento.month > hoy.month or (self.fecha_nacimiento.month == hoy.month and self.fecha_nacimiento.day > hoy.day):
+            edad -= 1
+        return edad
 
     class Meta:
         # No puede haber una identificación repetida dentro del mismo grupo de tipo de documento

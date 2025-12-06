@@ -1,0 +1,127 @@
+/* =========================================
+   LAYOUT GRID (El Padre que divide la pantalla)
+   ========================================= */
+.layout-grid {
+    display: grid;
+    /* MAGIA AQUÍ: 
+       1fr = Todo el espacio sobrante para las tarjetas
+       22rem = Un ancho fijo (aprox 350px) para la barra lateral derecha 
+    */
+    grid-template-columns: 1fr 22rem; 
+    gap: 2rem; /* Espacio entre la isla de tarjetas y la isla de stats */
+    align-items: start; /* Para que ambas columnas empiecen arriba */
+    width: 100%;
+}
+
+/* Responsive: En tablets/móviles, que se ponga uno debajo de otro */
+@media (max-width: 1100px) {
+    .layout-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   ISLA DE TARJETAS (Izquierda)
+   ========================================= */
+.cards-container {
+    background: var(--bg-panel);
+    padding: 1.5rem;
+    border-radius: 2rem;
+    box-shadow: var(--shadow-m);
+    
+    /* Grid Interno de las tarjetas */
+    display: grid;
+    /* Esto hace que las tarjetas se acomoden solas (mínimo 150px de ancho cada una) */
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); 
+    gap: 1.5rem;
+}
+
+/* =========================================
+   ISLA DE DASHBOARD (Derecha)
+   ========================================= */
+.dashboard-panel {
+    background: var(--bg-panel);
+    padding: 1.5rem;
+    border-radius: 2rem;
+    box-shadow: var(--shadow-m);
+    height: 100%; /* Para que ocupe altura si lo necesitas */
+    min-height: 300px;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Estilos simples para tus datos de resumen */
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 0.8rem;
+}
+.stat-item:last-child {
+    border-bottom: none;
+}
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+/* =========================================
+   CARD INDIVIDUAL (Ajustes)
+   ========================================= */
+.card {
+    background: var(--bg-input); /* Un gris muy suave o blanco off-white */
+    border-radius: 1.5rem;
+    transition: var(--transition);
+    border: 1px solid transparent; /* Para evitar saltos al hacer hover con borde */
+    overflow: hidden; /* Mantiene las esquinas redondas */
+}
+
+/* Quitamos estilos por defecto del botón para que llene la card */
+.card-button {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    padding: 1.5rem 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.5rem;
+}
+
+
+.card:hover {
+    transform: translateY(-4px);
+    background: var(--bg-panel); /* Se vuelve blanco puro al flotar */
+    box-shadow: var(--shadow-s);
+}
+
+/* Control de imágenes para que no rompan el layout */
+.card-icon {
+    height: 100px; /* Ajuste visual para que quepan bien */
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+}
+
+.card h3 {
+    font-size: 1rem;
+    color: var(--text-main);
+    margin-bottom: 0;
+}
+
+.card p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}

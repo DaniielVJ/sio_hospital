@@ -26,10 +26,12 @@ class Puerperio(models.Model):
     trauma = models.BooleanField(default=False)
     alteracion_coagulacion = models.BooleanField(default=False)
     manejo_qirurgico_inercia_ut = models.BooleanField(default=False)
+    # NO VAN EN EL FORMULARIO
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='puerperios', null=True)
     updated_at = models.DateTimeField(auto_now=True)
     updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='puerperios_actualizados', null=True)
+    # ESTE SI VA, ES UN SELECT
     parto = models.OneToOneField(Parto, on_delete=models.PROTECT, related_name='puerperio')
 
     def __str__(self):

@@ -1,5 +1,7 @@
 from django.db import models
 
+
+# NO POSEE FORMULARIO NINGUNO DE ESTOS MODELOS
 class ComplicacionPostParto(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
