@@ -1,4 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'includes/sidebar.html' %}
+
+<a href="{% url 'dashboard_index' %}">Volver al Dashboard</a>
+
 <div class="bg-white p-6 rounded-xl shadow-md border">
     <h2 class="text-xl font-semibold mb-2 text-center">Evolución de Embarazos</h2>
     <div id="main_chart" class="w-full h-[350px] md:h-[420px]"></div>
 </div>
+
+{% endblock %}

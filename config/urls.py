@@ -22,6 +22,7 @@ urlpatterns = [
     path('perfiles/', include('apps.perfiles.urls')),
     path('rn/', include('apps.recien_nacidos.urls')),
     path('reportes/', include('apps.reportes.urls')),
+    path('dashboard/', include('apps.dashboard.urls')),
     
 ]
 
