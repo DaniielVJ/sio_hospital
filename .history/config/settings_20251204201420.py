@@ -139,7 +139,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Urls que puede acceder cualquier usuario, a traves de los middlewares
 PUBLIC_URLS = [
-    '/admin',
+    '/admin'
     '/login', 
     '/perfiles/modificar-password', 
     '/perfiles/verificacion-email',] 
