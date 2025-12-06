@@ -18,7 +18,7 @@ class ListarPacientesView(MatronaSupervisorRequiredMixin, PermissionRequiredMixi
     raise_exception = True
     template_name = 'pacientes/listar_pacientes.html'
     context_object_name = 'pacientes'
-
+    paginate_by = 10    
 
     def get_queryset(self):
         # Por ahora se entregan todos los pacientes a todas las matronas, despues vemos si filtramos

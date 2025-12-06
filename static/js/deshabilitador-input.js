@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if (valorSeleccionado === valorCondicional) {
             inputValor.disabled = true;
             inputValor.value = ''; // Limpiamos el valor al deshabilitar
-            inputValor.placeholder = '';
+            inputValor.placeholder = '--------------------------';
         } else {
             inputValor.disabled = false;
             inputValor.placeholder = 'Ingrese el Valor';
