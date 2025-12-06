@@ -1,33 +1,29 @@
 from django.utils import timezone
 from django import forms
-from django.forms.utils import ErrorList
 import phonenumbers
-from core import validators
 
 from ..models import Paciente
+from core import utils, validators
 
-from core import utils
 
-
-class PacienteForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        print(self.fields['tipo'].widget)
-        for nombre_campo, campo  in self.fields.items():
-            widget = campo.widget
-            # Si quiero añadir mas clases, las voy agregando simplemente aqui
-            if isinstance(widget, forms.widgets.CheckboxInput):
-                widget.attrs['class'] = 'form-check-input'
-            elif isinstance(widget, forms.Select):
-                widget.attrs['class'] = 'form-select'
-            else:
-                widget.attrs['class'] = 'form-control'
-        
-       
+class PacienteForm(forms.ModelForm):   
     class Meta:
         model = Paciente
         exclude = ['created_by', 'created_at', 'updated_by', 'updated_at']
+        widgets = {
+            'fecha_nacimiento': forms.DateInput(attrs={'type':'date'}),
+            'telefono': forms.TextInput(attrs={'placeholder': 'EJ: 920036589'}),
+            'direccion': forms.TextInput(attrs={'placeholder': 'Calle, número, depto...'}),
+            'peso': forms.NumberInput(attrs={'placeholder': 'En Kilogramos'}),
+            'altura': forms.NumberInput(attrs={'placeholder':'En Centimetros'}),
+            'nombre': forms.TextInput(attrs={'placeholder': 'Ej: Rosalia Alejandra'}),
+            'primer_apellido': forms.TextInput(attrs={'placeholder': 'Apellido del Paciente'}),
+            'segundo_apellido': forms.TextInput(attrs={'placeholder': 'Apellido del Paciente'}),
 
+        }
+
+
+        
         # Textos mostrados debajo de cada campo al renderizarlo
         help_texts = {
             'cesfam': 'Si no posee dejar en blanco',
@@ -35,28 +31,12 @@ class PacienteForm(forms.ModelForm):
             'identificacion': 'Si es Rut sin puntos y con guion',
             'altura': 'En centimetros',
             'peso': 'En Kilogramos',
-            'telefono': 'Para números nacionales NO ES OBLIGATORIO usar el código +56 añada el 9',
-            'nacionalidad': "Si no aparece la nacinalidad marcar OTRA"
+            'telefono': 'Para nacionales añada el 9. No requiere +56.',
+            'nacionalidad': "Si no aparece la nacionalidad marcar OTRA",
+            'direccion': 'Si no posee dejar en blanco.',
+            'peso': 'Si no proporciona el peso en Kilogramos los calculos del IMC tendran errores'
             }
         
-        widgets = {
-            'direccion': forms.TextInput(attrs={
-                'placeholder': 'Dirección del paciente',
-                'maxlength': 150,
-                }),
-            'telefono': forms.TextInput(attrs={
-                'placeholder': 'Telefono del paciente',
-                'maxlength': 15,
-                'minlength': 5
-            }),
-            'nombre': forms.TextInput(attrs={
-                'placeholder': 'Nombre del Paciente',
-                'maxlength': 100,
-                'minlength': 5,
-                'required': ''
-            })
-        }
-
 
         # El texto del label que describe o indica que valor recibe el campo
         labels = {
@@ -67,7 +47,9 @@ class PacienteForm(forms.ModelForm):
             'pueblo_originario': 'Pueblo Originario',
             'privada_de_libertad': 'Privada de Libertad',
             'transexual': 'Transexual',
-            'fecha_nacimiento': 'Drogadicto'
+            'fecha_nacimiento': 'Fecha de Nacimiento',
+            'telefono': 'Teléfono',
+            'direccion': 'Dirección',
             
         }
 
@@ -76,6 +58,7 @@ class PacienteForm(forms.ModelForm):
         peso = self.cleaned_data.get('peso')
         
         if not peso:
+            peso = 0
             return peso
 
         if not peso > 0:
@@ -86,6 +69,7 @@ class PacienteForm(forms.ModelForm):
     def clean_altura(self):
         altura = self.cleaned_data.get('altura')
         if not altura:
+            altura = 0
             return altura
         
         if not altura > 0:
@@ -136,15 +120,18 @@ class PacienteForm(forms.ModelForm):
 
         
     def clean_fecha_nacimiento(self):
-        fecha_nacimiento = self.cleaned_data["fecha_nacimiento"]
-        fecha_actual = timezone.now().date()
-        edad = fecha_actual.year - fecha_actual.year
-        if fecha_nacimiento >= fecha_actual:
-            return forms.ValidationError('La fecha de nacimiento no puede superar a la fecha actual')
-        
-        if edad < 10 or edad > 60:
-            return forms.ValidationError('No se puede registar una persona menor a 10 años o mayor a 60')
+        fecha_nacimiento = self.cleaned_data.get('fecha_nacimiento')
+        print(fecha_nacimiento)
+        if fecha_nacimiento:
+            fecha_actual = timezone.now().date()
+            print(fecha_actual)
+            edad = fecha_actual.year - fecha_nacimiento.year
+            if fecha_nacimiento >= fecha_actual:
+                raise forms.ValidationError('La fecha de nacimiento no puede superar a la fecha actual')
             
+            if edad < 10 or edad > 60:
+                raise forms.ValidationError('No se puede registar una persona menor a 10 años o mayor a 60')
+                
         return fecha_nacimiento
     
 
@@ -158,18 +145,21 @@ class PacienteForm(forms.ModelForm):
         # POR ESO EN MAYUSCULA
         if documento == "RUT":
             if not identificacion:
-                raise forms.ValidationError('Debe proporcionar el rut')
-            validators.validar_rut(identificacion)
+                self.add_error('identificacion', 'Debe proporcionar el rut')
+            rut_valido = validators.validar_rut(identificacion)
+            if not rut_valido[0]:
+                self.add_error('identificacion', rut_valido[1])
+
         elif documento == "PAS":
             if not identificacion or len(identificacion) < 5:
-                raise forms.ValidationError('Debe proporcionar el pasaporte completo')
+                self.add_error('identificacion','Debe proporcionar el pasaporte completo')
         elif documento == "EXT":
             if not identificacion or len(identificacion) < 3:
-                raise forms.ValidationError('Debe proporcionar codigo extranjero')
+                self.add_error('identificacion', 'Debe proporcionar codigo extranjero')
         elif documento == "TMP":
             codigo_temporal = utils.generar_codigo_temporal()
             cleaned['identificacion'] = codigo_temporal
         else:
-            forms.ValidationError('Debe seleciona un tipo de documento')
+            self.add_error('identificacion', 'Debe seleciona un tipo de documento')
     
         return cleaned

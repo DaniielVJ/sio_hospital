@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from apps.pacientes.models import Gestacion, Paciente, TestHepatitisB, TestVdrl, TestVih, TestSgb
-from apps.partos.models import AnalgesiaParto, Puerperio, Profesional, Participacion
+from apps.partos.models import AnalgesiaParto, Puerperio, Profesional, Participacion, Parto
 from apps.recien_nacidos.models import RecienNacido, Vacunacion
 from apps.perfiles.models import MatronaPerfil, SupervisorPerfil, Turno, Usuario
 
@@ -24,6 +24,7 @@ class Command(BaseCommand):
         'Matrona': [
             # Cada tupla es una regla de permisos para ese modelo que tendra el grupo, en este caso Matrona
             (Paciente, ['all']),
+            (Parto, ['all']),
             (Gestacion, ['all']),
             (TestHepatitisB, ['all']),
             (TestVdrl, ['all']),
@@ -40,6 +41,7 @@ class Command(BaseCommand):
         ],
         'Supervisor': [
             (Paciente, ['view']),
+            (Parto, ['view']),
             (Gestacion, ['view']),
             (TestHepatitisB, ['view']),
             (TestVdrl, ['view']),

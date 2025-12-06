@@ -18,7 +18,7 @@ urlpatterns = [
     path('pacientes/', include('apps.pacientes.urls.paciente_urls')),
     path('gestaciones/', include('apps.pacientes.urls.gestacion_urls')),
     path('tests/', include('apps.pacientes.urls.test_urls')),
-    path('partos/', include('apps.partos.urls')),
+    path('partos/', include('apps.partos.urls.parto_urls')),
     path('perfiles/', include('apps.perfiles.urls')),
     path('rn/', include('apps.recien_nacidos.urls')),
     path('reportes/', include('apps.reportes.urls')),

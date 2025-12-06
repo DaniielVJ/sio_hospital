@@ -7,19 +7,19 @@ def validar_rut(value: str):
     """
 
     if not value:
-        return  # Deja que Django valide si el campo es requerido o no.
+        return 
 
     rut = value.replace(".", "").replace("-", "").upper()
 
     if len(rut) < 7:
-        raise ValidationError("El RUT debe tener al menos 7 dígitos en la parte numérica.")
+        return (False, "El RUT debe tener al menos 7 dígitos en la parte numérica.")
 
 
     cuerpo = rut[:-1]
     dv_ingresado = rut[-1]
 
     if not cuerpo.isdigit():
-        raise ValidationError("El RUT debe contener solo números en la parte del cuerpo.")
+        return (False, "El RUT debe contener solo números en la parte del cuerpo.")
 
     # Cálculo del DV
     mult = 2
@@ -42,4 +42,6 @@ def validar_rut(value: str):
 
     # Comparación final
     if dv_ingresado != dv_calculado:
-        raise ValidationError(f"El RUT ingresado no es válido. DV Incorrecto")
+        return (False, f"El RUT ingresado no es válido. DV Incorrecto")
+
+    return (True, 'Rut Valido')

@@ -32,7 +32,13 @@
     <div class="profile-container header-pill">
         <img width="35" height="35" title="Foto de perfil"
         alt="Foto perfil" class="profile-photo"
-        src="{% static 'icons/matronaicon.png' %}"/>
+        src="
+        {% if request.user.es_matrona %}
+            {% static 'icons/matronaicon.png' %}
+        {% elif request.user.es_supervisor %}
+            {% static 'icons/supervisoricon.png' %}
+        {% endif %}
+            "/>
 
         <div class="profile-text">
             <span class="profile-name">

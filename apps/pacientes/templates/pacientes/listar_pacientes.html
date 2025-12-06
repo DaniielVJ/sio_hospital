@@ -8,8 +8,16 @@
     
 
 
+{% block menus_navegacion %}
+    {% include 'includes/topbar.html' %}
+    {% include 'includes/sidebar.html' %}
+{% endblock menus_navegacion %}
+    
+
 
 {% block content %}
+
+
     <a href="{% url 'paciente:agregar_paciente' %}">Añadir nuevo paciente</a>
     {% for paciente in pacientes %}
         <p>{{paciente.obtener_nombre_completo}} - {{paciente.rut}} - {{paciente.tipo}}</p>

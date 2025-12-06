@@ -1,10 +1,11 @@
 from django.urls import path
-from ..views import CrearGestacionView
+from ..views import CrearGestacionView, ListarGestacionesView
 
 
 app_name = "gestacion"
 
 
 urlpatterns = [
-    path('add/', CrearGestacionView.as_view(), name="crear_gestacion")
+    path('listar/', ListarGestacionesView.as_view(), name="listar_gestaciones"),
+    path('agregar/', CrearGestacionView.as_view(), name="crear_gestacion")
 ]

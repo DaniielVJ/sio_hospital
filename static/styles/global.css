@@ -6,6 +6,7 @@
     font-family: "Inter", sans-serif;
 }
 
+
 /* =========================================================
    VARIABLES GLOBALES — MODO CLARO (DEFAULT)
 ========================================================= */
@@ -117,4 +118,14 @@ body {
     color: var(--text);
     margin-top: 0.1rem;
     margin-bottom: 0.1rem;
+}
+
+
+
+.login-error {
+    text-align: left;           /* Centrar el texto */
+    color: #c21b22;               /* Rojo intermedio de tu paleta */
+    font-size: 0.8rem;
+    margin-top: -0.5rem;          /* Muy leve ajuste para que quede pegadito al input */
+    margin-bottom: 0.5rem;        /* Espacio antes del botón */              /* Oculto por defecto */
 }
