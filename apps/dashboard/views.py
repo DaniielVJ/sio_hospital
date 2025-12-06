@@ -8,4 +8,4 @@ class DashboardView(TemplateView):
     template_name = 'componentes/maingrafic.html'
 
 class TestView(TemplateView):
-    template_name = '400.html'
+    template_name = '500.html'
