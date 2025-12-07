@@ -150,10 +150,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Urls que puede acceder cualquier usuario, a traves de los middlewares
 PUBLIC_URLS = [
+    '/admin',
     '/login', 
     '/perfiles/modificar-password', 
-    '/perfiles/verificacion-email', 
-    '/admin']
+    '/perfiles/verificacion-email',] 
 
 
 if not DEBUG:
@@ -172,5 +172,5 @@ if not DEBUG:
 else:
     INSTALLED_APPS.extend(['django_extensions', 'tailwind'])
     # Ruta NPM para compilar el archivo o generar el archivo css con las clases que use de tailwind
-    NPM_BIN_PATH=os.environ.get('NPM_BIN_PATH', '')
+    NPM_BIN_PATH= os.environ.get('NPM_BIN_PATH', '')
     EMAIL_BACKEND="django.core.mail.backends.console.EmailBackend"
