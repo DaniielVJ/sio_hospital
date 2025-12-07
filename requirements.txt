@@ -23,6 +23,7 @@ djangorestframework==3.16.1
 et_xmlfile==2.0.0
 executing==2.2.1
 fonttools==4.60.1
+git-filter-repo==2.47.0
 honcho==2.0.0
 idna==3.11
 ipython==9.8.0
