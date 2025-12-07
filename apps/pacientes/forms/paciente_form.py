@@ -6,6 +6,18 @@ from ..models import Paciente
 from core import utils, validators
 
 
+
+'''
+Apunte Daniel de mañana:
+(Tenemos 2 formas para implementar los formularios de actualizacion y los que se incrustaran en otro)
+1.Podemos facilmente a los formularios crear un campo llamado motivo que no sea obligatorio sea opcional total este valor lo manejaremos de forma 
+independiente, que es el motivo de actualizacion podriamos crearcelo sin culpa a los usuarios y solo cargarloe en el template si es una actualizacion.
+2.Pero si hacemos eso igual tendremos que crear un nuevo formulario que extienda del primero ya que en algunos formularios deberemos excluir un campo foreign key
+ya que lo incrustaremos dentro de otro template el formulario que ya tiene la pk del objeto al cual lo asociaremos y en el formulario anterior no podemos dejar ese
+valor como opcional.
+'''
+
+
 class PacienteForm(forms.ModelForm):   
     class Meta:
         model = Paciente
@@ -21,8 +33,6 @@ class PacienteForm(forms.ModelForm):
             'segundo_apellido': forms.TextInput(attrs={'placeholder': 'Apellido del Paciente'}),
 
         }
-
-
         
         # Textos mostrados debajo de cada campo al renderizarlo
         help_texts = {

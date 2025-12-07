@@ -27,11 +27,16 @@ urlpatterns = [
 
 if settings.DEBUG:
     from django.shortcuts import render
+
+    def probar_errores(request):
+        return render(request, '403.html', status=404)
+
     def tailwind_testear(request):
         return render(request, 'tailwindsito.html')
 
     urlpatterns += [
-        path('tailwind/', tailwind_testear)
+        path('tailwind/', tailwind_testear),
+        path('403/', probar_errores, name='error_404')
     ]
 
 

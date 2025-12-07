@@ -55,29 +55,32 @@
                 <fieldset class="form-fields">
 
                     <div class="form-field">
-                        <label>{{form.username.label}}</label>
+                        <label for="{{form.username.id_for_label}}">{{form.username.label}}</label>
                         {{form.username}}
                     </div>
 
                     <div class="form-field">
-                       <label>{{form.password.label}}</label>
+                       <label for="{{form.password.id_for_label}}">{{form.password.label}}</label>
                         {{form.password}}
                     </div>
+                    
+                                
+                    {% if messages %}
+                        
+                        {% for message in messages %}    
+                            <div id="login-error" class="login-error">
+                                <span>{{message}}</span>
+                            </div>
+                        {% endfor %}
+                            
+                    {% endif %}
+
 
                     <button type="submit" class="btn btn-primary">Ingresar</button>
 
                 </fieldset>
 
-            
-            {% if messages %}
-                
-                {% for message in messages %}    
-                    <div id="login-error" class="login-error">
-                        <span>{{message}}</span>
-                    </div>
-                {% endfor %}
-                    
-            {% endif %}
+       
                 
 
             </form>
@@ -107,24 +110,7 @@
 
 {% block scripts %}
     <script src="{% static 'js/toastify.min.js' %}"></script>
-
-    
-
-    {% for message in messages %}
-        
-        {% if message.tags == 'success' %}
-            <script>
-                    Toastify({
-                    text: "{{ message }}",
-                    duration: 3000,
-                    gravity: "top",
-                    position: "right",
-                    style: { background: "green" }
-                }).showToast();
-            </script>
-        {% endif %}
-    {% endfor %}
-    
+    {% include 'includes/script_mensajes.html' %}
         
 {% endblock scripts %}
     

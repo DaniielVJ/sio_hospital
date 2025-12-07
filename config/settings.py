@@ -14,7 +14,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
+ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS', '').split(',')]
 
 
 # Application definition
@@ -75,12 +75,26 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    # Base de datos para desarrollo (SQLite)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    # Base de datos para producción (ejemplo con PostgreSQL)
+    # Asegúrate de añadir estas variables a tu .env de producción
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'HOST': os.getenv('DB_HOST', 'localhost'),
+            'PORT': os.getenv('DB_PORT', '5432'),
+        }
+    }
 
 
 # Password validation
@@ -156,10 +170,7 @@ if not DEBUG:
 
 # Configuraciones de desarrollo
 else:
-    INSTALLED_APPS += ['django_extensions',
-                       'tailwind', 
-                       ]
+    INSTALLED_APPS.extend(['django_extensions', 'tailwind'])
     # Ruta NPM para compilar el archivo o generar el archivo css con las clases que use de tailwind
     NPM_BIN_PATH=os.environ.get('NPM_BIN_PATH', '')
     EMAIL_BACKEND="django.core.mail.backends.console.EmailBackend"
-
