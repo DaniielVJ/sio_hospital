@@ -20,7 +20,7 @@ urlpatterns = [
     path('tests/', include('apps.pacientes.urls.test_urls')),
     path('partos/', include('apps.partos.urls.parto_urls')),
     path('perfiles/', include('apps.perfiles.urls')),
-    path('rn/', include('apps.recien_nacidos.urls')),
+    path('rn/', include('apps.recien_nacidos.urls.rn_urls')),
     path('reportes/', include('apps.reportes.urls')),
     
 ]

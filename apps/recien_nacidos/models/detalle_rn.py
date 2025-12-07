@@ -6,11 +6,15 @@ class ComplicacionPostParto(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
 
+    def __str__(self):
+        return self.nombre
 
 class PresentacionFetal(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
 
+    def __str__(self):
+        return self.nombre
 
 class ReanimacionNeonatal(models.Model):
     class TipoReanimacion(models.TextChoices):
@@ -22,3 +26,6 @@ class ReanimacionNeonatal(models.Model):
     tipo = models.CharField(max_length=15,
                             choices=TipoReanimacion.choices,
                             default=TipoReanimacion.BASICA)
+
+    def __str__(self):
+        return f"{self.nombre} | Tipo: {self.tipo}" 

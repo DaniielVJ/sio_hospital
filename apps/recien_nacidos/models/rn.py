@@ -9,7 +9,7 @@ class RecienNacido(models.Model):
     class Sexo(models.TextChoices):
         MASCULINO = 'm', 'Masculino'
         FEMENINO = 'f', 'Femenino'
-        OTRO = 'o', 'otro'
+        OTRO = 'o', 'Otro'
 
     class Destino(models.TextChoices):
         ALOJAMIENTO = 'alojamiento', 'Alojamiento conjunto'
@@ -51,7 +51,11 @@ class RecienNacido(models.Model):
     destino = models.CharField(max_length=50, 
                                choices=Destino.choices,
                                default=Destino.ALOJAMIENTO)
-
+    sexo = models.CharField(
+        max_length=10,
+        choices=Sexo.choices,
+        default=Sexo.OTRO
+    )
     def save(self, *args, **kwargs):
         if not self.nombre_completo_madre:
             parto = Parto.objects.select_related('gestacion__paciente').get(pk=self.parto.pk)
