@@ -66,7 +66,7 @@ class Gestacion(models.Model):
     fecha_inicio_gestacion = models.DateField(null=True, blank=True)
 
 
-    numero_gestacion = OrderField(for_fields=['paciente'])
+    numero_gestacion = OrderField(for_fields=['paciente'], blank=True)
 
     enfermedad_cardiaca = models.BooleanField(default=False)
     hipertension = models.BooleanField(default=False)

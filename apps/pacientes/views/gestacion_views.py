@@ -10,8 +10,11 @@ from ..forms import GestacionForm
 
 class ListarGestacionesView(MatronaSupervisorRequiredMixin, PermissionRequiredMixin,ListView):
     model = Gestacion
-    permission_required = "pacientes.view_gestacion"
     template_name = ""
+    context_object_name = 'gestaciones'
+    paginate_by = 10
+
+    permission_required = "pacientes.view_gestacion"
     raise_exception = True
 
     # Por cada una de las 10 o 15 gestaciones listadas en la pagina se precarga el paciente que tiene asociado
@@ -21,9 +24,11 @@ class ListarGestacionesView(MatronaSupervisorRequiredMixin, PermissionRequiredMi
 
 class CrearGestacionView(MatronaSupervisorRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Gestacion
-    template_name = "paciente/formulario_gestacion.html"
+    template_name = "pacientes/formulario_gestacion.html"
     form_class = GestacionForm
     
+    permission_required = "pacientes.add_gestacion"
+    raise_exception = True
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user

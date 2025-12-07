@@ -35,12 +35,26 @@ class GestacionForm(forms.ModelForm):
         if origen_datacion == 'sin':
             if semanas_eco or dias_eco or fecha_eco or fur:
                 self.add_error('origen_datacion', 'Si no marca el origen de la datacion no puede especificar "FECHA DEL FUR", "SEMANAS ECO", "DIAS ECO" ')
+                if semanas_eco:
+                    self.add_error('semanas_eco', 'No puede especificar un valor')
+                if fur:
+                    self.add_error('fur', 'No puede especificar fecha FUR')
+                if fecha_eco:
+                    self.add_error('fecha_eco', 'No puede especificar fecha eco')
+
+                if dias_eco:
+                    self.add_error('dias_eco', 'No puede especificar dias eco')
+            
         elif origen_datacion == 'fur':
             if not fur:
                 self.add_error('fur', "Si datacion es FUR debe especificar la fecha del FUR")
         elif origen_datacion == 'eco':
-            if semanas_eco is None or dias_eco is None or fecha_eco is None:
-                self.add_error('fecha_eco', 'Si la datacacion es por ECO debe especificar: "FECHA ECO", "SEMANAS ARROJADAS POR LA ECO", "DIAS ARROJADOS POR LA ECO"')
+            if not semanas_eco:
+                self.add_error('semanas_eco', 'Si datacion es ECO debe especificar el numero de semanas')
+            if not dias_eco:
+                self.add_error('dias_eco', 'Si datacion es ECO debe especificar el numero de dias')
+            if not fecha_eco:
+                self.add_error('fecha_eco', 'Si datacion es ECO debe especificar la fecha de ecografia')
         return cleaned_data
             
         

@@ -97,7 +97,7 @@ class Paciente(models.Model):
                                  default=Actividad.BAJA)
 
     def __str__(self):
-        return f'{self.documento}: {self.identificacion} | paciente: {self.obtener_nombre_completo()}'
+        return f'{self.documento}: {self.identificacion} | Paciente: {self.obtener_nombre_completo()}'
     
 
     def obtener_nombre_completo(self):
