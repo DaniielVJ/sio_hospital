@@ -1,43 +1,41 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title%} index {%  endblock title %}</title>
 
-    <!-- CUSTOM CSS -->
-    {% block estilos_personalizados %}
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    {% endblock estilos_personalizados %}
-    <!----------------------------------------------->
-    <!-- CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
-    <!----------------------------------------------->
-</head>
+<!-- CUSTOM CSS -->
+{% block estilos_personalizados %}
+<link rel="stylesheet" href="{% static 'dashboard/css/index.css' %}">
+<!-- CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
+<!----------------------------------------------->
+{% endblock estilos_personalizados %}
 
-<body id="index" class="root">
-    {% block content %}
-        {% include 'main/main.html' %}
-    {% endblock content %}
+{% block content %}
+<div id="index" class="root">
 
+    {% include 'main/main.html' %}
+
+
+    
     <!-- CUSTOM SCRIPT -->
     {% block scripts %}
     <!-- Cargar primero los scripts que definen las funciones globales de los gráficos -->
-    <script src="{% static 'js/maingrafico.js' %}"></script>
-    <script src="{% static 'js/grafico2.js' %}"></script>
-    <script src="{% static 'js/grafico3.js' %}"></script>
-    <script src="{% static 'js/grafico4.js' %}"></script>
-    <script src="{% static 'js/grafico5.js' %}"></script>
-    <script src="{% static 'js/kpis.js' %}"></script>
+    <script src="{% static 'dashboard/js/maingrafico.js' %}"></script>
+    <script src="{% static 'dashboard/js/grafico2.js' %}"></script>
+    <script src="{% static 'dashboard/js/grafico3.js' %}"></script>
+    <script src="{% static 'dashboard/js/grafico4.js' %}"></script>
+    <script src="{% static 'dashboard/js/grafico5.js' %}"></script>
+    <script src="{% static 'dashboard/js/kpis.js' %}"></script>
 
     <!-- Finalmente el controlador que llama a esas funciones -->
-    <script type="module" src="{% static 'js/dashboard.js' %}"></script>
+    <script type="module" src="{% static 'dashboard/js/dashboard.js' %}"></script>
     {% endblock scripts %}
+    
 
-</body>
-</html>
+</div>
+{% endblock content %}
+ 
+
 <!--Made By:       _     
                   | |
  _ __   _   _   __| | _   _

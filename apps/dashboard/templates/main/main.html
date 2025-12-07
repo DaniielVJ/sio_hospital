@@ -1,113 +1,79 @@
+{% extends 'base.html' %}
 {% load static %}
-<!doctype html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Dashboard</title>
-    <!-- Añade aquí tus CSS si hace falta -->
-    <!-- ejemplo: <link href="{% static 'dashboard/css/styles.css' %}" rel="stylesheet"> -->
-</head>
-<body>
-    <header>
-        <h1>Dashboard</h1>
-    </header>
 
-    <main>
-        {% block content %}
+{% block content %}
+{% include 'includes/sidebar.html' %}
+{% include 'includes/topbar.html' %}
 
-        <div class="w-full min-h-screen bg-gray-100 p-4 md:p-8 flex flex-col gap-[1.5rem]">
-
-            <!-- ====================================================== -->
-            <!--                       TÍTULO                           -->
-            <!-- ====================================================== -->
-            <div class="border-2 p-4 rounded-xl bg-white shadow-md">
-                <h1 class="text-3xl md:text-4xl font-bold text-center tracking-wide">
-                    Dashboard
-                </h1>
-            </div>
-
-
-            <!-- ====================================================== -->
-            <!--                        KPI ZONA                        -->
-            <!-- ====================================================== -->
-            <div class="relative rounded-xl overflow-hidden border-2 shadow-md">
-
-                <!-- Fondo -->
-                <div class="absolute inset-0 bg-cover bg-center bg-blue-600/50"
-                     style="background-image: url('/static/imagenes/LogoHospital.png');">
-                </div>
-
-                <!-- Contenido -->
-                <div class="relative z-10 p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {% include 'componentes/kpi1.html' %}
-                </div>
-            </div>
-
-
-            <!-- ====================================================== -->
-            <!--                 DATOS EMBEBIDOS PARA JS                -->
-            <!-- ====================================================== -->
-            <div id="user_info"
-                 data-meses='{{ meses|safe }}'
-                 data-embarazos='{{ embarazos|safe }}'
-                 data-lista='{{ lista_json|safe }}'
-                 data-chart='{{ data_json|safe }}'>
-            </div>
-
-
-            <!-- ====================================================== -->
-            <!--                  GRÁFICO PRINCIPAL                      -->
-            <!-- ====================================================== -->
-            <div class="bg-white p-6 rounded-xl shadow-md border">
-                {% include 'componentes/maingrafic.html' %}
-            </div>
-
-
-            <!-- ====================================================== -->
-            <!--                    GRÁFICOS              -->
-            <!-- ====================================================== -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-
-                {% include 'componentes/grafico2.html' %}
-                {% include 'componentes/grafico3.html' %}
-                {% include 'componentes/grafico4.html' %}
-                {% include 'componentes/grafico5.html' %}
-
-            </div>
-
-
-            <!-- ====================================================== -->
-            <!--                       TABLA PACIENTES                  -->
-            <!-- ====================================================== -->
-            <div class="bg-white p-6 rounded-xl shadow-md border">
-                <h2 class="text-lg font-semibold mb-4">Lista de Pacientes</h2>
-
-                <div class="overflow-x-auto">
-                    <table class="min-w-full text-left border border-gray-300 rounded-lg">
-                        <thead class="bg-gray-200">
-                            <tr>
-                                <th class="p-2 border">Nombre</th>
-                                <th class="p-2 border">Edad</th>
-                                <th class="p-2 border">Semanas</th>
-                                <th class="p-2 border">Estado</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="tabla_pacientes">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
+<!----------------------------------------------->
+<main>
+    <div class="w-full min-h-screen bg-gray-100 p-4 md:p-8 flex flex-col gap-[1.5rem]">
+        <!-- ====================================================== -->
+        <!--                       TÍTULO                           -->
+        <!-- ====================================================== -->
+        <div class="border-2 p-4 rounded-xl bg-white shadow-md">
+            <a href="" class="text-3xl md:text-4xl font-bold text-center tracking-wide block">
+                Dashboard
+            </a>
         </div>
+        <!-- ====================================================== -->
+        <!--                        KPI ZONA                        -->
+        <!-- ====================================================== -->
+        <div class="relative rounded-xl overflow-hidden border-2 shadow-md">
+            <!-- Fondo -->
+            <div class="absolute inset-0 bg-cover bg-center bg-blue-600/50"
+                 style="background-image: url('/static/imagenes/LogoHospital.png');">
+            </div>
+            <!-- Contenido -->
+            <div class="relative z-10 p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% include 'componentes/kpi1.html' %}
+            </div>
+        </div>
+        <!-- ====================================================== -->
+        <!--                 DATOS EMBEBIDOS PARA JS                -->
+        <!-- ====================================================== -->
+        <div id="user_info"
+             data-meses='{{ meses|safe }}'
+             data-embarazos='{{ embarazos|safe }}'
+             data-lista='{{ lista_json|safe }}'
+             data-chart='{{ data_json|safe }}'>
+        </div>
+        <!-- ====================================================== -->
+        <!--                  GRÁFICO PRINCIPAL                      -->
+        <!-- ====================================================== -->
+        <div class="bg-white p-6 rounded-xl shadow-md border">
+            {% include 'componentes/maingrafic.html' %} </a>
+        </div>
+        <!-- ====================================================== -->
+        <!--                    GRÁFICOS              -->
+        <!-- ====================================================== -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {% include 'componentes/grafico2.html' %} </a>
+            {% include 'componentes/grafico3.html' %}
+            {% include 'componentes/grafico4.html' %}
+            {% include 'componentes/grafico5.html' %}
+        </div>
+        <!-- ====================================================== -->
+        <!--                       TABLA PACIENTES                  -->
+        <!-- ====================================================== -->
+        <div class="bg-white p-6 rounded-xl shadow-md border">
+            <h2 class="text-lg font-semibold mb-4">Lista de Pacientes</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-left border border-gray-300 rounded-lg">
+                    <thead class="bg-gray-200">
+                        <tr>
+                            <th class="p-2 border">Nombre</th>
+                            <th class="p-2 border">Edad</th>
+                            <th class="p-2 border">Semanas</th>
+                            <th class="p-2 border">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla_pacientes">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
 
-        {% endblock %}
-    </main>
-
-    <footer>
-        <small>© Hospital</small>
-    </footer>
-   
-</body>
-</html>
+{% endblock %}
