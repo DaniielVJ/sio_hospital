@@ -1,1 +1,1 @@
-from .parto_views import ListarPartosView
+from .parto_views import ListarPartosView, CrearPartosView

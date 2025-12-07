@@ -4,6 +4,10 @@ from django.utils import timezone
 from .paciente import Paciente
 from ..fields import OrderField
 
+
+tipo_documento = ["RUT",  "PAS", "EXT", "TEMP"]
+
+
 class Gestacion(models.Model):
     class Meta:
         verbose_name = "Gestacion"
@@ -75,7 +79,10 @@ class Gestacion(models.Model):
 
 
     def __str__(self):
-        return f"Paciente: {self.paciente.obtener_nombre_completo()} Rut: {self.paciente.identificacion}"
+
+        if not self.pk:
+            return f"Paciente: {self.paciente.obtener_nombre_completo()} {self.paciente.identificacion}"
+        return f"Paciente: {self.paciente.obtener_nombre_completo()} | Rut: {self.paciente.identificacion} | Gestación: #{self.pk}"
 
     def save(self, *args, **kwargs):
         # Antes de almacenar una gestacion verificamos que debe guardarse segun el oriden de datacion

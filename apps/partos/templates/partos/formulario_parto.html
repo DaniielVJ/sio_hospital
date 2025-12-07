@@ -1,3 +1,232 @@
-<form >
-    {{form.as_div}}
-</form>
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    {{form.instance.pk|yesno:"Actualizar Parto, Añadir Parto"}}
+{% endblock title %}
+
+
+
+{% block estilos_personalizados %}
+    <link rel="stylesheet" href="{% static 'styles/form.css' %}">
+{% endblock estilos_personalizados %}
+
+
+
+{% block menus_navegacion %}
+    {% include 'includes/topbar.html' %}
+    {% include 'includes/sidebar.html' %}
+{% endblock menus_navegacion %}
+
+
+
+
+
+{% block content %}
+<main class="main-container">
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumbs">
+        <a href="../inicioMatrona.html">Inicio</a>
+        <span>›</span>
+        <a href="partos.html">Partos</a>
+        <span>›</span>
+        <span>{{form.instance.pk|yesno:"Actualizar, Añadir"}}</span>
+    </nav>
+
+    <section class="form-card">
+        
+        <div class="form-header">
+            <h2 class="form-title">{{form.instance.pk|yesno:"Actualizar Parto, Añadir Parto"}}</h2>
+            <p class="form-subtitle">Ingrese los datos clínicos del trabajo de parto.</p>
+        </div>
+
+        <form method="POST" class="main-form">
+            {% csrf_token %}
+
+            <fieldset class="form-section">
+                <legend class="section-legend">Antecedentes e Ingreso</legend>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{form.gestacion.id_for_label}}">Gestación Asociada</label>
+                        {{form.gestacion}}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{form.hora_inicio.id_for_label}}">Fecha y Hora de Inicio del trabajo de Parto</label>
+                        {{form.hora_inicio}}
+                    </div>
+                </div>
+
+                <div class="form-row three-cols">
+                    <div class="form-group">
+                        <label for="{{form.tipo_de_ingreso.id_for_label}}">Tipo de Ingreso</label>
+                        {{form.tipo_de_ingreso}}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{form.grupo_robson.id_for_label}}">Grupo Robson</label>
+                        {{form.grupo_robson}}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{form.via_nacimiento.id_for_label}}">Vía de Nacimiento</label>
+                        {{form.via_nacimiento}}
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend class="section-legend">Evolución del Trabajo de Parto</legend>
+
+                <div class="form-row three-cols">
+                    <div class="form-group">
+                        <label for="{{form.estado.id_for_label}}">Estado Actual del Parto</label>
+                        {{form.estado}}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{form.posicion.id_for_label}}">Posición Materna</label>
+                        {{form.posicion}}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{form.tipo_regimen.id_for_label}}">Régimen</label>
+                        {{form.tipo_regimen}}
+                    </div>
+                </div>
+
+                <div class="form-row three-cols">
+                    <div class="form-group">
+                        <label for="{{form.n_tactos_vaginales.id_for_label}}">N° Tactos Vaginales</label>
+                        {{form.n_tactos_vaginales}}    
+                    
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{form.numero_aro.id_for_label}}">Número ARO</label>
+                        {{form.numero_aro}}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{form.rotura_membrana.id_for_label}}">Rotura Membrana</label>
+                        {{form.rotura_membrana}}
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend class="section-legend">Cronometría (En Minutos)</legend>
+                <p class="form-subtitle" style="margin-bottom: 1rem; margin-top: -1rem;">
+                    Daniel lo pidió: ingrese solo números enteros representando minutos.
+                </p>
+
+                <div class="form-row three-cols">
+                    <div class="form-group">
+                        <label for="{{form.tiempo_membrana_rota.id_for_label}}">T. Membrana Rota</label>
+                        {{form.tiempo_membrana_rota}}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{form.tiempo_dilatacion.id_for_label}}">T. Dilatación</label>
+                        {{form.tiempo_dilatacion}}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{form.tiempo_expulsivo.id_for_label}}">T. Expulsivo</label>
+                        {{form.tiempo_expulsivo}}
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend class="section-legend">Procedimientos y Factores</legend>
+
+                <div class="checkbox-grid">
+                    <label class="checkbox-card">
+                        {{form.acompaniante}}
+                        <span class="checkbox-text">Acompañante</span>
+                    </label>
+
+                    <label class="checkbox-card">
+                        {{form.monitor}}
+                        <span class="checkbox-text">Monitor</span>
+                    </label>
+
+                    <label class="checkbox-card">
+                        {{form.ttc}}
+                        <span class="checkbox-text">TTC</span>
+                    </label>
+
+                    <label class="checkbox-card">
+                        {{form.induccion}}
+                        <span class="checkbox-text">Inducción</span>
+                    </label>
+
+                    <label class="checkbox-card">
+                        {{form.aceleracion}}
+                        <span class="checkbox-text">Aceleración</span>
+                    </label>
+
+                    <label class="checkbox-card">
+                        {{form.oxitocina_profilactica}}
+                        <span class="checkbox-text">Oxitocina Profiláctica</span>
+                    </label>
+
+                    <label class="checkbox-card">
+                        {{form.uso_sala_saip}}
+                        <span class="checkbox-text">Uso Sala SAIP</span>
+                    </label>
+
+                    <label class="checkbox-card">
+                        {{form.entrega_placenta}}
+                        <span class="checkbox-text">Entrega Placenta</span>
+                    </label>
+                </div>
+            </fieldset>
+
+             <fieldset class="form-section">
+                <legend class="section-legend">Complicaciones del Parto</legend>
+
+                <div class="checkbox-grid">
+                    {% for complicacion in form.complicaciones %}
+                        <label class="checkbox-card">
+                            {{complicacion.tag}}
+                            <span class="checkbox-text">{{complicacion.choice_label}}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend class="section-legend">Detalles Finales</legend>
+
+                <div class="form-group">
+                    <label for="{{form.observaciones.id_for_label}}">Observaciones Generales</label>
+                    {{form.observaciones}}    
+                </div>
+            </fieldset>
+
+            <div class="form-actions">
+                <a class="btn-secondary" href="{{request.META.HTTP_REFERER}}">Cancelar</a>
+                <button type="submit" class="btn-primary">Registrar Parto</button>
+            </div>
+
+        </form>
+    </section>
+</main>
+
+{% endblock content %}
+    
+
+
+
+{% block scripts %}
+    <script src="{% static 'js/manejo-error-form.js' %}"></script>
+{% endblock scripts %}
+    
+    
+    
+    
+

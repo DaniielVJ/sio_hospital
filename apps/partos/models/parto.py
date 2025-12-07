@@ -56,14 +56,14 @@ class Parto(models.Model):
 
 
    tipo_de_ingreso = models.ForeignKey(TipoDeIngreso, on_delete=models.PROTECT, related_name='partos')
-   grupo_robson = models.ForeignKey(GrupoRobson, on_delete=models.PROTECT, related_name="partos", blank=True)
+   grupo_robson = models.ForeignKey(GrupoRobson, on_delete=models.PROTECT, related_name="partos", blank=True, null=True)
    via_nacimiento = models.ForeignKey(ViaNacimiento, on_delete=models.PROTECT, related_name="partos")
    gestacion = models.OneToOneField(Gestacion, on_delete=models.PROTECT, related_name="parto")
    complicaciones = models.ManyToManyField(Complicacion, related_name="partos")
    hora_inicio = models.DateTimeField()
-   numero_aro = models.PositiveSmallIntegerField()
+   numero_aro = models.PositiveSmallIntegerField(default=0)
    
-   n_tactos_vaginales = models.PositiveSmallIntegerField(validators=[MaxValueValidator(40)])
+   n_tactos_vaginales = models.PositiveSmallIntegerField(validators=[MaxValueValidator(40)], default=0)
    
    rotura_membrana = models.CharField(max_length=50,
                                     choices=TipoRotura.choices,

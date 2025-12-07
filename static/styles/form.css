@@ -83,6 +83,29 @@ label {
 
 /* styles/form.css (o donde tengas tus estilos) */
 
+/* El input en sí mismo */
+.form-group textarea {
+    background: var(--bg-input); /* Gris suave (o gris oscuro en dark mode) */
+    border: 1px solid transparent; /* Transparente para evitar saltos al enfocar */
+    border-radius: 1rem;         /* Bordes redondeados pero cómodos para escribir */
+    padding: 1rem 1.2rem;
+    
+    font-family: var(--ff);
+    font-size: 0.95rem;
+    color: var(--text-main);
+    width: 100%;
+    outline: none; /* Quitamos el borde azul feo del navegador */
+    transition: all 0.3s ease;
+}
+
+/* styles/form.css (o donde tengas tus estilos) */
+
+.form-group.has-error textarea {
+    border-color: #dc3545; /* Rojo de error */
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+
 .form-group.has-error input {
     border-color: #dc3545; /* Rojo de error */
     box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
@@ -106,8 +129,21 @@ label {
     opacity: 0.7;
 }
 
+/* Placeholder suave */
+.form-group textarea::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
 /* ESTADO FOCUS (Cuando escribes) */
 .form-group input:focus {
+    background: var(--bg-panel);   /* Se vuelve blanco (o negro panel) */
+    border-color: var(--primary);  /* Borde naranja vibrante */
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.1); /* Resplandor naranja sutil */
+}
+
+/* ESTADO FOCUS (Cuando escribes) */
+.form-group textarea:focus {
     background: var(--bg-panel);   /* Se vuelve blanco (o negro panel) */
     border-color: var(--primary);  /* Borde naranja vibrante */
     box-shadow: 0 4px 12px rgba(255, 87, 34, 0.1); /* Resplandor naranja sutil */

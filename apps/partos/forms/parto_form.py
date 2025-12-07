@@ -25,7 +25,7 @@ class PartoForm(forms.ModelForm):
             'edad_madre'
             ]
         widgets = {
-            'profesionales': forms.SelectMultiple()
+            'complicaciones': forms.CheckboxSelectMultiple()
         }
 
     def clean_tiempo_membrana_rota(self):
@@ -45,3 +45,14 @@ class PartoForm(forms.ModelForm):
         tiempo_expulsivo = timezone.timedelta(minutes=tiempo_expulsivo)
         return tiempo_expulsivo
     
+    def clean(self):
+        cleaned_data =  super().clean()
+        via_nacimiento = cleaned_data.get('via_nacimiento')
+        grupo_robson = cleaned_data.get('grupo_robson')
+        
+        if via_nacimiento:
+            if (via_nacimiento.tipo == "CES.ELECTIVA" or via_nacimiento.tipo == "CES. URGENCIA") and not (grupo_robson):
+                self.add_error('grupo_robson', 'Si la via de nacimiento es por cesarea debe añadir grupo robson')
+            elif (via_nacimiento.tipo == "EUTOCICO" or via_nacimiento.tipo == "DISTOCICO") and grupo_robson:
+                self.add_error('grupo_robson', 'El grupo robson solo debe estar marcado en los partos por cesarea')
+        return cleaned_data
