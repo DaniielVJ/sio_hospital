@@ -8,7 +8,7 @@ window.renderChartGestacion = function () {
     const chart = echarts.init(div);
 
     const option = {
-        title: { text: "Embarazos por Mes", left: "center" },
+        title: { text: "Pacientes por Mes", left: "center" },
         tooltip: { trigger: "axis" },
         xAxis: { type: "category", data: meses },
         yAxis: { type: "value" },

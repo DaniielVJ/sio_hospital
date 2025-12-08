@@ -18,4 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (window.renderChartComplicaciones) renderChartComplicaciones();
     if (window.renderChartPresentacion) renderChartPresentacion();
     if (window.renderChartApgar) renderChartApgar();
+
+    // Tabla de Pacientes
+    if (window.loadTablaPacientes) renderTablaPacientes();
 });
