@@ -47,8 +47,9 @@
 
             <div class="form-row">
                 <div class="form-group {% if form.paciente.errors %}has-error{% endif %}">
-                    <label for="{{form.paciente.id_for_label}}">{{form.paciente.label}}</label>
+                    <label for="{{form.paciente.id_for_label}}">{{form.paciente.label}} <span class="obligatorio">*</span></label>
                     {{form.paciente}}
+                    <span class="field-help">{{form.paciente.help_text}}</span>
                     {% if form.paciente.errors %}
                         <div class="error-message">
                         {% for error in form.paciente.errors %}
@@ -59,7 +60,7 @@
                 </div>
 
                 <div class="form-group {% if form.estado.errors %}has-error{% endif %}">
-                    <label for="{{form.estado.id_for_label}}">{{form.estado.label}} Gestación</label>
+                    <label for="{{form.estado.id_for_label}}">{{form.estado.label}} de la Gestación <span class="obligatorio">*</span></label>
                     {{form.estado}}
                     {% if form.estado.errors %}
                         <div class="error-message">
@@ -73,7 +74,7 @@
 
             <div class="form-row">
                 <div class="form-group  {% if form.riesgo.errors %}has-error{% endif %}">
-                    <label for="{{form.riesgo.id_for_label}}">{{form.riesgo.label}}</label>
+                    <label for="{{form.riesgo.id_for_label}}">Riesgo del Embarazo/Gestación <span class="obligatorio">*</span></label>
                     {{form.riesgo}}
                     {% if form.riesgo.errors %}
                         <div class="error-message">
@@ -85,8 +86,10 @@
                 </div>
 
                 <div class="form-group {% if form.numero_fetos.errors %}has-error{% endif %}">
-                    <label for="{{form.numero_fetos.id_for_label}}">{{form.numero_fetos.label}}</label>
+                    <label for="{{form.numero_fetos.id_for_label}}">{{form.numero_fetos.label}} <span class="obligatorio">*</span></label>
                     {{form.numero_fetos}}
+                    <span class="field-help">{{form.numero_fetos.help_text}}</span>
+
                     {% if form.numero_fetos.errors %}
                         <div class="error-message">
                         {% for error in form.numero_fetos.errors %}
@@ -102,9 +105,9 @@
             <legend class="section-legend">Datación y Edad Gestacional</legend>
 
             <div class="form-group {% if form.origen_datacion.errors %}has-error{% endif %}" style="margin-bottom: 1.5rem;">
-                <label for="{{form.origen_datacion.id_for_label}}">{{form.origen_datacion.label}}</label>
+                <label for="{{form.origen_datacion.id_for_label}}">Origen de la Datación <span class="obligatorio">*</span></label>
                 {{form.origen_datacion}}
-                <span class="field-help">Seleccione el método principal para calcular la ED. Gestacional.</span>
+                <span class="field-help">{{form.origen_datacion.help_text}}</span>
                 {% if form.origen_datacion.errors %}
                     <div class="error-message">
                     {% for error in form.origen_datacion.errors %}
@@ -207,5 +210,8 @@
 
 {% block scripts %}
         <script src="{% static 'js/manejo-error-form.js' %}"></script>
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        {% comment %} El script para que el select2 de django-autocomplete implemente AJAX para el autocompletado {% endcomment %}
+        {{form.media}}
 {% endblock scripts %}
     

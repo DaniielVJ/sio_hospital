@@ -32,7 +32,10 @@ INSTALLED_APPS = [
     'apps.perfiles',
     'apps.recien_nacidos',
     'apps.reportes',
-    'theme'
+    'theme',
+    # Apps de terceros,
+    'dal',
+    'dal_select2'
 
 ]
 

@@ -37,7 +37,7 @@
     
     <div class="form-header">
         <h2 class="form-title">Nuevo Paciente</h2>
-        <p class="form-subtitle">Complete la ficha clínica. Los campos marcados con (*) obligatorios.</p>
+        <p class="form-subtitle">Complete la ficha clínica. Los campos marcados con (*) son obligatorios.</p>
     </div>
     {{form.errors}}
     <form method="POST" class="main-form">
@@ -47,7 +47,7 @@
             
             <div class="form-row three-cols">
                 <div class="form-group {% if form.nombre.errors %} has-error{% endif %}">
-                    <label for="nombre">{{form.nombre.label}}s</label>
+                    <label for="nombre">{{form.nombre.label}}s <span class="obligatorio">*</span></label>
                     {{form.nombre}}
                     {% if form.nombre.errors %}
                         <div class="error-message">
@@ -58,7 +58,7 @@
                     {% endif %}
                 </div>
                 <div class="form-group {% if form.primer_apellido.errors %} has-error{% endif %}">
-                    <label for="primer_apellido">{{form.primer_apellido.label}}</label>
+                    <label for="primer_apellido">{{form.primer_apellido.label}} <span class="obligatorio">*</span></label>
                     {{form.primer_apellido}}
                      {% if form.primer_apellido.errors %}
                         <div class="error-message">
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="form-group {% if form.segundo_apellido.errors %} has-error{% endif %}" >
-                    <label for="segundo_apellido">{{form.segundo_apellido.label}}</label>
+                    <label for="segundo_apellido">{{form.segundo_apellido.label}} <span class="obligatorio">*</span></label>
                     {{form.segundo_apellido}}
                     {% if form.segundo_apellido.errors %}
                         <div class="error-message">
@@ -84,7 +84,7 @@
 
             <div class="form-row">
                 <div class="form-group {% if form.documento.errors %}has-error{% endif %}">
-                    <label for="documento">{{form.documento.label}}</label>
+                    <label for="documento">{{form.documento.label}} <span class="obligatorio">*</span></label>
                     {{form.documento}}
                     {% if form.documento.errors %}
                         <div class="error-message">
@@ -95,7 +95,7 @@
                     {% endif %}
                 </div>
                 <div class="form-group {% if form.identificacion.errors %} has-error{% endif %}">
-                    <label for="identificacion">{{form.identificacion.label}}</label>
+                    <label for="identificacion">{{form.identificacion.label}} <span class="obligatorio">*</span></label>
                     {{form.identificacion}}
                     <span class="field-help">{{form.identificacion.help_text}}</span>
                     {% if form.identificacion.errors %}
@@ -110,7 +110,7 @@
 
             <div class="form-row">
                 <div class="form-group {% if form.fecha_nacimiento.errors %} has-error{% endif %}">
-                    <label for="id_fecha_nacimiento">{{form.fecha_nacimiento.label}}</label>
+                    <label for="id_fecha_nacimiento">{{form.fecha_nacimiento.label}} <span class="obligatorio">*</span></label>
                     {{form.fecha_nacimiento}}
                     {% if form.fecha_nacimiento.errors %}
                         <div class="error-message">
@@ -121,7 +121,7 @@
                     {% endif %} 
                 </div>
                 <div class="form-group {% if form.nacionalidad.errors %} has-error{% endif %}">
-                    <label for="nacionalidad">{{form.nacionalidad.label}}</label>
+                    <label for="nacionalidad">{{form.nacionalidad.label}} <span class="obligatorio">*</span></label>
                     {{form.nacionalidad}}
                     <span class="field-help">{{form.nacionalidad.help_text}}</span> 
                     {% if form.nacionalidad.errors %}
@@ -140,7 +140,7 @@
 
             <div class="form-row">
                 <div class="form-group {% if form.tipo.errors %} has-error{% endif %}">
-                    <label for="tipo_paciente">{{form.tipo.label}}</label>
+                    <label for="tipo_paciente">{{form.tipo.label}} <span class="obligatorio">*</span></label>
                     {{form.tipo}}
                     {% if form.tipo.errors %}
                         <div class="error-message">

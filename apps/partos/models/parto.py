@@ -97,7 +97,7 @@ class Parto(models.Model):
    uso_sala_saip = models.BooleanField(default=False)
    
    def __str__(self):
-      return f"Parto de gestación {self.gestacion.pk}"
+      return f"Parto Gestacion: #{self.gestacion.pk} | Paciente: ({self.gestacion.paciente.obtener_nombre_completo()}) / ({self.gestacion.paciente.identificacion}) / ({self.estado})"
 
 
    def save(self, *args, **kwargs):

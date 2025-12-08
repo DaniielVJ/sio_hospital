@@ -1,6 +1,10 @@
 /* =========================================
    CONTENEDOR DEL FORMULARIO
    ========================================= */
+.obligatorio {
+    color: #dc3545;
+}
+
 .form-card {
     background: var(--bg-panel);
     border-radius: 2rem;       /* Curvas grandes estilo Finexy */
@@ -80,6 +84,79 @@ label {
     outline: none; /* Quitamos el borde azul feo del navegador */
     transition: all 0.3s ease;
 }
+
+/* Nuevo selector para el contenedor del campo visible */
+.autocompletado + .select2-container .select2-selection--single {
+    /* --- ESTILOS BASE --- */
+    background: var(--bg-input); 
+    border: 1px solid transparent; 
+    border-radius: 1rem; 
+    
+    /* El padding se maneja mejor dentro del .select2-selection__rendered */
+    /* width: 100%; (Select2 ya debería ser 100% por defecto) */
+    
+    /* Asegúrate de que Select2 no anule la altura o el padding */
+    height: auto !important; /* Si tienes problemas con la altura */
+    min-height: 3.5rem; /* Ajusta a tu padding (1rem + 1rem + borde) */
+    
+    transition: all 0.3s ease;
+}
+
+/* Aplica estilos de fuente y color al texto dentro del campo visible */
+.autocompletado + .select2-container .select2-selection__rendered {
+    font-family: var(--ff);
+    font-size: 0.95rem;
+    color: var(--text-main);
+    padding: 1rem 1.2rem; /* Aplica el padding aquí */
+    line-height: 1.5; /* Asegura un buen espaciado */
+}
+
+/* ESTADO FOCUS (Cuando escribes) */
+/* El selector apunta al contenedor principal cuando tiene el foco */
+.autocompletado + .select2-container--focus .select2-selection--single {
+    background: var(--bg-panel); 
+    border-color: var(--primary); 
+    
+    /* Quitamos el box-shadow que Select2 pone por defecto y usamos el tuyo */
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.1) !important; 
+}
+
+
+
+/* Quita el "outline" que se aplica al elemento input dentro del select2 */
+.select2-search__field {
+    outline: none !important;
+}
+
+
+
+/* Placeholder suave (texto que aparece cuando no hay selección) */
+.autocompletado + .select2-container .select2-selection__placeholder {
+    font-family: var(--ff);
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+/* Estilo para las opciones de la lista desplegable */
+.select2-results__option {
+    font-family: var(--ff);
+    font-size: 0.95rem;
+    padding: 0.75rem 1.2rem;
+}
+
+/* Estilo para las opciones resaltadas */
+.select2-results__option--highlighted {
+    background-color: var(--primary-light) !important;
+    color: var(--primary-dark);
+}
+
+/* Estilo para el fondo del dropdown completo */
+.select2-dropdown {
+    background: var(--bg-panel);
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+}
+
 
 /* styles/form.css (o donde tengas tus estilos) */
 

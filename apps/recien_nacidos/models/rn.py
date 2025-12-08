@@ -41,7 +41,7 @@ class RecienNacido(models.Model):
     perimetro_cefalico = models.DecimalField(max_digits=4, decimal_places=1)
     perimetro_toraxico = models.DecimalField(max_digits=4, decimal_places=1)
     c_2480 = models.PositiveSmallIntegerField()
-    destino_rn = models.CharField(max_length=40)
+    destino_rn = models.CharField(max_length=100, blank=True)
     observaciones = models.TextField(blank=True)
     alojamiento_conjunto = models.BooleanField()
     apego_canguro = models.BooleanField()

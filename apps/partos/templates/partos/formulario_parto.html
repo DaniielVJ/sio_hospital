@@ -9,6 +9,10 @@
 
 {% block estilos_personalizados %}
     <link rel="stylesheet" href="{% static 'styles/form.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+
+    {{form.media}}    
+
 {% endblock estilos_personalizados %}
 
 
@@ -38,9 +42,9 @@
         
         <div class="form-header">
             <h2 class="form-title">{{form.instance.pk|yesno:"Actualizar Parto, Añadir Parto"}}</h2>
-            <p class="form-subtitle">Ingrese los datos clínicos del trabajo de parto.</p>
+            <p class="form-subtitle">Los campos marcados con <span class="obligatorio">*</span> son obligatorios</p>
         </div>
-
+        {{form.errors}}
         <form method="POST" class="main-form">
             {% csrf_token %}
 
@@ -48,94 +52,196 @@
                 <legend class="section-legend">Antecedentes e Ingreso</legend>
 
                 <div class="form-row">
-                    <div class="form-group">
-                        <label for="{{form.gestacion.id_for_label}}">Gestación Asociada</label>
+                    <div class="form-group {% if form.gestacion.errors %} has-error{% endif %}">
+                        <label for="{{form.gestacion.id_for_label}}">Gestación Asociada <span class="obligatorio">*</span></label>
                         {{form.gestacion}}
+                        <span class="field-help">{{form.gestacion.help_text}}</span>
+                    {% if form.gestacion.errors %}
+                        <div class="error-message">
+                        {% for error in form.gestacion.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %}
                     </div>
 
-                    <div class="form-group">
-                        <label for="{{form.hora_inicio.id_for_label}}">Fecha y Hora de Inicio del trabajo de Parto</label>
+                    <div class="form-group {% if form.hora_inicio.errors %} has-error{% endif %}">
+                        <label for="{{form.hora_inicio.id_for_label}}">Fecha y Hora de Inicio del trabajo de Parto <span class="obligatorio">*</span></label>
                         {{form.hora_inicio}}
+                        <span class="field-help">{{form.hora_inicio.help_text}}</span>
+                    {% if form.hora_inicio.errors %}
+                        <div class="error-message">
+                        {% for error in form.hora_inicio.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %}
+
                     </div>
                 </div>
 
                 <div class="form-row three-cols">
-                    <div class="form-group">
-                        <label for="{{form.tipo_de_ingreso.id_for_label}}">Tipo de Ingreso</label>
+                    <div class="form-group {% if form.tipo_de_ingreso.errors %} has-error{% endif %}">
+                        <label for="{{form.tipo_de_ingreso.id_for_label}}">Tipo de Ingreso <span class="obligatorio">*</span></label>
                         {{form.tipo_de_ingreso}}
+                    {% if form.tipo_de_ingreso.errors %}
+                        <div class="error-message">
+                        {% for error in form.tipo_de_ingreso.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %}
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group {% if form.grupo_robson.errors %} has-error{% endif %}">
                         <label for="{{form.grupo_robson.id_for_label}}">Grupo Robson</label>
                         {{form.grupo_robson}}
+                        <span class="field-help">{{form.grupo_robson.help_text}}</span>
+                        {% if form.grupo_robson.errors %}
+                        <div class="error-message">
+                        {% for error in form.grupo_robson.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %}
+
                     </div>
 
-                    <div class="form-group">
-                        <label for="{{form.via_nacimiento.id_for_label}}">Vía de Nacimiento</label>
+                    <div class="form-group {% if form.via_nacimiento.errors %} has-error{% endif %}">
+                        <label for="{{form.via_nacimiento.id_for_label}}">Vía de Nacimiento <span class="obligatorio">*</span></label>
                         {{form.via_nacimiento}}
-                    </div>
+                    {% if form.via_nacimiento.errors %}
+                        <div class="error-message">
+                        {% for error in form.via_nacimiento.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+
                 </div>
             </fieldset>
-
-            <fieldset class="form-section">
+ 
+            <fieldset class="form-section ">
                 <legend class="section-legend">Evolución del Trabajo de Parto</legend>
 
                 <div class="form-row three-cols">
-                    <div class="form-group">
-                        <label for="{{form.estado.id_for_label}}">Estado Actual del Parto</label>
+                    <div class="form-group {% if form.estado.errors %} has-error{% endif %}">
+                        <label for="{{form.estado.id_for_label}}">Estado Actual del Parto <span class="obligatorio">*</span></label>
                         {{form.estado}}
+                    {% if form.estado.errors %}
+                        <div class="error-message">
+                        {% for error in form.estado.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>
+                    {% endif %}
                     </div>
 
-                    <div class="form-group">
-                        <label for="{{form.posicion.id_for_label}}">Posición Materna</label>
+                    <div class="form-group {% if form.posicion.errors %} has-error{% endif %}">
+                        <label for="{{form.posicion.id_for_label}}">Posición Materna <span class="obligatorio">*</span></label>
                         {{form.posicion}}
+                    {% if form.posicion.errors %}
+                        <div class="error-message">
+                        {% for error in form.posicion.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>
+                    {% endif %}
                     </div>
 
-                    <div class="form-group">
-                        <label for="{{form.tipo_regimen.id_for_label}}">Régimen</label>
+                    <div class="form-group {% if form.tipo_regimen.errors %} has-error{% endif %}">
+                        <label for="{{form.tipo_regimen.id_for_label}}">Régimen <span class="obligatorio">*</span></label>
                         {{form.tipo_regimen}}
+                    {% if form.tipo_regimen.errors %}
+                        <div class="error-message">
+                        {% for error in form.tipo_regimen.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>
+                    {% endif %}
                     </div>
                 </div>
 
                 <div class="form-row three-cols">
-                    <div class="form-group">
+                    <div class="form-group {% if form.n_tactos_vaginales.errors %} has-error{% endif %}">
                         <label for="{{form.n_tactos_vaginales.id_for_label}}">N° Tactos Vaginales</label>
                         {{form.n_tactos_vaginales}}    
-                    
+                    {% if form.n_tactos_vaginales.errors %}
+                        <div class="error-message">
+                        {% for error in form.n_tactos_vaginales.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>
+                    {% endif %}
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group {% if form.numero_aro.errors %} has-error{% endif %}">
                         <label for="{{form.numero_aro.id_for_label}}">Número ARO</label>
                         {{form.numero_aro}}
+                    {% if form.numero_aro.errors %}
+                        <div class="error-message">
+                        {% for error in form.numero_aro.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>
+                    {% endif %}
                     </div>
 
-                    <div class="form-group">
-                        <label for="{{form.rotura_membrana.id_for_label}}">Rotura Membrana</label>
+                    <div class="form-group {% if form.rotura_membrana.errors %} has-error{% endif %}">
+                        <label for="{{form.rotura_membrana.id_for_label}}">Rotura Membrana <span class="obligatorio">*</span></label>
                         {{form.rotura_membrana}}
+                    {% if form.rotura_membrana.errors %}
+                        <div class="error-message">
+                        {% for error in form.rotura_membrana.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>
+                    {% endif %}
                     </div>
                 </div>
             </fieldset>
 
             <fieldset class="form-section">
-                <legend class="section-legend">Cronometría (En Minutos)</legend>
+                <legend class="section-legend">Cronometría (En Minutos) </legend>
                 <p class="form-subtitle" style="margin-bottom: 1rem; margin-top: -1rem;">
-                    Daniel lo pidió: ingrese solo números enteros representando minutos.
+                    Los tiempos se almacenaran en minutos en el sistema
                 </p>
 
                 <div class="form-row three-cols">
-                    <div class="form-group">
-                        <label for="{{form.tiempo_membrana_rota.id_for_label}}">T. Membrana Rota</label>
+                    <div class="form-group {% if form.tiempo_membrana_rota.errors %} has-error{% endif %}">
+                        <label for="{{form.tiempo_membrana_rota.id_for_label}}">T. Membrana Rota <span class="obligatorio">*</span></label>
                         {{form.tiempo_membrana_rota}}
+                    {% if form.tiempo_membrana_rota.errors %}
+                        <div class="error-message">
+                        {% for error in form.tiempo_membrana_rota.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>
+                    {% endif %}
                     </div>
 
-                    <div class="form-group">
-                        <label for="{{form.tiempo_dilatacion.id_for_label}}">T. Dilatación</label>
+                    <div class="form-group {% if form.tiempo_dilatacion.errors %} has-error{% endif %}">
+                        <label for="{{form.tiempo_dilatacion.id_for_label}}">T. Dilatación <span class="obligatorio">*</span></label>
                         {{form.tiempo_dilatacion}}
+                    {% if form.tiempo_dilatacion.errors %}
+                        <div class="error-message">
+                        {% for error in form.tiempo_dilatacion.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>
+                    {% endif %}
                     </div>
 
-                    <div class="form-group">
-                        <label for="{{form.tiempo_expulsivo.id_for_label}}">T. Expulsivo</label>
+                    <div class="form-group {% if form.tiempo_expulsivo.errors %} has-error{% endif %}">
+                        <label for="{{form.tiempo_expulsivo.id_for_label}}">T. Expulsivo <span class="obligatorio">*</span></label>
                         {{form.tiempo_expulsivo}}
+                    {% if form.tiempo_expulsivo.errors %}
+                        <div class="error-message">
+                        {% for error in form.tiempo_expulsivo.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>
+                    {% endif %}
                     </div>
                 </div>
             </fieldset>
@@ -188,7 +294,9 @@
 
              <fieldset class="form-section">
                 <legend class="section-legend">Complicaciones del Parto</legend>
-
+                <p class="form-subtitle" style="margin-bottom: 1rem; margin-top: -1rem;">
+                    Marque todas las complicaciones que sucedieron durante el trabajo de parto    
+                </p>
                 <div class="checkbox-grid">
                     {% for complicacion in form.complicaciones %}
                         <label class="checkbox-card">

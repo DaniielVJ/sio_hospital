@@ -1,1 +1,1 @@
-from .parto_views import ListarPartosView, CrearPartosView
+from .parto_views import ListarPartosView, CrearPartosView, AutoCompletadoParaGestacion

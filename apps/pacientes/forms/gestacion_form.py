@@ -1,4 +1,5 @@
 from django import forms
+from dal import autocomplete
 from ..models import Gestacion
 
 
@@ -10,7 +11,35 @@ class GestacionForm(forms.ModelForm):
                    'updated_by', 
                    'updated_at', 
                    'fecha_inicio_gestacion']
+        widgets = {
+            'fur': forms.DateInput(attrs={
+                "type": "date"
+            }),
+            'fecha_eco': forms.DateInput(attrs={
+                "type": "date"
+            }),
+            'numero_fetos': forms.NumberInput(attrs={
+                "placeholder": "Ingrese el número de fetos"
+            }),
+            'semanas_eco': forms.NumberInput(attrs={
+                "placeholder": "0"
+            }),
+            'dias_eco': forms.NumberInput(attrs={
+                "placeholder": "0"
+            }),
+            'paciente': autocomplete.ModelSelect2(url='gestacion:autocompletar_paciente', attrs={
+                "class ": "autocompletado",
+                'data-placeholder': "Busque por nombre o por Rut/Identificacion"
+            })
+        }
+
         
+        help_texts = {
+            'paciente': "Puede buscar por Rut o Nombre completo del paciente",
+            'numero_fetos': "Si ingresa mas de uno, recuerde marcar multiple",
+            'origen_datacion': "El origen seleccionado es el que tomara el sistema para calcular la semanas de gestación"
+
+        }
 
     def clean(self):
         cleaned_data = super().clean()
@@ -23,6 +52,16 @@ class GestacionForm(forms.ModelForm):
         fecha_eco = cleaned_data.get('fecha_eco')
         semanas_eco = cleaned_data.get('semanas_eco')
         dias_eco = cleaned_data.get('dias_eco')
+
+        # Riesgo
+        diabetes = cleaned_data.get('diabetes')
+        hipertesion = cleaned_data.get('hipertension')
+        enfermedad_cardiaca = cleaned_data.get('enfermedad_cardiaca')
+        riesgo = cleaned_data.get('riesgo')
+
+        if diabetes or hipertesion or enfermedad_cardiaca and riesgo == "bajo":
+            self.add_error("riesgo", "El riesgo no puede ser bajo si se ha marcado un factor de riesgo")
+
 
         if n_fetos is not None:
             if multiple and n_fetos <= 1:
