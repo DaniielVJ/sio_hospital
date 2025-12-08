@@ -1,5 +1,5 @@
 window.renderKpiTotales = function () {
-    const el = document.getElementById("kpi_total_partos");
+    const el = document.getElementById("kpi1");
     if (!el) return;
 
     const valor = el.dataset.value || 0;
@@ -7,7 +7,7 @@ window.renderKpiTotales = function () {
 };
 
 window.renderKpiTasaCesareas = function () {
-    const el = document.getElementById("kpi_tasa_cesareas");
+    const el = document.getElementById("kpi2");
     if (!el) return;
 
     const valor = el.dataset.value || 0;
@@ -15,7 +15,7 @@ window.renderKpiTasaCesareas = function () {
 };
 
 window.renderKpiPartosVaginales = function () {
-    const el = document.getElementById("kpi_partos_vaginales");
+    const el = document.getElementById("kpi3");
     if (!el) return;
 
     const valor = el.dataset.value || 0;
@@ -23,7 +23,7 @@ window.renderKpiPartosVaginales = function () {
 };
 
 window.renderKpiComplicaciones = function () {
-    const el = document.getElementById("kpi_complicaciones");
+    const el = document.getElementById("kpi4");
     if (!el) return;
 
     const valor = el.dataset.value || 0;
@@ -31,7 +31,7 @@ window.renderKpiComplicaciones = function () {
 };
 
 window.renderKpiApgar = function () {
-    const el = document.getElementById("kpi_apgar");
+    const el = document.getElementById("kpi5");
     if (!el) return;
 
     const valor = el.dataset.value || 0;
@@ -39,7 +39,7 @@ window.renderKpiApgar = function () {
 };
 
 window.renderKpiPromedioEstancia = function () {
-    const el = document.getElementById("kpi_estancia");
+    const el = document.getElementById("kpi6");
     if (!el) return;
 
     el.innerHTML = `${el.dataset.value || 0} hrs`;
