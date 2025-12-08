@@ -1,5 +1,5 @@
 window.renderChartComplicaciones = function () {
-    const div = document.getElementById("chart_complicaciones");
+    const div = document.getElementById("chart_3");
     if (!div) return;
 
     const labels = JSON.parse(div.dataset.labels || `["Hemorragia", "Preeclampsia"]`);

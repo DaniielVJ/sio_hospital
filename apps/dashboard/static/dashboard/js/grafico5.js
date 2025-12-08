@@ -1,5 +1,5 @@
 window.renderChartApgar = function () {
-    const div = document.getElementById("chart_apgar");
+    const div = document.getElementById("chart_5");
     if (!div) return;
 
     const apgar = JSON.parse(div.dataset.values || `[8,9,7,8]`);

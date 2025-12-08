@@ -1,5 +1,5 @@
 window.renderChartPresentacion = function () {
-    const div = document.getElementById("chart_presentacion");
+    const div = document.getElementById("chart_4");
     if (!div) return;
 
     const labels = JSON.parse(div.dataset.labels || `["Cefálica","Podálica","Transversa"]`);

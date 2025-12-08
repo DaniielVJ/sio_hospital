@@ -1,5 +1,5 @@
 window.renderChartGestacion = function () {
-    const div = document.getElementById("chart_gestacion");
+    const div = document.getElementById("chart_2");
     if (!div) return;
 
     const meses = JSON.parse(div.dataset.meses || `["Ene","Feb","Mar"]`);

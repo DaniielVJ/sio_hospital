@@ -1,5 +1,5 @@
 window.renderMainChart = function () {
-    const div = document.getElementById("main_chart");
+    const div = document.getElementById("chart_main");
     if (!div) return;
 
     const meses = JSON.parse(div.dataset.meses || `["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]`);
