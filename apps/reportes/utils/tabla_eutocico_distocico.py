@@ -1,172 +1,153 @@
-# =====================================================================================
-# IMPORTACIONES NECESARIAS PARA GENERAR EL PDF
-# =====================================================================================
+import io
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
-
-# Cargamos estilos por defecto como Title, Normal, etc.
-styles = getSampleStyleSheet()
-
-# =====================================================================================
-# DEFINICIÓN DE ESTILOS PERSONALIZADOS PARA CELDAS Y ENCABEZADOS
-# =====================================================================================
-
-# Estilo para celdas con números (centrados)
-cell_center = ParagraphStyle(
-    "cell_center",
-    fontSize=8,      # Tamaño similar a Excel
-    leading=10,      # Altura de línea
-    alignment=TA_CENTER
-)
-
-# Estilo para encabezados (centrados y más grandes)
-header_center = ParagraphStyle(
-    "header_center",
-    fontSize=9,       # Un poco más grande que las celdas normales
-    leading=11,
-    alignment=TA_CENTER,
-    textColor=colors.black
-)
+from apps.reportes.utils.pdf_header import construir_header_logo
 
 
 # =====================================================================================
-# DATOS DE LA TABLA - ENCABEZADOS
+# FUNCIÓN PARA CREAR EL PDF EN MEMORIA (BUFFER) PARA DJANGO
 # =====================================================================================
+def crear_tabla_eutocico_distocico_buffer():
 
-# Encabezado principal dividido en dos grupos: EUTÓCICO y DISTÓCICO
-encabezado_superior = [
-    Paragraph("<b>EUTÓCICO</b>", header_center), "", "",
-    Paragraph("<b>DISTÓCICO</b>", header_center), "", ""
-]
+    # ---------------------------------------------------------
+    # 1. ESTILOS
+    # ---------------------------------------------------------
+    styles = getSampleStyleSheet()
 
-# Encabezado inferior (subcolumnas)
-encabezado_inferior = [
-    Paragraph("<b>&lt;28 semanas</b>", header_center),
-    Paragraph("<b>28 a 37 semanas</b>", header_center),
-    Paragraph("<b>38 semanas y más</b>", header_center),
-    Paragraph("<b>&lt;28 semanas</b>", header_center),
-    Paragraph("<b>29 a 37 semanas</b>", header_center),
-    Paragraph("<b>39 semanas y más</b>", header_center),
-]
+    cell_center = ParagraphStyle(
+        "cell_center",
+        fontSize=8,
+        leading=10,
+        alignment=TA_CENTER
+    )
 
+    header_center = ParagraphStyle(
+        "header_center",
+        fontSize=9,
+        leading=11,
+        alignment=TA_CENTER,
+        textColor=colors.black
+    )
 
-# =====================================================================================
-# FILAS DE DATOS (13 FILAS)
-# =====================================================================================
+    # ---------------------------------------------------------
+    # 2. ENCABEZADOS SUPERIOR E INFERIOR
+    # ---------------------------------------------------------
+    encabezado_superior = [
+        Paragraph("<b>EUTÓCICO</b>", header_center), "", "",
+        Paragraph("<b>DISTÓCICO</b>", header_center), "", ""
+    ]
 
-datos_brutos = [
-    [1,19,35,0,1,1],
-    [0,0,0,0,0,0],
-    [0,4,15,0,0,1],
-    [1,19,48,0,1,2],
-    [1,19,45,0,1,1],
-    [0,16,40,0,1,2],
-    [0,10,29,0,0,1],
-    [0,9,28,0,0,2],
-    [1,19,35,0,1,1],
-    [0,"","",0,"",""],   # fila con celdas vacías
-    [0,0,0,0,0,0],
-    [0,19,45,0,0,2],
-    [0,22,46,0,0,2],
-]
+    encabezado_inferior = [
+        Paragraph("<b>&lt;28 semanas</b>", header_center),
+        Paragraph("<b>28 a 37 semanas</b>", header_center),
+        Paragraph("<b>38 semanas y más</b>", header_center),
+        Paragraph("<b>&lt;28 semanas</b>", header_center),
+        Paragraph("<b>29 a 37 semanas</b>", header_center),
+        Paragraph("<b>39 semanas y más</b>", header_center),
+    ]
 
-# Convertimos todos los valores a Paragraph para evitar problemas de formato
-filas_datos = [
-    [Paragraph(str(x), cell_center) for x in fila]
-    for fila in datos_brutos
-]
+    # ---------------------------------------------------------
+    # 3. DATOS (13 filas)
+    # ---------------------------------------------------------
+    datos_brutos = [
+        [1,19,35,0,1,1],
+        [0,0,0,0,0,0],
+        [0,4,15,0,0,1],
+        [1,19,48,0,1,2],
+        [1,19,45,0,1,1],
+        [0,16,40,0,1,2],
+        [0,10,29,0,0,1],
+        [0,9,28,0,0,2],
+        [1,19,35,0,1,1],
+        [0,"","",0,"",""],
+        [0,0,0,0,0,0],
+        [0,19,45,0,0,2],
+        [0,22,46,0,0,2],
+    ]
 
+    filas_datos = [
+        [Paragraph(str(x), cell_center) for x in fila]
+        for fila in datos_brutos
+    ]
 
-
-
-
-
-
-
-
-
-
-
-# =====================================================================================
-# FUNCIÓN PRINCIPAL PARA GENERAR EL PDF
-# =====================================================================================
-
-def generar_pdf_eutocico_distocico():
-
-    # Creamos el PDF en carpeta /pdf
-    pdf = SimpleDocTemplate("pdf/tabla_eutocico_distocico.pdf", pagesize=letter)
-
+    # ---------------------------------------------------------
+    # 4. CREAR BUFFER
+    # ---------------------------------------------------------
+    buffer = io.BytesIO()
+    pdf = SimpleDocTemplate(buffer, pagesize=letter, topMargin=30)
     story = []
 
-    # ----- TÍTULO DE LA SECCIÓN -----
+    story.extend(construir_header_logo())
+
+    # ---------------------------------------------------------
+    # 5. TÍTULO
+    # ---------------------------------------------------------
     story.append(
-        Paragraph("<b>EUTÓCICO vs DISTÓCICO</b> <b>''REM 21''</b>", styles["Title"])
+        Paragraph(
+            "<b>EUTÓCICO vs DISTÓCICO</b> <b>''REM A21''</b>",
+            styles["Title"]
+        )
     )
-    story.append(Spacer(1, 10))  # Espacio debajo del título
+    story.append(Spacer(1, 12))
 
-
-    # =================================================================================
-    # CONSTRUCCIÓN COMPLETA DE LA TABLA
-    # =================================================================================
-
+    # ---------------------------------------------------------
+    # 6. CONSTRUIR LA TABLA COMPLETA
+    # ---------------------------------------------------------
     tabla = [
         encabezado_superior,
         encabezado_inferior,
-    ] + filas_datos   # Agrega las 13 filas de datos
+    ] + filas_datos
 
+    colWidths = [90, 90, 90, 90, 90, 90]
 
-    # Definir ancho de columnas (6 columnas)
-    col_widths = [90, 90, 90, 90, 90, 90]
+    t = Table(tabla, colWidths=colWidths)
 
-
-    # Crear tabla con sus columnas
-    t = Table(tabla, colWidths=col_widths)
-
-
-
-    # =================================================================================
-    # APLICAR ESTILOS DE TABLA
-    # =================================================================================
-
+    # ---------------------------------------------------------
+    # 7. ESTILOS DE LA TABLA
+    # ---------------------------------------------------------
     t.setStyle(TableStyle([
 
-        # ----- COLOR DE FONDO PARA ENCABEZADO SUPERIOR (EUTÓCICO / DISTÓCICO) -----
-        ("BACKGROUND", (0,0), (2,0), colors.lightgrey),       # EUTÓCICO
-        ("BACKGROUND", (3,0), (5,0), colors.lightgrey),       # DISTÓCICO
+        # Fondo para encabezado superior
+        ("BACKGROUND", (0,0), (2,0), colors.lightgrey),
+        ("BACKGROUND", (3,0), (5,0), colors.lightgrey),
 
-        # ----- COLOR DE FONDO PARA EL ENCABEZADO INFERIOR -----
+        # Fondo encabezado inferior
         ("BACKGROUND", (0,1), (-1,1), colors.khaki),
 
-        # ----- GRID GENERAL -----
+        # Grid general
         ("GRID", (0,0), (-1,-1), 1, colors.black),
 
-        # ----- ALINEACIÓN VERTICAL -----
+        # Alinear verticalmente
         ("VALIGN", (0,0), (-1,-1), "MIDDLE"),
 
-        # ----- FUSIÓN DE CELDAS EN ENCABEZADO SUPERIOR -----
+        # SPANS
         ("SPAN", (0,0), (2,0)),  # EUTÓCICO
         ("SPAN", (3,0), (5,0)),  # DISTÓCICO
 
-        # ----- FILA ROJA (MISMA QUE EN EXCEL) -----
+        # FILA 9 con fondo rojo (índice contando desde 0)
         ("BACKGROUND", (0,9), (-1,9), colors.red),
     ]))
 
-
-    # Agregamos tabla al PDF
     story.append(t)
 
-    # Guardamos el PDF
+    # ---------------------------------------------------------
+    # 8. CONSTRUIR PDF DENTRO DEL BUFFER
+    # ---------------------------------------------------------
     pdf.build(story)
+    buffer.seek(0)
 
-    print("PDF de la tabla generado correctamente ")
+    return buffer
 
 
 
 # =====================================================================================
-# EJECUCIÓN DIRECTA DEL SCRIPT
+# PRUEBA LOCAL OPCIONAL
 # =====================================================================================
 if __name__ == "__main__":
-    generar_pdf_eutocico_distocico()
+    buf = crear_tabla_eutocico_distocico_buffer()
+    with open("tabla_eutocico_distocico_buffer.pdf", "wb") as f:
+        f.write(buf.read())
+    print("PDF generado correctamente.")

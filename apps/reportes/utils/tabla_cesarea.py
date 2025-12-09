@@ -4,7 +4,7 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
-
+from apps.reportes.utils.pdf_header import construir_header_logo
 
 
 
@@ -75,9 +75,12 @@ def crear_tabla_cesarea_buffer(cesarea_electiva_total):
     buffer = io.BytesIO()
 
     # 2. Creamos el SimpleDocTemplate usando el buffer como "nombre de archivo"
-    pdf = SimpleDocTemplate(buffer, pagesize=letter)
+    pdf = SimpleDocTemplate(buffer, pagesize=letter, topMargin=30)
 
     story = []
+
+    story.extend(construir_header_logo())
+
 
     # titulo de la seccion
     story.append(Paragraph("<b>CESAREA</b>", styles["Title"]))
