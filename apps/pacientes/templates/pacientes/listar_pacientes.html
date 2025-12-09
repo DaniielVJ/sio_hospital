@@ -9,6 +9,9 @@
 
 {% block estilos_personalizados %}
     <link rel="stylesheet" href="{% static 'styles/toastify.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/table.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/cards.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/form.css' %}">
 {% endblock estilos_personalizados %}
     
 
@@ -22,21 +25,133 @@
 
 {% block content %}
 
+<main class="main-container">
 
-    <a href="{% url 'paciente:agregar_paciente' %}">Añadir nuevo paciente</a>
-    {% for paciente in pacientes %}
-        <p>{{paciente.obtener_nombre_completo}} - {{paciente.rut}} - {{paciente.tipo}}</p>
-    {% empty %}
-        <h2>NO HAY PACIENTES</h2>
-    {% endfor %}
-    
-    
+    <nav class="breadcrumbs">
+        <a href="{% url 'pantalla_principal' %}" class="link-color">Inicio</a>
+        <span>›</span>
+        <a href="{{request.META.HTTP_REFERER}}" class="link-color">Pacientes</a>
+        <span>›</span>
+        <span>Listar pacientes</span>
+    </nav>
 
-    <button hx-get="{% url 'test:crear_test_vih' %}" hx-target="#resultado">
-        Añadir Test
-    </button>
-    <div id="resultado">
+    <div class="welcome-header">
+        <h1 class="main-title">Listado de Pacientes</h1>
+        <p class="subtitle">Gestione los expedientes clínicos registrados en el sistema. Resultados: {{page_obj.paginator.count}} pacientes totales</p>
     </div>
+
+    <div class="layout-split">
+
+        <aside class="filter-sidebar">
+            <div class="filter-card">
+                <h3 class="third-title">Búsquedas Recientes</h3>
+                <ul class="recent-list">
+                    <li><a href="#">Dale Daniel</a></li>
+                    <li><a href="#">Aqui añades la funcion</a></li>
+                    <li><a href="#">Para que te salgan</a></li>
+                    <li><a href="#">Los ultimos objetos</a></li>
+                    <li><a href="#">Que se buscaron en el sistema</a></li>
+                    <!-- Te recomiendo maximo cinco para no romper el diseño  -->
+                    <button class="btn-primary">Limpiar todo</button>
+                </ul>
+            </div>
+
+            <div class="filter-card">
+                <h3 class="third-title">Filtrar por Estado</h3>
+
+                <label class="checkbox-card small">
+                    <input type="checkbox" name="plan"><span>Plan de Parto</span>
+                </label>
+                <label class="checkbox-card small">
+                    <input type="checkbox"> <span>Puérperas</span>
+                </label>
+                </form>
+            </div>
+        </aside>
+
+    <section class="list-content">
+
+        <div class="table-actions-bar">
+            <div class="search-pill">
+                <form class="form-flexbox">
+                    <input type="text" class="search-input" name="query" placeholder="Filtre por run, nombre o cesfam..."
+                    {% if query %}
+                        value="{{query}}"
+                    {% endif %}>
+                    
+                    <button type="submit" class="btn-reset"><img src="{% static 'svg/buscar.svg' %}" class="nav-svg" alt="Buscar"/></button>
+                </form>
+                
+            </div>
+
+            <a href="{% url 'paciente:agregar_paciente' %}"
+            class="btn-primary">Agregar Paciente</a>
+        </div>
+
+        <div class="table-container">
+            <table class="smart-table">
+                <thead>
+                    <tr>
+                        <th>Identificación</th>
+                        <th>Nombre Completo</th>
+                        <th>Tipo paciente</th>
+                        <th>Nacionalidad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                   {% for paciente in  pacientes%}
+                        <tr>
+                            <td>
+                                <span class="text-sub">{{paciente.documento}}</span>
+                                <span class="text-bold">{{paciente.identificacion}}</span>
+                            </td>
+                            <td>
+                                {{paciente.nombre_completo}}
+                            </td>
+                            <td>
+                                {{paciente.tipo}}
+                            </td>
+                            <td>
+                                {{paciente.nacionalidad}}
+                            </td>
+                            <td class="action-group">
+                                <div class="action-buttons">
+                                <a href="#{{paciente.pk}}" class="action-btn" title="Ver Ficha">
+                                    <img src="{% static 'svg/view.svg' %}" alt="Ver" class="nav-svg">
+                                </a>
+                            </div>
+                            </td>
+                        </tr>
+                   {% endfor %}
+                    
+                </tbody>
+            </table>
+            
+        <div class="table-pagination">
+            {% if is_paginated %}
+
+                {% if page_obj.has_previous %}
+                    <a href="?page=1&{{query_string}}" class="action-btn"><img src="{% static 'svg/leftarrow2.svg' %}" alt=""></a>
+                    <a href="?page={{page_obj.previous_page_number}}&{{query_string}}" class="action-btn"><img src="{% static 'svg/leftarrow.svg' %}" alt=""></a>
+                {% endif %}
+
+                <span>Página <strong>{{page_obj.number}}</strong> de <strong>{{page_obj.paginator.num_pages}}</strong></span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{page_obj.next_page_number}}&{{query_string}}" class="action-btn"><img src="{% static 'svg/rightarrow.svg' %}" alt=""></a>
+                    <a href="?page={{page_obj.paginator.num_pages}}&{{query_string}}" class="action-btn"><img src="{% static 'svg/rightarrow2.svg' %}" alt=""></a>
+                {% endif %}
+            
+            {% endif %}
+        </div>
+    </section>
+    </div>
+
+</main>
+
+
 
 
 
@@ -51,3 +166,4 @@
 
 {% endblock scripts %}
     
+

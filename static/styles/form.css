@@ -274,22 +274,37 @@ textarea.input-field {
     border-top: 1px solid var(--border-subtle);
 }
 
-/* Botón Principal (Guardar) */
 .btn-primary {
+    /* 1. Propiedades de Bloque / Fondo */
     background: var(--primary);
     color: #fff;
     border: none;
     padding: 0.8rem 2rem;
-    border-radius: 50px; /* Pastilla perfecta */
+    border-radius: 50px;
     font-weight: 600;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+    text-decoration: none;
+    font-size: 100%;
+    width: fit-content;
+    
+    /* 🚨 LA CLAVE: Desactiva el centrado basado en line-height 🚨 */
+    line-height: normal; /* Asegura que la altura no interfiera */
+    
+    /* === PROPIEDADES DE FLEXBOX PARA CENTRADO PERFECTO === */
+    /* Lo convierte en un contenedor flexible */
+    display: flex; 
+    
+    /* Centra el contenido (texto) horizontalmente */
+    justify-content: center; 
+    
+    /* Centra el contenido (texto) verticalmente */
+    align-items: center; 
 }
 
 .btn-primary:hover {
     box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
 }
-
 /* Botón Secundario (Cancelar) */
 .btn-secondary {
     background: transparent;
@@ -389,4 +404,32 @@ textarea.input-field {
     color: var(--text-muted);
     margin-left: 0.5rem;
     margin-top: 0.2rem;
+}
+
+
+.btn-reset {
+    /* 1. Resetear el Fondo */
+    background: none; 
+    display: inline;
+    /* 2. Resetear Bordes y Sombra */
+    border: none;
+    box-shadow: none;
+
+    /* 3. Resetear el Espaciado Interno */
+    padding: 0; 
+    
+    /* 4. Resetear la Apariencia Nativa del Sistema Operativo */
+    /* Esto es crucial para navegadores basados en WebKit (Chrome/Safari) */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; 
+
+    /* 5. Asegurar que el Texto use el color del padre */
+    color: inherit; 
+
+    /* 6. Asegurar que el Cursor es el predeterminado (flecha) */
+    cursor: default; 
+    
+    /* 7. Eliminar márgenes si el navegador los pone por defecto */
+    margin: 0;
 }
