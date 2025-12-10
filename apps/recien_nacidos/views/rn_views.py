@@ -14,6 +14,18 @@ class MenuInicioRecienNacido(MatronaSupervisorRequiredMixin, TemplateView):
     template_name = "recien_nacidos/inicio_rn.html"
 
 
+class ListarRecienNacidoView(MatronaSupervisorRequiredMixin, PermissionRequiredMixin, ListView):
+    model = RecienNacido
+    template_name = "recien_nacidos/listar_rn.html"
+    context_object_name = "recien_nacidos"
+    raise_exception = True
+    permission_required = "recien_nacidos.view_reciennacido"
+
+    def get_queryset(self):
+        return self.model.objects.select_related('parto__gestacion__paciente')
+
+
+
 class CrearRecienNacidoView(MatronaRequiredMixin, PermissionRequiredMixin, CreateView):
     model = RecienNacido
     template_name = "recien_nacidos/formulario_rn.html"

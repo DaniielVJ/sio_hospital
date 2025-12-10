@@ -3,7 +3,7 @@
 
 
 {% block title %}
-    Pacientes
+    RNs
 {% endblock title %}
     
 
@@ -32,11 +32,11 @@
         <span>›</span>
         <a href="{{request.META.HTTP_REFERER}}" class="link-color">Pacientes</a>
         <span>›</span>
-        <span>Listar pacientes</span>
+        <span>Ver RN</span>
     </nav>
 
     <div class="welcome-header">
-        <h1 class="main-title">Listado de Pacientes</h1>
+        <h1 class="main-title">Listado de Recien Nacidos</h1>
         <p class="subtitle">Gestione los expedientes clínicos registrados en el sistema. Resultados: {{page_obj.paginator.count}} pacientes totales</p>
     </div>
 
@@ -84,41 +84,45 @@
                 
             </div>
 
-            <a href="{% url 'paciente:agregar_paciente' %}"
-            class="btn-primary">Agregar Paciente</a>
+            <a href="{% url 'recien_nacido:agregar_recien_nacido' %}"
+            class="btn-primary">Agregar RN</a>
         </div>
 
         <div class="table-container">
             <table class="smart-table">
                 <thead>
                     <tr>
-                        <th>Identificación</th>
-                        <th>Nombre Completo</th>
-                        <th>Tipo paciente</th>
-                        <th>Nacionalidad</th>
+                        <th>Madre</th>
+                        <th>Sexo</th>
+                        <th>Presentacion Feto</th>
+                        <th>Fecha y hora Nacimiento</th>
                         <th>Fecha Registro</th>
+                        <th>Destino</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                    
-                   {% for paciente in  pacientes%}
+                   {% for rn in recien_nacidos %}
                         <tr>
                             <td>
-                                <span class="text-sub">{{paciente.documento}}</span>
-                                <span class="text-bold">{{paciente.identificacion}}</span>
+                                <span class="text-sub">{{rn.parto.gestacion.paciente.documento}} / {{rn.parto.gestacion.paciente.identificacion}}</span>
+                                <span class="text-bold">{{rn.parto.gestacion.paciente.obtener_nombre_completo}}</span>
                             </td>
                             <td>
-                                {{paciente.nombre_completo}}
+                                {{rn.sexo}}
                             </td>
                             <td>
-                                {{paciente.tipo}}
+                                {{rn.presentacion_fetal}}
                             </td>
                             <td>
-                                {{paciente.nacionalidad}}
+                                {{rn.fecha_hora}}
                             </td>
                             <td>
-                                {{paciente.created_at}}
+                                {{rn.created_at}}
+                            </td>
+                            <td>
+                                {{rn.destino}}
                             </td>
                             <td class="action-group">
                                 <div class="action-buttons">
@@ -152,7 +156,6 @@
 
 
 {% block scripts %}
-<script src="{% static 'js/htmx.min.js' %}"></script>
 <script src="{% static 'js/toastify.min.js' %}"></script>
 {% include 'includes/script_mensajes.html' %}
 
