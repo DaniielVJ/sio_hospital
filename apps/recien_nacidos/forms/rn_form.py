@@ -1,4 +1,7 @@
 from django import forms
+from dal import autocomplete
+
+
 from ..models import RecienNacido
 
 
@@ -27,6 +30,10 @@ class RecienNacidoForm(forms.ModelForm):
             }),
             'talla': forms.NumberInput(attrs={
                 'placeholder': 'Ej: 10'
+            }),
+            'parto': autocomplete.ModelSelect2(url="recien_nacido:autocompletar_parto", attrs={
+                "class": "autocompletado",
+                "data-placeholder": "Busque por Identificacion/Nombre/CodigoParto"
             })
         }
 

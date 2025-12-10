@@ -3,7 +3,7 @@
 
 
 {% block title %}
-    Pacientes
+    Partos
 {% endblock title %}
     
 
@@ -36,7 +36,7 @@
     </nav>
 
     <div class="welcome-header">
-        <h1 class="main-title">Listado de Pacientes</h1>
+        <h1 class="main-title">Ver Partos</h1>
         <p class="subtitle">Gestione los expedientes clínicos registrados en el sistema. Resultados: {{page_obj.paginator.count}} pacientes totales</p>
     </div>
 
@@ -74,7 +74,7 @@
         <div class="table-actions-bar">
             <div class="search-pill">
                 <form class="form-flexbox">
-                    <input type="text" class="search-input" name="query" placeholder="Filtre por run, nombre o cesfam..."
+                    <input type="text" class="search-input" name="query" placeholder="Filtre por Identificacion del paciente o Nombre completo del paciente"
                     {% if query %}
                         value="{{query}}"
                     {% endif %}>
@@ -84,41 +84,43 @@
                 
             </div>
 
-            <a href="{% url 'paciente:agregar_paciente' %}"
-            class="btn-primary">Agregar Paciente</a>
+            <a href="{% url 'parto:agregar_parto' %}"
+            class="btn-primary">Agregar Parto</a>
         </div>
 
         <div class="table-container">
             <table class="smart-table">
                 <thead>
                     <tr>
-                        <th>Identificación</th>
-                        <th>Nombre Completo</th>
-                        <th>Tipo paciente</th>
-                        <th>Nacionalidad</th>
+                        <th>Paciente</th>
+                        <th>F/H Inicio Trabajo de Parto</th>
+                        <th>Estado</th>
+                        <th>Tipo de Parto</th>
                         <th>Fecha Registro</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                    
-                   {% for paciente in  pacientes%}
+                   {% for parto in partos %}
                         <tr>
                             <td>
-                                <span class="text-sub">{{paciente.documento}}</span>
-                                <span class="text-bold">{{paciente.identificacion}}</span>
+                                <span class="text-bold">{{parto.gestacion.paciente.obtener_nombre_completo}}</span>
+                                <span class="text-sub">{{parto.gestacion.paciente.documento}} / {{parto.gestacion.paciente.identificacion}} </span>
                             </td>
                             <td>
-                                {{paciente.nombre_completo}}
+                                {{parto.hora_inicio}}
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                <span class="estado-badge estado-{{ parto.estado }}">
+                                    {{ parto.estado|capfirst }}
+                                </span>
                             </td>
                             <td>
-                                {{paciente.tipo}}
+                                {{parto.via_nacimiento}}
                             </td>
                             <td>
-                                {{paciente.nacionalidad}}
-                            </td>
-                            <td>
-                                {{paciente.created_at}}
+                                {{parto.created_at.date}}
                             </td>
                             <td class="action-group">
                                 <div class="action-buttons">
@@ -152,7 +154,6 @@
 
 
 {% block scripts %}
-<script src="{% static 'js/htmx.min.js' %}"></script>
 <script src="{% static 'js/toastify.min.js' %}"></script>
 {% include 'includes/script_mensajes.html' %}
 
