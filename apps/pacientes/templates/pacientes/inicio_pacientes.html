@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+    Inicio Pacientes
+{% endblock title %}
+
+
+
+{% block estilos_personalizados %}
+    <link rel="stylesheet" href="{% static 'styles/cards.css' %}">
+{% endblock estilos_personalizados %}
+    
+
+
+{% block menus_navegacion %}
+    {% include 'includes/topbar.html' %}
+    {% include 'includes/sidebar.html' %}
+{% endblock menus_navegacion %}
+
+
+
+
+{% block content %}
+    <main class="main-container">
+
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs">
+            <a href="{% url 'pantalla_principal' %}" class="link-color">Inicio</a>
+            <span>›</span>
+            <span>Pacientes</span>
+        </nav>
+
+        <nav class="welcome-header">
+            <h1 class="main-title">Gestión de pacientes</h1>
+            <p class="subtitle">Aquí puedes ver y gestionar todos los pacientes registrados.</p>
+        </nav>
+
+        <section class="cards-container">
+            <div class="card">
+                <a href="{% url 'paciente:listar_pacientes' %}" class="card-button">
+                    <img alt="Imagen listado de pacientes" src="{% static 'icons/listarpacientes.png' %}" class="card-icon"/>
+                    <h3 class="third-title">Ver Pacientes</h3>
+                    <p class="subtitle">Gestiona a tus pacientes registrados</p>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="{% url 'paciente:agregar_paciente' %}" class="card-button">
+                    <img alt="Imagen agregar paciente" src="{% static 'icons/añadirpaciente.png' %}" class="card-icon"/>
+                    <h3 class="third-title">Agregar Paciente</h3>
+                    <p class="subtitle">Registra un nuevo paciente en el sistema.</p>
+                </a>
+            </div>
+
+            <div class="card">
+                <button onclick="location.href='detallarPaciente.html'" class="card-button">
+                    <img alt="generar excel" src="{% static 'icons/excelicon.png' %}" 
+                    style="width: 95px; height: 100px;"/>
+                    <h3 class="third-title">Generar excel</h3>
+                    <p class="subtitle">Crea un archivo Excel con la información de los pacientes.</p>
+                </button>
+            </div>
+
+            <div class="card">
+                <button onclick="location.href=''" class="card-button">
+                    <img alt="Proximamente" src="{% static 'icons/eyesicon.png' %}" class="card-icon"/>
+                    <h3 class="third-title">Proximamente</h3>
+                    <p class="subtitle"></p>
+                </button>
+            </div>
+        </section>
+    </main>
+
+{% endblock content %}
+    
+    
+    

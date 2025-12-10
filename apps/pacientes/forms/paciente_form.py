@@ -64,6 +64,27 @@ class PacienteForm(forms.ModelForm):
         }
 
 
+    def clean_nombre(self):
+        nombre = self.cleaned_data.get('nombre')
+        if nombre:
+            return nombre.strip().capitalize()
+        return nombre
+    
+    
+    def clean_primer_apellido(self):
+        primer_apellido = self.cleaned_data.get('primer_apellido')
+        if  primer_apellido:
+            return primer_apellido.strip().capitalize()
+        return primer_apellido
+    
+
+    def clean_segundo_apellido(self):
+        segundo_apellido = self.cleaned_data.get('nombre')
+        if segundo_apellido:
+            return segundo_apellido.strip().capitalize()
+        return segundo_apellido
+
+
     def clean_peso(self):
         peso = self.cleaned_data.get('peso')
         

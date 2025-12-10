@@ -12,8 +12,6 @@ from apps.perfiles.models import MatronaPerfil, SupervisorPerfil, Turno, Usuario
 # Nuestro propio comando de django que puede ejecutar luego el manage.py igual como lo hace con los comandos
 # showmigrations, makemigrations, shell, runserver, migrate, que son solo archivos que implementan una clase Command
 # que hereda de BaseCommand, django podra ejecutar el manage.py cualquier clase Command que Herede de BaseCommand como comando
-
-
 class Command(BaseCommand):
     help = "Crea los grupos principales y les asigna permisos"
 
