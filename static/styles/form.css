@@ -433,3 +433,14 @@ textarea.input-field {
     /* 7. Eliminar márgenes si el navegador los pone por defecto */
     margin: 0;
 }
+
+/* =========================================
+   CLASES DE UTILIDAD PARA TABLAS
+   ========================================= */
+.text-center {
+    text-align: center;
+}
+
+.vertical-middle {
+    vertical-align: middle;
+}
