@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, TemplateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import HttpResponse
 from django.db.models import Q, Value
@@ -9,6 +9,10 @@ from core.mixins import MatronaSupervisorRequiredMixin, MatronaRequiredMixin
 from ..models import Gestacion, Paciente
 from ..forms import GestacionForm
 
+
+
+class MenuInicioGestacionesView(MatronaSupervisorRequiredMixin, TemplateView):
+    template_name = "pacientes/inicio_gestaciones.html"
 
 
 class ListarGestacionesView(MatronaSupervisorRequiredMixin, PermissionRequiredMixin,ListView):

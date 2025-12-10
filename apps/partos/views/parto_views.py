@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, TemplateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from dal import autocomplete
 from django.db.models import Q, Value, F
@@ -8,6 +8,11 @@ from core.mixins import MatronaSupervisorRequiredMixin, MatronaRequiredMixin
 from ..models import Parto
 from apps.pacientes.models import Gestacion
 from ..forms import PartoForm
+
+
+
+class MenuInicioPartosView(MatronaSupervisorRequiredMixin, TemplateView):
+    template_name = "partos/inicio_partos.html"
 
 
 class ListarPartosView(MatronaSupervisorRequiredMixin, PermissionRequiredMixin, ListView):

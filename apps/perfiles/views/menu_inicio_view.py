@@ -1,12 +1,12 @@
 from django.views.generic import TemplateView
 from django.utils import timezone
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-from core.mixins import MatronaSupervisorRequiredMixin, AdminTiRequiredMixin
 from apps.pacientes.models import Paciente
 from apps.partos.models import Parto
 from apps.recien_nacidos.models import RecienNacido
 
-class MostrarPantallaPrincipalView(MatronaSupervisorRequiredMixin, TemplateView):
+class MostrarPantallaPrincipalView(LoginRequiredMixin, TemplateView):
     template_name="principal.html"
 
 

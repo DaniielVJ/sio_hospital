@@ -1,11 +1,11 @@
 from django.urls import path
-from ..views import ActualizarPacienteView, CrearPacienteView, DetallePacienteView, EliminarPacienteView, MostrarMenuInicioPaciente, ListarPacientesView
+from ..views import ActualizarPacienteView, CrearPacienteView, DetallePacienteView, EliminarPacienteView, MenuInicioPacienteView, ListarPacientesView
 
 app_name = "paciente"
 
 
 urlpatterns = [
-    path('', MostrarMenuInicioPaciente.as_view(), name="inicio"),
+    path('', MenuInicioPacienteView.as_view(), name="inicio"),
     path('listar/', ListarPacientesView.as_view(), name="listar_pacientes"),
     path('<int:pk>/detalle/', DetallePacienteView.as_view(), name="detalle_paciente"),
     path('agregar/', CrearPacienteView.as_view(), name="agregar_paciente"),

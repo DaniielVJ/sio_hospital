@@ -96,6 +96,7 @@
                         <th>Nombre Completo</th>
                         <th>Tipo paciente</th>
                         <th>Nacionalidad</th>
+                        <th>Fecha Registro</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -116,6 +117,9 @@
                             <td>
                                 {{paciente.nacionalidad}}
                             </td>
+                            <td>
+                                {{paciente.created_at}}
+                            </td>
                             <td class="action-group">
                                 <div class="action-buttons">
                                 <a href="#{{paciente.pk}}" class="action-btn" title="Ver Ficha">
@@ -130,22 +134,10 @@
             </table>
             
         <div class="table-pagination">
-            {% if is_paginated %}
-
-                {% if page_obj.has_previous %}
-                    <a href="?page=1&{{query_string}}" class="action-btn"><img src="{% static 'svg/leftarrow2.svg' %}" alt=""></a>
-                    <a href="?page={{page_obj.previous_page_number}}&{{query_string}}" class="action-btn"><img src="{% static 'svg/leftarrow.svg' %}" alt=""></a>
-                {% endif %}
-
-                <span>Página <strong>{{page_obj.number}}</strong> de <strong>{{page_obj.paginator.num_pages}}</strong></span>
-
-                {% if page_obj.has_next %}
-                    <a href="?page={{page_obj.next_page_number}}&{{query_string}}" class="action-btn"><img src="{% static 'svg/rightarrow.svg' %}" alt=""></a>
-                    <a href="?page={{page_obj.paginator.num_pages}}&{{query_string}}" class="action-btn"><img src="{% static 'svg/rightarrow2.svg' %}" alt=""></a>
-                {% endif %}
-            
+           {% if is_paginated %}
+                 {% include 'includes/paginacion.html' with page_obj=page_obj query_string=query_string%}
             {% endif %}
-        </div>
+           </div>
     </section>
     </div>
 
