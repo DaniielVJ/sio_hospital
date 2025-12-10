@@ -17,9 +17,9 @@ class MenuInicioGestacionesView(MatronaSupervisorRequiredMixin, TemplateView):
 
 class ListarGestacionesView(MatronaSupervisorRequiredMixin, PermissionRequiredMixin,ListView):
     model = Gestacion
-    template_name = ""
+    template_name = "pacientes/listar_gestaciones.html"
     context_object_name = 'gestaciones'
-    paginate_by = 10
+    paginate_by = 8
 
     permission_required = "pacientes.view_gestacion"
     raise_exception = True

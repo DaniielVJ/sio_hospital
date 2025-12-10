@@ -310,9 +310,30 @@
     background-color: #7f8c8d !important; 
 }
 
+/* TERMINADO: Gris (Finalizado/Histórico) */
+.estado-terminada {
+    background-color: #7f8c8d !important; 
+}
+
+.estado-curso {
+    background-color: #C2185B !important;
+    animation: palpitar2 2s infinite;
+}
+
+.estado-aborto {
+    background-color: #1976D2 !important;
+}
+
 /* Opcional: Animación para el estado crítico */
 @keyframes palpitar {
     0% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(230, 126, 34, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0); }
+}
+
+/* Opcional: Animación para el estado crítico */
+@keyframes palpitar2 {
+    0% { box-shadow: 0 0 0 0 rgba(152, 34, 230, 0.7); }
     70% { box-shadow: 0 0 0 10px rgba(230, 126, 34, 0); }
     100% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0); }
 }

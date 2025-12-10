@@ -39,11 +39,11 @@
 
     <section class="cards-container">
         <div class="card">
-            <button onclick="location.href='listarGestacion.html'" class="card-button">
+            <a href="{% url 'gestacion:listar_gestaciones' %}" class="card-button">
                 <img alt="Imagen listado de gestaciones" src="{% static 'icons/listargestaciones.png' %}" class="card-icon"/>
                 <h3 class="third-title">Ver gestaciones</h3>
                 <p class="subtitle">Gestiona a tus pacientes registrados</p>
-            </button>
+            </a>
         </div>
 
         <div class="card">

@@ -3,7 +3,7 @@
 
 
 {% block title %}
-    Partos
+    Gestaciones
 {% endblock title %}
     
 
@@ -32,11 +32,11 @@
         <span>›</span>
         <a href="{{request.META.HTTP_REFERER}}" class="link-color">Pacientes</a>
         <span>›</span>
-        <span>Listar pacientes</span>
+        <span>Ver Gestaciones</span>
     </nav>
 
     <div class="welcome-header">
-        <h1 class="main-title">Ver Partos</h1>
+        <h1 class="main-title">Gestaciones</h1>
         <p class="subtitle">Gestione los expedientes clínicos registrados en el sistema. Resultados: {{page_obj.paginator.count}} pacientes totales</p>
     </div>
 
@@ -84,8 +84,8 @@
                 
             </div>
 
-            <a href="{% url 'parto:agregar_parto' %}"
-            class="btn-primary">Agregar Parto</a>
+            <a href="{% url 'gestacion:agregar_gestacion' %}"
+            class="btn-primary">Agregar Gestacion</a>
         </div>
 
         <div class="table-container">
@@ -93,38 +93,46 @@
                 <thead>
                     <tr>
                         <th>Paciente</th>
-                        <th>F/H Inicio Trabajo de Parto</th>
+                        <th>Tipo de Embarazo/Gestacion</th>
                         <th>Estado</th>
-                        <th>Tipo de Parto</th>
+                        <th>NºSemanas</th>
                         <th>Fecha Registro</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                    
-                   {% for parto in partos %}
+                   {% for gestacion in gestaciones %}
                         <tr>
                             <td>
-                                <span class="text-bold">{{parto.gestacion.paciente.obtener_nombre_completo}}</span>
-                                <span class="text-sub">{{parto.gestacion.paciente.documento}} / {{parto.gestacion.paciente.identificacion}} </span>
+                                <span class="text-bold">{{ gestacion.paciente.obtener_nombre_completo }}</span>
+                                <span class="text-sub">{{gestacion.paciente.documento}} / {{gestacion.paciente.identificacion}}</span>
                             </td>
                             <td>
-                                {{parto.hora_inicio}}
+                                {% if gestacion.numero_fetos == 1 %}
+                                    Simple
+                                {% elif gestacion.numero_fetos == 2 %}
+                                    Mellizos
+                                {% elif gestacion.numero_fetos == 3 %}
+                                    Trillizos
+                                {% elif gestacion.numero_fetos == 4 %}
+                                    Alto Orden
+                                {% endif %}    
                             </td>
                             <td class="text-center vertical-middle">
-                                <span class="estado-badge estado-{{ parto.estado }}">
-                                    {{ parto.estado|capfirst }}
+                                <span class="estado-badge estado-{{ gestacion.estado }}">
+                                    {{ gestacion.estado|capfirst }}
                                 </span>
                             </td>
                             <td>
-                                {{parto.via_nacimiento}}
+                               {{gestacion.obtener_semanas_gestacion.semanas}}
                             </td>
                             <td>
-                                {{parto.created_at.date}}
+                                {{gestacion.created_at.date}}
                             </td>
                             <td class="action-group">
                                 <div class="action-buttons">
-                                <a href="#{{paciente.pk}}" class="action-btn" title="Ver Ficha">
+                                <a href="#{{gestacion.paciente.pk}}" class="action-btn" title="Ver Ficha">
                                     <img src="{% static 'svg/view.svg' %}" alt="Ver" class="nav-svg">
                                 </a>
                             </div>
@@ -154,6 +162,7 @@
 
 
 {% block scripts %}
+<script src="{% static 'js/htmx.min.js' %}"></script>
 <script src="{% static 'js/toastify.min.js' %}"></script>
 {% include 'includes/script_mensajes.html' %}
 
