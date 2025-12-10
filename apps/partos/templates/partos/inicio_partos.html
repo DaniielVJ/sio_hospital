@@ -39,11 +39,11 @@
 
     <section class="cards-container">
         <div class="card">
-            <button onclick="location.href='listarParto.html'" class="card-button">
+            <a href="{% url 'parto:listar_partos' %}" class="card-button">
                 <img alt="Imagen listado de partos" src="{% static 'icons/listarpartos.png' %}" class="card-icon"/>
-                <h3 class="third-title">Listar partos</h3>
+                <h3 class="third-title">Ver partos</h3>
                 <p class="subtitle">Gestiona tus partos registrados</p>
-            </button>
+            </a>
         </div>
 
         <div class="card">

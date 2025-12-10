@@ -262,3 +262,57 @@
 .action-buttons {
     justify-content: center; /* Centrar los botones de acción en su celda */
 }
+
+
+/* Estilo base para la etiqueta (badge) */
+.estado-badge {
+    text-align: center;
+    padding: 5px 12px;
+    border-radius: 20px;       /* Bordes redondeados */
+    font-weight: bold;
+    font-size: 0.85em;
+    text-align: center;
+    display: inline-block;
+    color: white;              /* Texto blanco por defecto */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra suave */
+}
+
+/* --- Colores específicos según el estado --- */
+
+/* INGRESO: Azul informativo */
+.estado-ingreso {
+    background-color: #3498db !important; 
+}
+
+/* ACTIVO: Verde (Proceso normal en curso) */
+.estado-activo {
+    background-color: #2ecc71 !important; 
+}
+
+/* EXPULSIVO: Naranja/Rojo (Atención máxima requerida) */
+.estado-expulsivo {
+    background-color: #e67e22 !important; 
+    animation: palpitar 2s infinite; /* Opcional: animación suave */
+}
+
+/* ALUMBRAMIENTO: Morado (Etapa especial) */
+.estado-alumbramiento {
+    background-color: #9b59b6 !important; 
+}
+
+/* PUERPERIO: Cyan/Turquesa (Recuperación) */
+.estado-puerperio {
+    background-color: #1abc9c !important; 
+}
+
+/* TERMINADO: Gris (Finalizado/Histórico) */
+.estado-terminado {
+    background-color: #7f8c8d !important; 
+}
+
+/* Opcional: Animación para el estado crítico */
+@keyframes palpitar {
+    0% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(230, 126, 34, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0); }
+}
