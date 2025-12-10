@@ -10,8 +10,8 @@ from ..models import Paciente
 
 
 
-class MostrarMenuInicioPaciente(MatronaSupervisorRequiredMixin, TemplateView):
-    template_name="pacientes/menu_inicio_paciente.html"
+class MenuInicioPacienteView(MatronaSupervisorRequiredMixin, TemplateView):
+    template_name="pacientes/inicio_pacientes.html"
 
 
 # View encargada de listar todos los pacientes al usuario que lo solicite
@@ -88,7 +88,10 @@ class CrearPacienteView(MatronaRequiredMixin, CreateView):
         messages.success(self.request, 'Paciente creado correctamente')
         return super().form_valid(form)
 
-    
+    def form_invalid(self, form):
+        messages.error(self.request, 'Error al registrar el paciente')
+        return super().form_invalid(form
+                                    )
 # view encargada se ejecutar la logica para actualizar los datos de un paciente
 class ActualizarPacienteView(UpdateView):
     pass

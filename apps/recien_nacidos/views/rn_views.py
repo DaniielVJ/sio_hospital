@@ -10,6 +10,10 @@ from apps.partos.models import Parto
 from core.mixins import MatronaRequiredMixin, MatronaSupervisorRequiredMixin
 
 
+class MenuInicioRecienNacido(MatronaSupervisorRequiredMixin, TemplateView):
+    template_name = "recien_nacidos/inicio_rn.html"
+
+
 class CrearRecienNacidoView(MatronaRequiredMixin, PermissionRequiredMixin, CreateView):
     model = RecienNacido
     template_name = "recien_nacidos/formulario_rn.html"

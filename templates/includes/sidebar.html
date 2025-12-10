@@ -9,27 +9,22 @@
         </a>
         
         {% if request.user.es_matrona or request.user.es_supervisor %}
-            <a 
-            hx-get="{% url 'paciente:inicio' %}" 
-            hx-target="#menu-inicio"
-            hx-swap="innerHTML"
-            
-            class="nav-link">
+            <a  href="{% url 'paciente:inicio' %}" class="nav-link">
                 <img src="{% static 'svg/paciente.svg' %}" class="nav-svg" />
                 <span class="nav-text">Pacientes</span>
             </a>
 
-            <a href="../Matrona/Gestaciones/gestaciones.html" class="nav-link">
+            <a href="{% url 'gestacion:inicio' %}" class="nav-link">
                 <img src="{% static 'svg/gestacion.svg' %}" class="nav-svg" />
                 <span class="nav-text">Gestaciones</span>
             </a>
 
-            <a href="../Matrona/Partos/partos.html" class="nav-link">
+            <a href="{% url 'parto:inicio' %}" class="nav-link">
                 <img src="{% static 'svg/parto.svg' %}" class="nav-svg" />
                 <span class="nav-text">Partos</span>
             </a>
 
-            <a href="../Matrona/RecienNacido/recienNacido.html" class="nav-link">
+            <a href="{% url 'recien_nacido:inicio' %}" class="nav-link">
                 <img src="{% static 'svg/reciennacido.svg' %}" class="nav-svg" />
                 <span class="nav-text">Recién Nacidos</span>
             </a>

@@ -10,6 +10,7 @@
 
 {% block estilos_personalizados %}
     <link rel="stylesheet" href="{% static 'styles/form.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/toastify.min.css' %}">
 {% endblock estilos_personalizados %}
 
 
@@ -302,5 +303,7 @@
 {% block scripts %}
     <script src="{% static 'js/deshabilitador-input.js' %}"></script>
     <script src="{% static 'js/manejo-error-form.js' %}"></script>
+    <script src="{% static 'js/toastify.min.js' %}"></script>
+    {% include 'includes/script_mensajes.html' %}
 {% endblock scripts %}
     
