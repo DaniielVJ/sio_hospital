@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Central de Reportes
+{% endblock title %}
+
+{% block estilos_personalizados %}
+    <link rel="stylesheet" href="{% static 'styles/cards.css' %}">
+{% endblock estilos_personalizados %}
+
+{% block menus_navegacion %}
+    {% include 'includes/topbar.html' %}
+    {% include 'includes/sidebar.html' %}
+{% endblock menus_navegacion %}
+
+{% block content %}
+    <main class="main-container">
+
+        <nav class="breadcrumbs">
+            <a href="{% url 'inicio_matrona' %}" class="link-color">Inicio</a>
+            <span>›</span>
+            <span>Reportes y Estadísticas</span>
+        </nav>
+
+        <nav class="welcome-header">
+            <h1 class="main-title">Central de Reportes Clínicos</h1>
+            <p class="subtitle">Genere, visualice y exporte estadísticas clave del servicio.</p>
+        </nav>
+
+        <section class="cards-container">
+
+            <div class="card">
+                <a href="#" class="card-button">
+                    <img alt="Estadística Partos" src="{% static 'icons/chart_bar.png' %}" class="card-icon"/>
+                    <h3 class="third-title">Estadística de Partos</h3>
+                    <p class="subtitle">Volumen de partos mensual y anual comparativo.</p>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#" class="card-button">
+                    <img alt="Grupos Robson" src="{% static 'icons/chart_pie.png' %}" class="card-icon"/>
+                    <h3 class="third-title">Grupos de Robson</h3>
+                    <p class="subtitle">Clasificación de cesáreas según grupos estándar.</p>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#" class="card-button">
+                    <img alt="Vía Parto" src="{% static 'icons/baby_feet.png' %}" class="card-icon"/>
+                    <h3 class="third-title">Vías de Nacimiento</h3>
+                    <p class="subtitle">Indicadores de parto vaginal, fórceps y cesáreas.</p>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#" class="card-button">
+                    <img alt="Recién Nacidos" src="{% static 'icons/baby_face.png' %}" class="card-icon"/>
+                    <h3 class="third-title">Datos Neonatales</h3>
+                    <p class="subtitle">Estadísticas de peso, talla, sexo y Apgar.</p>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#" class="card-button">
+                    <img alt="Alerta Médica" src="{% static 'icons/medical_alert.png' %}" class="card-icon"/>
+                    <h3 class="third-title">Morbimortalidad</h3>
+                    <p class="subtitle">Resumen de complicaciones maternas y perinatales.</p>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#" class="card-button">
+                    <img alt="Camas" src="{% static 'icons/hospital_bed.png' %}" class="card-icon"/>
+                    <h3 class="third-title">Egresos y Traslados</h3>
+                    <p class="subtitle">Pacientes de alta y derivaciones a otros centros.</p>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#" class="card-button">
+                    <img alt="Documento Oficial" src="{% static 'icons/folder_check.png' %}" class="card-icon"/>
+                    <h3 class="third-title">Reporte REM</h3>
+                    <p class="subtitle">Generación de datos para Registro Estadístico Mensual.</p>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="#" class="card-button">
+                    <img alt="Exportar Excel" src="{% static 'icons/excelicon.png' %}" class="card-icon"/>
+                    <h3 class="third-title">Exportar Base Completa</h3>
+                    <p class="subtitle">Descarga masiva de datos crudos para análisis externo.</p>
+                </a>
+            </div>
+
+        </section>
+    </main>
+{% endblock content %}

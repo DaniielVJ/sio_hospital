@@ -145,9 +145,16 @@ label {
 }
 
 /* Estilo para las opciones resaltadas */
+/* Estilo para las opciones resaltadas (HOVER) */
 .select2-results__option--highlighted {
-    background-color: var(--primary-light) !important;
-    color: var(--primary-dark);
+    /* Fondo: Tu color principal */
+    background-color: var(--primary) !important; 
+    
+    /* Texto: Blanco para que se lea perfecto sobre el naranja */
+    color: #ffffff !important; 
+    
+    /* Opcional: Un pequeño borde radius para que se vea más moderno */
+    border-radius: 4px;
 }
 
 /* Estilo para el fondo del dropdown completo */
@@ -432,4 +439,40 @@ textarea.input-field {
     
     /* 7. Eliminar márgenes si el navegador los pone por defecto */
     margin: 0;
+}
+
+/* =========================================
+   FIX SELECT2 PARA MODO NOCHE (Y GENERAL)
+   ========================================= */
+
+/* 1. El contenedor del menú desplegable */
+.select2-dropdown {
+    background-color: var(--bg-panel) !important; /* Fondo oscuro en noche */
+    border-color: var(--border-subtle) !important;
+    color: var(--text-main) !important; /* Texto claro en noche */
+}
+
+/* 2. Las opciones de la lista (cuando NO tienes el mouse encima) */
+.select2-results__option {
+    color: var(--text-main) !important; /* Fuerza el color de texto de tu tema */
+}
+
+/* 3. El input del buscador interno (ese cuadro donde escribes para filtrar) */
+.select2-search__field {
+    background-color: var(--bg-input) !important; /* Gris suave/oscuro según tema */
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: 0.5rem !important; /* Para que no sea cuadrado feo */
+}
+
+/* 4. El ítem que YA seleccionaste (para que se note cuál es) */
+.select2-container--default .select2-results__option[aria-selected=true] {
+    background-color: var(--bg-input) !important; /* Un fondo sutil para diferenciar */
+    color: var(--text-main) !important;
+}
+
+/* 5. El Hover (Tu fix anterior se mantiene aquí para asegurar prioridad) */
+.select2-results__option--highlighted {
+    background-color: var(--primary) !important;
+    color: #ffffff !important;
 }
