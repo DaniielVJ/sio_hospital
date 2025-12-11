@@ -256,7 +256,7 @@ body {
 
 .forgot-link:hover {
     text-decoration: underline;
-    oklch(68.71% 0.202 24.112);
+    color: oklch(68.71% 0.202 24.112);
 }
 
 /* Footer del login */
