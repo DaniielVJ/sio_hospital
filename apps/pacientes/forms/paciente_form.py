@@ -19,7 +19,6 @@ class PacienteForm(forms.ModelForm):
             'nombre': forms.TextInput(attrs={'placeholder': 'Ej: Rosalia Alejandra'}),
             'primer_apellido': forms.TextInput(attrs={'placeholder': 'Apellido del Paciente'}),
             'segundo_apellido': forms.TextInput(attrs={'placeholder': 'Apellido del Paciente'}),
-
         }
 
 

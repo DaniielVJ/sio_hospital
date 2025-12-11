@@ -5,123 +5,126 @@
 {% include 'includes/sidebar.html' %}
 {% include 'includes/topbar.html' %}
 
+<body class="bodydashboard-container">
 
-<!----------------------------------------------->
-<main>
-    <div class="w-full min-h-screen flex flex-col">
-        <!-- boton para volver -->
-        <div class="fixed bottom-[14rem] left-[1.4rem] z-50 flex justify-left items-center border hover:scale-110 transition-all duration-300
-                    bg-green-600/20 hover:bg-green-500
-                    p-4 rounded-full
-                    w-[5rem]">
-            <a href="{% url 'dashboard_index' %}" class="font-semibold text-[1rem] text-center">
-                ← Menu
-            </a>
+    {% include 'nav/nav.html' %}
+
+    <!-- ====================================================== -->
+    <!--                             KPIs                        -->
+    <!-- ====================================================== -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-[1rem] text-center">
+
+        <!-- KPI 1 -->
+        <div class="p-4 rounded-2xl shadow-xl
+                    bg-gradient-to-br from-red-500/40 to-pink-200/10
+                    backdrop-blur-xl border border-white/10">
+            <h3 class="text-sm font-medium">
+                Pacientes en riesgo Activos
+            </h3>
+            <p id="kpi_paciente_1" data-value="{{ kpipaciente1|default:25 }}"
+               class="text-4xl font-bold mt-3">0</p>
         </div>
-        <div class="relative overflow-hidden mb-4">
-            <!-- Fondo -->
-            <div class="absolute inset-0 border-0 rounded-xl">
+
+        <!-- KPI 2 -->
+        <div class="p-4 rounded-2xl shadow-xl
+                    bg-gradient-to-br from-red-600/10 via-pink-200/10 to-pink-300/20 
+                    backdrop-blur-xl border border-white/10">
+            <h3 class="text-sm font-medium">
+                Pacientes atendidos este año
+            </h3>
+            <p id="kpi_paciente_2" data-value="{{ kpipaciente2|default:50 }}"
+               class="text-4xl font-bold mt-3">0</p>
+        </div>
+
+        <!-- KPI 3 -->
+        <div class="p-4 rounded-2xl shadow-xl
+                    bg-gradient-to-br from-pink-200/10 via-red-400/20 to-red-600/10
+                    backdrop-blur-xl border border-white/10">
+            <h3 class="text-sm font-medium">
+                Tiempo de estancia promedio
+            </h3>
+            <p id="kpi_paciente_3" data-value="{{ kpipaciente3|default:10 }}"
+               class="text-4xl font-bold mt-3">0</p>
+        </div>
+
+    </section>
+
+    <!-- ====================================================== -->
+    <!--           GRÁFICO PRINCIPAL         -->
+    <!-- ====================================================== -->
+    <section class="grid grid-cols-2 gap-[1rem]">
+        <div class="grid grid-row-1 gap-[1rem]">
+            <div class="rounded-2xl shadow-xl bg-[#131b2e65]  border border-white/10">
+                <h2 class="text-lg font-semibold text-white text-center">
+                    Cantidad de embarazos durante el año
+                </h2>
+                <div id="chart_paciente_1" 
+                     data-value='{{ chartpaciente1|safe }}'
+                    class="w-full h-80 rounded-xl"></div>
             </div>
 
-            <!-- ====================================================== -->
-            <!--                 KPIS     -->
-            <!-- ====================================================== -->
-            <div class="z-10 p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <div class="flex flex-col items-center justify-center gap-4 text-center">
-                    <div class="bg-gradient-to-br from-red-500/20 via-red-500/30 to-orange-400/20
-                                p-6 border rounded-xl shadow-md dark:shadow-lg 
-                                w-[12rem] h-[10rem] md:w-[22rem] md:h-[9rem] 
-                                inline-block tracking-wide transition-colors duration-300">
-                        <h3 class="text-sm font-medium">Pacientes Registrados este Mes</h3>
-                        <p id="kpi1" class="text-4xl font-bold mt-2" data-value="{{ pc_mes }}">--</p>
-                    </div>
-                    <!-- KPI 2 -->
-                    <div class="bg-gradient-to-br from-pink-600/30 via-pink-500/20 to-pink-400/20 p-6 rounded-xl shadow-md border w-[12rem] h-[10rem] md:w-[22rem] md:h-[9rem]">
-                        <h3 class="text-sm font-medium">Total Partos Diarios</h3>
-                        <p id="kpi2" class="text-4xl font-bold mt-2" data-value="{{ p_diario }}">--</p>
-                    </div>
-                </div>
-
-                <!--  KPI SECUNDARIOS  -->
-                <div class="grid grid-cols-2 grid-rows-2 gap-4 text-center">
-                    <!-- KPI 3 (paleta rojo) 1-->
-                    <div class="bg-gradient-to-tr from-red-600/10 via-pink-200/10 to-pink-300/20 p-6 rounded-xl shadow-md border">
-                        <h3 class="text-sm font-medium">Pacientes Activos</h3>
-                        <p id="kpi3" class="text-3xl font-bold mt-2" data-value="{{ activos|default:0 }}">--</p>
-                    </div>
-                    <!-- KPI 4 (paleta azul)3 -->
-                    <div class="bg-gradient-to-br from-red-600/10 via-pink-200/10 to-pink-300/20 p-6 rounded-xl shadow-md border">
-                        <h3 class="text-sm font-medium">Complicaciones</h3>
-                        <p id="kpi4" class="text-3xl font-bold mt-2" data-value="{{ complicaciones|default:0 }}">--</p>
-                    </div>
-                    <!-- KPI 5 (paleta rojo) 2-->
-                    <div class="bg-gradient-to-br from-red-600/10 via-pink-200/10 to-pink-300/20 p-6 rounded-xl shadow-md border">
-                        <h3 class="text-sm font-medium">Apgar Promedio</h3>
-                        <p id="kpi5" class="text-3xl font-bold mt-2" data-value="{{ apgar|default:0 }}">--</p>
-                    </div>
-                    <!-- KPI 6 (paleta azul) 4-->
-                    <div class="bg-gradient-to-tr from-red-600/10 via-pink-200/10 to-pink-300/20 p-6 rounded-xl shadow-md border">
-                        <h3 class="text-sm font-medium">Promedio de Estancia</h3>
-                        <p id="kpi6" class="text-3xl font-bold mt-2" data-value="{{ promedio_estancia|default:0 }}">--</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ====================================================== -->
-        <!--                  GRÁFICOS                  -->
-        <!-- ====================================================== -->
-        <div class="mb-4">
-            <div class="p-6 rounded-xl shadow-md border-3">
-                <div id="chart_main" class="w-full h-[350px] md:h-[420px]"></div>
+            <div class="rounded-2xl shadow-xl bg-[#131b2e65]  border border-white/10">
+                <h2 class="text-lg font-semibold text-white text-center">
+                    Distribución por Edad
+                </h2>
+                <div id="chart_paciente_2" 
+                    data-value='{{ chartpaciente2|safe }}'
+                    class="w-full h-80 rounded-xl"></div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div class="p-6 rounded-xl shadow-md border ">
-                <div id="chart_2" class="w-full h-80"></div>
-            </div>
-            <div class="p-6 rounded-xl shadow-md border">
-                <div id="chart_3" class="w-full h-80"></div>
+        <div class="grid grid-row-1 h-50">
+            <div class="p-[1rem] rounded-2xl shadow-xl bg-[#131b2e65] border border-white/10">
+                <h2 class="text-lg font-semibold text-white text-center">
+                    Complicaciones por Tipo
+                </h2>
+                <div id="chart_paciente_3" 
+                    data-value='{{ chartpaciente3|safe }}'
+                    class="w-full h-80 rounded-xl"></div>
             </div>
 
-            <div class="p-6 rounded-xl shadow-md border">
-                <div id="chart_4" class="w-full h-80"></div>
-            </div>
-            <div class=" rounded-xl shadow-md border">
-                <div id="chart_5" class="w-full h-80"></div>
-            </div>
-            
-        </div>
-        <!-- ====================================================== -->
-        <!--                       TABLA PACIENTES                  -->
-        <!-- ====================================================== -->
-        <div class="p-6 rounded-xl shadow-md border mt-4">
-            <h2 class="text-lg font-semibold text-center">Lista de Pacientes</h2>
+            <!--TABLA -->
+            <div class="p-6 rounded-2xl shadow-xl bg-[#131b2e65]  border border-white/10 mt-6">
+                <h2 class="text-lg font-semibold text-center mb-4 text-white">
+                    Lista de Pacientes
+                </h2>
+
                 <div class="overflow-x-auto">
-                    <table class="min-w-full table-auto text-left border rounded-lg">
-                        <thead class="bg-gray-200">
+                    <table class="min-w-full table-auto rounded-xl text-left">
+                        <thead class="bg-[#18223575] text-gray-300">
                             <tr>
-                                <th class="p-2 border text-center">Nombre</th>
-                                <th class="p-2 border text-center">Edad</th>
+                                <th class="p-3  border-white/10 text-center">Nombre</th>
+                                <th class="p-3  border-white/10 text-center">Edad</th>
                             </tr>
                         </thead>
-                        <tbody id="tabla_pacientes">
-                        </tbody>
+                        <tbody id="tabla_paciente" data-value='{{ tablapaciente }}'
+                            class="border-b-1 text-center">
+                    </tbody>
                     </table>
                 </div>
+            </div>
         </div>
+    </section>
 
-        <!-- ====================================================== -->
-        <!--                 DATOS EMBEBIDOS PARA JS                -->
-        <!-- ====================================================== -->
-        <div id="user_info"
-             data-meses='{{ meses|safe }}'
-             data-embarazos='{{ embarazos|safe }}'
-             data-lista='{{ lista_json|safe }}'
-             data-chart='{{ data_json|safe }}'>
-        </div>
-        </div>
-</main>
+
+
+    <!-- ====================================================== -->
+    <!--                   DATOS EMBEBIDOS                      -->
+    <!-- ====================================================== -->
+    <div id="data-values"
+         data-kpi1='{{ kpipaciente1| safe}}'
+         data-kpi2='{{ kpipaciente2| safe}}'
+         data-kpi3='{{ kpipaciente3| safe}}'
+         data-tabla='{{ tablapaciente| safe }}'
+         data-chart1='{{ chartpaciente1| safe }}'
+         data-chart2='{{ chart_paciente_2| safe }}'
+         data-chart3='{{ chart_paciente_3| safe }}'>
+    </div>
+
+</body>
+
+{% block scripts %}
+<script src="{% static 'dashboard/js/pacientes.js' %}"></script>
+{% endblock scripts %}
 
 {% endblock %}

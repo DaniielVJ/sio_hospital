@@ -1,24 +1,57 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // TOP KPI
-    if (window.renderKpiTotales) renderKpiTotales();
-    if (window.renderKpiTasaCesareas) renderKpiTasaCesareas();
+    /* Pacientes */
+    if (window.renderKpiPaciente1) renderKpiPaciente1();
+    if (window.renderKpiPaciente2) renderKpiPaciente2();
+    if (window.renderKpiPaciente3) renderKpiPaciente3();
 
-    // KPI secundarios
-    if (window.renderKpiPartosVaginales) renderKpiPartosVaginales();
-    if (window.renderKpiComplicaciones) renderKpiComplicaciones();
-    if (window.renderKpiApgar) renderKpiApgar();
-    if (window.renderKpiPromedioEstancia) renderKpiPromedioEstancia();
+    if (window.renderChartPaciente1) renderChartPaciente1();
+    if (window.renderChartPaciente2) renderChartPaciente2();
+    if (window.renderChartPaciente3) renderChartPaciente3();
 
-    // Gráfico Principal
-    if (window.renderMainChart) renderMainChart();
+    if (window.renderTablePaciente) renderTablePaciente();
 
-    // Gráficos Secundarios
-    if (window.renderChartGestacion) renderChartGestacion();
-    if (window.renderChartComplicaciones) renderChartComplicaciones();
-    if (window.renderChartPresentacion) renderChartPresentacion();
-    if (window.renderChartApgar) renderChartApgar();
+    /* Partos */
+    if (window.renderKpiParto1) renderKpiParto1();
+    if (window.renderKpiParto2) renderKpiParto2();
+    if (window.renderKpiParto3) renderKpiParto3();
 
-    // Tabla de Pacientes
-    if (window.loadTablaPacientes) renderTablaPacientes();
+    if (window.renderChartParto1) renderChartParto1();
+    if (window.renderChartParto2) renderChartParto2();
+    if (window.renderChartParto3) renderChartParto3();
+
+    if (window.renderTableParto) renderTableParto();
+
+    /* Recien Nacidos */
+    if (window.renderKpiRn1) renderKpiRn1();
+    if (window.renderKpiRn2) renderKpiRn2();
+    if (window.renderKpiRn3) renderKpiRn3();
+
+    if (window.renderChartRn1) renderChartRn1();
+    if (window.renderChartRn2) renderChartRn2();
+    if (window.renderChartRn3) renderChartRn3();
+
+    if (window.renderTableRn) renderTableRn();
+
+    /* Reportes */
+    if (window.renderKpiReporte1) renderKpiReporte1();
+    if (window.renderKpiReporte2) renderKpiReporte2();
+    if (window.renderKpiReporte3) renderKpiReporte3();
+
+    if (window.renderChartReporte1) renderChartReporte1();
+    if (window.renderChartReporte2) renderChartReporte2();
+    if (window.renderChartReporte3) renderChartReporte3();
+
+    if (window.renderTableReporte) renderTableReporte();
+
+    /* Profesionales */
+    if (window.renderKpiprofesional1) renderKpiprofesional1();
+    if (window.renderKpiprofesional2) renderKpiprofesional2();
+    if (window.renderKpiprofesional3) renderKpiprofesional3();
+
+    if (window.renderChartProfesional1) renderChartProfesional1();
+    if (window.renderChartProfesional2) renderChartProfesional2();
+    if (window.renderChartProfesional3) renderChartProfesional3();
+
+    if (window.renderTableprofesional) renderTableprofesional();
 });
