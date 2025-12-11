@@ -7,10 +7,10 @@ body {
                  'Open Sans', 'Helvetica Neue', sans-serif;
 
     background: radial-gradient(
-    circle at left,
-    #ff414a 0%,
-    #ffc3c6 20%,
-    #ffffff 80%
+    circle at left top,
+    #ff7279 0%,
+    #ffc3c6 10%,
+    #ffffff 65%
     );
     
     display: flex;
@@ -38,24 +38,21 @@ body {
     color: #ffffff;
 }
 
-.welcome-title {
-    font-size: 4.1rem;
-    font-weight: 700;
-    line-height: 1.15;
-    color: #ffffff;
-
+.welcome-logo {
+    width: 380px;
+    margin-bottom: 1rem;
     opacity: 0;
-    animation: slideFadeIn 10.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slideFadeIn 4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .welcome-subtitle {
     font-size: 1.6rem;
-    padding-bottom: 11rem;
-    color: #ffffff;
+    padding-bottom: 5rem;
+    color: #540606;
 
     opacity: 0;
-    animation: slideFadeIn 10s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 10.20;
+    animation: slideFadeIn 4.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.20;
 }
 
 .left-footer {
@@ -64,26 +61,23 @@ body {
     left: 13rem;
 
     opacity: 0;
-    animation: slideFadeIn 10.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slideFadeIn 4.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .left-footer-text {
     font-size: 1rem;
     opacity: 0.99;
-    color: #ffffff;
+    color: #540606;
 }
 
-
-   /* PANEL DERECHO (LOGIN)  */
-
-/* Tarjeta */
+/* PANEL DERECHO (LOGIN)  */
 .login-card {
     width: 100%;
     max-width: 20rem;
-    background: #fff5f5;
+    background: #ffffff;
     padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-radius: 1.5rem;
+    box-shadow: 0 24px 40px rgba(0, 0, 0, 0.08);
 
     display: flex;
     flex-direction: column;
@@ -143,7 +137,7 @@ body {
     padding: 0.75rem 1rem;
     border-radius: 1.1rem;
     border: 1.5px solid #fff;
-    background-color: #ffffff;
+    background-color: #ececec;
     font-size: 0.95rem;
     transition: border-color 0.2s ease;
     box-sizing: border-box; 
@@ -162,6 +156,49 @@ body {
 .form-input:focus {
     border-color: #ffffff;
     outline: none;
+}
+
+/* TOGGLE PASSWORD (EL OJITO)*/
+.password-wrapper {
+    position: relative; /* Necesario para que el botón flote dentro */
+    width: 100%;
+}
+
+.password-wrapper .form-input {
+    padding-right: 3rem; 
+}
+
+.btn-eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%); /* Centrado vertical perfecto */
+    
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.btn-eye:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Fondo gris muy sutil al pasar mouse */
+}
+
+/* Control del tamaño de tu imagen SVG */
+.eye-icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.5; /* Lo hacemos un poco gris para que no destaque tanto */
+    transition: opacity 0.2s ease;
+}
+
+.btn-eye:hover .eye-icon {
+    opacity: 1; /* Se oscurece al pasar el mouse */
 }
 
 .form-options {
@@ -193,7 +230,7 @@ body {
 }
 
 .btn-primary {
-    background-color: #000000;
+    background-color: oklch(68.71% 0.202 24.112);
     color: white;
     width: 100%;          /* ahora ocupa bien el espacio */
     max-width: 19.6rem;     /* no se vuelve gigante */
@@ -205,7 +242,7 @@ body {
 
 
 .btn-primary:hover {
-    background-color: #0f0e0e;
+    background-color: oklch(70.302% 0.18836 23.235);
 }
 
 .forgot-link {
@@ -217,9 +254,9 @@ body {
     text-align: center;        /* Se asegura que el texto quede centrado */
 }
 
-
 .forgot-link:hover {
     text-decoration: underline;
+    oklch(68.71% 0.202 24.112);
 }
 
 /* Footer del login */
