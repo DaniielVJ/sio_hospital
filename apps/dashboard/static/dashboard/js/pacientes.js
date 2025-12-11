@@ -160,6 +160,7 @@ window.renderTablePaciente = function () {
 
     let tabla = [];
     try { /* Aqui debemos agregar el valor que definiremos abajo */
+         /* recordar poner la comillas y sin espacios al inyectar datos en bruto*/
         tabla = JSON.parse(tbody.dataset.value || '[{"nombre":"Ana Perez","edad":28},{"nombre":"Maria Gomez","edad":32}, {"nombre":"Luisa Fernandez","edad":45},{"nombre":"Carmen Rodriguez","edad":36},{"nombre":"Sofia Martinez","edad":29},{"nombre":"Elena Lopez","edad":40},{"nombre":"Marta Sanchez","edad":33}]');
     } catch (e) {
         console.error('Error parseando tabla_pacientes dataset:', e);
@@ -175,7 +176,7 @@ window.renderTablePaciente = function () {
 
         /* nombre tabla = para json */
         const cellNombre = document.createElement("td");
-        cellNombre.textContent = paciente.nombre;
+        cellNombre.textContent = paciente.nombre || paciente.nombre || ''; /* se puede validar */
         row.appendChild(cellNombre);
 
         /* edad */

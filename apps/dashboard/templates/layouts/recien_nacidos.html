@@ -86,7 +86,7 @@
             <!--TABLA -->
             <div class="p-6 rounded-2xl shadow-xl bg-[#131b2e65]  border border-white/10 mt-6">
                 <h2 class="text-lg font-semibold text-center mb-4 text-white">
-                    Últimos rns Registrados
+                    Últimos Recien Nacidos Registrados
                 </h2>
 
                 <div class="overflow-x-auto">
@@ -99,9 +99,9 @@
                                 <th class="p-3  border-white/10 text-center">Reanimacion</th>
                             </tr>
                         </thead>
-                        <tbody id="tabla_reporte" data-value='{{ tablarn }}'
-                            class="border-b-1 text-center">
-                    </tbody>
+                        <tbody id="tabla_rn" data-value='{{ tablarn }}'
+                                class="border-b-1 text-center">
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -126,7 +126,7 @@
 </body>
 
 {% block scripts %}
-<script src="{% static 'dashboard/js/rns.js' %}"></script>
+<script src="{% static 'dashboard/js/recien_nacidos.js' %}"></script>
 {% endblock scripts %}
 
 {% endblock %}

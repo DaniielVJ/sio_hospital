@@ -156,7 +156,7 @@ window.renderTableParto = function () {
     if (!tbody) return;
 
     let tabla = [];
-    try { /* recordar poner la comillas al inyectar datos en bruto */
+    try {
         tabla = JSON.parse(tbody.dataset.value || '[{"Profesional":"Dr. Pudu","NombreRN":"Bebesito bebelin","TipoParto":"Vaginal","Apgar":8},{"Profesional":"Dr mundo","NombreRN":"pudin","TipoParto":"Cesárea","Apgar":9}]');
     } catch (e) {
         console.error('Error parseando tabla_parto dataset:', e);

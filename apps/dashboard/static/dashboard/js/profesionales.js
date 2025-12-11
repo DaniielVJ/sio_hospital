@@ -1,4 +1,4 @@
-window.renderKpiprofesional1 = function () {
+window.renderKpiProfesional1 = function () {
     const el = document.getElementById("kpi_profesional_1");
     if (!el) return;
 
@@ -6,7 +6,7 @@ window.renderKpiprofesional1 = function () {
     el.innerHTML = valor;
 };
 
-window.renderKpiprofesional2 = function () {
+window.renderKpiProfesional2 = function () {
     const el = document.getElementById("kpi_profesional_2");
     if (!el) return;
 
@@ -14,7 +14,7 @@ window.renderKpiprofesional2 = function () {
     el.innerHTML = valor;
 };
 
-window.renderKpiprofesional3 = function () {
+window.renderKpiProfesional3 = function () {
     const el = document.getElementById("kpi_profesional_3");
     if (!el) return;
     const valor = el.dataset.value || 15;
@@ -151,23 +151,39 @@ window.renderChartProfesional3 = function () {
 
 
 /* tabla */
-window.renderTableprofesional = function () {
-    const div = document.getElementById("tabla_profesional");
-    if (!div) return;
+window.renderTableProfesional = function () {
+    const tbody = document.getElementById("tabla_profesional");
+    if (!tbody) return;
 
-    const tabla = JSON.parse(div.dataset.pacientes || '[{"nombre": "Ana Perez", "edad": 28}, {"nombre": "Maria Gomez", "edad": 32}]');
+    let tabla = [];
+    try {
+        tabla = JSON.parse(tbody.dataset.value || '[{"Nombre":"Dr. Juan","Area":"Pabellon","Especialidad":"Matron","Apgar":5}]');
+    } catch (e) {
+        console.error('Error parseando tabla_profesional dataset:', e);
+        tabla = [];
+    }
 
-    const tableBody = div.querySelector("tbody");
+    tbody.innerHTML = '';
 
-    tabla.forEach(paciente => {
+    tabla.forEach(profesional => {
         const row = document.createElement("tr");
-        const cellNombre = document.createElement("td");
-        cellNombre.textContent = paciente.nombre;
-        row.appendChild(cellNombre);
-        const cellEdad = document.createElement("td");
-        cellEdad.textContent = paciente.edad;
-        row.appendChild(cellEdad);
 
-        tableBody.appendChild(row);
+        const cellNombre = document.createElement("td");
+        cellNombre.textContent = profesional.Nombre;
+        row.appendChild(cellNombre);
+
+        const cellArea = document.createElement("td");
+        cellArea.textContent = profesional.Area;
+        row.appendChild(cellArea);
+
+        const cellEspecialidad = document.createElement("td");
+        cellEspecialidad.textContent = profesional.Especialidad;
+        row.appendChild(cellEspecialidad);
+
+        const cellApgar = document.createElement("td");
+        cellApgar.textContent = profesional.Apgar;
+        row.appendChild(cellApgar);
+
+        tbody.appendChild(row);
     });
 };

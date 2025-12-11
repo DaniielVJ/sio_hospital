@@ -1,4 +1,4 @@
-window.renderKpireportesMes = function () {
+window.renderKpiReporte1 = function () {
     const el = document.getElementById("kpi_reporte_1");
     if (!el) return;
 
@@ -6,7 +6,7 @@ window.renderKpireportesMes = function () {
     el.innerHTML = valor;
 };
 
-window.renderKpiCesareareporte = function () {
+window.renderKpiReporte2 = function () {
     const el = document.getElementById("kpi_reporte_2");
     if (!el) return;
 
@@ -14,7 +14,7 @@ window.renderKpiCesareareporte = function () {
     el.innerHTML = valor;
 };
 
-window.renderKpiComplicaciones = function () {
+window.renderKpiReporte3 = function () {
     const el = document.getElementById("kpi_reporte_3");
     if (!el) return;
     const valor = el.dataset.value || 15;
@@ -23,7 +23,7 @@ window.renderKpiComplicaciones = function () {
 
 
 /* graficos */
-window.renderChartTotalreportesPeriodo = function () {
+window.renderChartReporte1 = function () {
     const div = document.getElementById("chart_reporte_1");
     if (!div) return;
 
@@ -65,7 +65,7 @@ window.renderChartTotalreportesPeriodo = function () {
     chart.resize();
 };
 
-window.renderChartTasaCesarea = function () {
+window.renderChartReporte2 = function () {
     const div = document.getElementById("chart_reporte_2");
     if (!div) return;
 
@@ -104,7 +104,7 @@ window.renderChartTasaCesarea = function () {
     chart.resize();
 };
 
-window.renderChartTasaComplicaciones = function () {
+window.renderChartReporte3 = function () {
     const div = document.getElementById("chart_reporte_3");
     if (!div) return;
 
@@ -152,22 +152,38 @@ window.renderChartTasaComplicaciones = function () {
 
 /* tabla */
 window.renderTableReporte = function () {
-    const div = document.getElementById("tabla_reporte");
-    if (!div) return;
+    const tbody = document.getElementById("tabla_reporte");
+    if (!tbody) return;
 
-    const tabla = JSON.parse(div.dataset.pacientes || '[{"nombre": "Ana Perez", "edad": 28}, {"nombre": "Maria Gomez", "edad": 32}]');
+    let tabla = [];
+    try {
+        tabla = JSON.parse(tbody.dataset.value || '[{"Profesional":"Dr. Jose","NombreRN":"Ana","TipoReporte":"Cesarea","Apgar":8}]');
+    } catch (e) {
+        console.error('Error parseando tabla_reporte dataset:', e);
+        tabla = [];
+    }
 
-    const tableBody = div.querySelector("tbody");
+    tbody.innerHTML = '';
 
-    tabla.forEach(paciente => {
+    tabla.forEach(reporte => {
         const row = document.createElement("tr");
-        const cellNombre = document.createElement("td");
-        cellNombre.textContent = paciente.nombre;
-        row.appendChild(cellNombre);
-        const cellEdad = document.createElement("td");
-        cellEdad.textContent = paciente.edad;
-        row.appendChild(cellEdad);
 
-        tableBody.appendChild(row);
+        const cellProfesional = document.createElement("td");
+        cellProfesional.textContent = reporte.Profesional;
+        row.appendChild(cellProfesional);
+
+        const cellNombreRN = document.createElement("td");
+        cellNombreRN.textContent = reporte.NombreRN;
+        row.appendChild(cellNombreRN);
+
+        const cellTipoReporte = document.createElement("td");
+        cellTipoReporte.textContent = reporte.TipoReporte;
+        row.appendChild(cellTipoReporte);
+
+        const cellApgar = document.createElement("td");
+        cellApgar.textContent = reporte.Apgar;
+        row.appendChild(cellApgar);
+
+        tbody.appendChild(row);
     });
 };

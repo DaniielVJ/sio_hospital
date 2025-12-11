@@ -45,13 +45,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (window.renderTableReporte) renderTableReporte();
 
     /* Profesionales */
-    if (window.renderKpiprofesional1) renderKpiprofesional1();
-    if (window.renderKpiprofesional2) renderKpiprofesional2();
-    if (window.renderKpiprofesional3) renderKpiprofesional3();
+    if (window.renderKpiProfesional1) renderKpiProfesional1();
+    if (window.renderKpiProfesional2) renderKpiProfesional2();
+    if (window.renderKpiProfesional3) renderKpiProfesional3();
 
     if (window.renderChartProfesional1) renderChartProfesional1();
     if (window.renderChartProfesional2) renderChartProfesional2();
     if (window.renderChartProfesional3) renderChartProfesional3();
 
-    if (window.renderTableprofesional) renderTableprofesional();
+    if (window.renderTableProfesional) renderTableProfesional();
 });

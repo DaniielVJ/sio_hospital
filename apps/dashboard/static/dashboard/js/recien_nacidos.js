@@ -152,22 +152,38 @@ window.renderChartRn3= function () {
 
 /* tabla */
 window.renderTableRn = function () {
-    const div = document.getElementById("tabla_rn");
-    if (!div) return;
+    const tbody = document.getElementById("tabla_rn");
+    if (!tbody) return;
 
-    const tabla = JSON.parse(div.dataset.pacientes || '[{"nombre": "Ana Perez", "edad": 28}, {"nombre": "Maria Gomez", "edad": 32}]');
+    let tabla = [];
+    try {
+        tabla = JSON.parse(tbody.dataset.value || '[{"NombreRN":"Ana Perez","Peso":2800,"EdadGestacional":38,"Reanimacion":"Si"}]');
+    } catch (e) {
+        console.error('Error parseando tabla_rn dataset:', e);
+        tabla = [];
+    }
 
-    const tableBody = div.querySelector("tbody");
+    tbody.innerHTML = '';
 
-    tabla.forEach(paciente => {
+    tabla.forEach(rn => {
         const row = document.createElement("tr");
-        const cellNombre = document.createElement("td");
-        cellNombre.textContent = paciente.nombre;
-        row.appendChild(cellNombre);
-        const cellEdad = document.createElement("td");
-        cellEdad.textContent = paciente.edad;
-        row.appendChild(cellEdad);
 
-        tableBody.appendChild(row);
+        const cellNombreRN = document.createElement("td");
+        cellNombreRN.textContent = rn.NombreRN;
+        row.appendChild(cellNombreRN);
+
+        const cellPeso = document.createElement("td");
+        cellPeso.textContent = rn.Peso;
+        row.appendChild(cellPeso);
+
+        const cellEdadGestacional = document.createElement("td");
+        cellEdadGestacional.textContent = rn.EdadGestacional;
+        row.appendChild(cellEdadGestacional);
+
+        const cellReanimacion = document.createElement("td");
+        cellReanimacion.textContent = rn.Reanimacion;
+        row.appendChild(cellReanimacion);
+
+        tbody.appendChild(row);
     });
 };
