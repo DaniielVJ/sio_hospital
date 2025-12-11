@@ -49,11 +49,14 @@
 
     </section>
 
+
+
     <!-- ====================================================== -->
-    <!--           GRÁFICO PRINCIPAL         -->
+    <!--           GRÁFICOS         -->
     <!-- ====================================================== -->
     <section class="grid grid-cols-2 gap-[1rem]">
         <div class="grid grid-row-1 gap-[1rem]">
+<!-- 1 -->
             <div class="rounded-2xl shadow-xl bg-[#131b2e65]  border border-white/10">
                 <h2 class="text-lg font-semibold text-white text-center">
                     Cantidad de embarazos durante el año
@@ -62,7 +65,7 @@
                      data-value='{{ chartpaciente1|safe }}'
                     class="w-full h-80 rounded-xl"></div>
             </div>
-
+<!-- 2 -->
             <div class="rounded-2xl shadow-xl bg-[#131b2e65]  border border-white/10">
                 <h2 class="text-lg font-semibold text-white text-center">
                     Distribución por Edad
@@ -72,7 +75,7 @@
                     class="w-full h-80 rounded-xl"></div>
             </div>
         </div>
-
+<!-- 3 -->
         <div class="grid grid-row-1 h-50">
             <div class="p-[1rem] rounded-2xl shadow-xl bg-[#131b2e65] border border-white/10">
                 <h2 class="text-lg font-semibold text-white text-center">
@@ -107,7 +110,6 @@
     </section>
 
 
-
     <!-- ====================================================== -->
     <!--                   DATOS EMBEBIDOS                      -->
     <!-- ====================================================== -->
@@ -120,6 +122,7 @@
          data-chart2='{{ chartpaciente2| safe }}'
          data-chart3='{{ chartpaciente3| safe }}'>
     </div>
+
 
 </body>
 

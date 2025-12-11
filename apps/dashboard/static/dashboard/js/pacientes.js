@@ -47,7 +47,7 @@ window.renderChartPaciente1 = function () {
         xAxis: { type: "category", data: meses, axisLabel: { color: textColor } },
         yAxis: { type: "value", axisLabel: { color: textColor } },
         series: [{
-            type: "bar",
+            type: "bar", /* AQUI CAMBIAMOS EL TIPO DE GRAFICO */
             data: valores,
             itemStyle: {
                 color: function(params) {
@@ -159,7 +159,7 @@ window.renderTablePaciente = function () {
     if (!tbody) return;
 
     let tabla = [];
-    try {
+    try { /* Aqui debemos agregar el valor que definiremos abajo */
         tabla = JSON.parse(tbody.dataset.value || '[{"nombre":"Ana Perez","edad":28},{"nombre":"Maria Gomez","edad":32}, {"nombre":"Luisa Fernandez","edad":45},{"nombre":"Carmen Rodriguez","edad":36},{"nombre":"Sofia Martinez","edad":29},{"nombre":"Elena Lopez","edad":40},{"nombre":"Marta Sanchez","edad":33}]');
     } catch (e) {
         console.error('Error parseando tabla_pacientes dataset:', e);
@@ -169,13 +169,16 @@ window.renderTablePaciente = function () {
     // limpiar contenido previo
     tbody.innerHTML = '';
 
+
     tabla.forEach(paciente => {
         const row = document.createElement("tr");
 
+        /* nombre tabla = para json */
         const cellNombre = document.createElement("td");
         cellNombre.textContent = paciente.nombre;
         row.appendChild(cellNombre);
-        
+
+        /* edad */
         const cellEdad = document.createElement("td");
         cellEdad.textContent = paciente.edad;
         row.appendChild(cellEdad);

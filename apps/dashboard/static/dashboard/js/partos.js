@@ -44,7 +44,7 @@ window.renderChartParto1 = function () {
         xAxis: { type: "category", data: meses, axisLabel: { color: textColor } },
         yAxis: { type: "value", axisLabel: { color: textColor } },
         series: [{
-            type: "bar",
+            type: "scatter",
             data: valores,
             itemStyle: {
                 color: function(params) {
@@ -83,7 +83,7 @@ window.renderChartParto2 = function () {
         xAxis: { type: "category", data: meses, axisLabel: { color: textColor } },
         yAxis: { type: "value", axisLabel: { color: textColor } },
         series: [{
-            type: "bar",
+            type: "line",
             data: valores,
             itemStyle: {
                 color: function(params) {
@@ -152,22 +152,39 @@ window.renderChartParto3 = function () {
 
 /* tabla */
 window.renderTableParto = function () {
-    const div = document.getElementById("tabla_parto");
-    if (!div) return;
+    const tbody = document.getElementById("tabla_parto");
+    if (!tbody) return;
 
-    const tabla = JSON.parse(div.dataset.pacientes || '[{"nombre": "Ana Perez", "edad": 28}, {"nombre": "Maria Gomez", "edad": 32}]');
+    let tabla = [];
+    try { /* recordar poner la comillas al inyectar datos en bruto */
+        tabla = JSON.parse(tbody.dataset.value || '[{"Profesional":"Dr. Pudu","NombreRN":"Bebesito bebelin","TipoParto":"Vaginal","Apgar":8},{"Profesional":"Dr mundo","NombreRN":"pudin","TipoParto":"Cesárea","Apgar":9}]');
+    } catch (e) {
+        console.error('Error parseando tabla_parto dataset:', e);
+        tabla = [];
+    }
 
-    const tableBody = div.querySelector("tbody");
+    // limpiar contenido previo
+    tbody.innerHTML = '';
 
-    tabla.forEach(paciente => {
+    tabla.forEach(parto => {
         const row = document.createElement("tr");
-        const cellNombre = document.createElement("td");
-        cellNombre.textContent = paciente.nombre;
-        row.appendChild(cellNombre);
-        const cellEdad = document.createElement("td");
-        cellEdad.textContent = paciente.edad;
-        row.appendChild(cellEdad);
 
-        tableBody.appendChild(row);
+        const cellProfesional = document.createElement("td");
+        cellProfesional.textContent = parto.Profesional;
+        row.appendChild(cellProfesional);
+
+        const cellNombreRN = document.createElement("td");
+        cellNombreRN.textContent = parto.NombreRN;
+        row.appendChild(cellNombreRN);
+
+        const cellTipoParto = document.createElement("td");
+        cellTipoParto.textContent = parto.TipoParto;
+        row.appendChild(cellTipoParto);
+
+        const cellApgar = document.createElement("td");
+        cellApgar.textContent = parto.Apgar;
+        row.appendChild(cellApgar);
+
+        tbody.appendChild(row);
     });
 };
