@@ -1,6 +1,6 @@
 /* kpi */
 window.renderKpiPaciente1 = function () {
-    const el = document.getElementById("kpipaciente1");
+    const el = document.getElementById("kpi_paciente_1");
     if (!el) return;
 
     const valor = el.dataset.value || 0;
@@ -9,7 +9,7 @@ window.renderKpiPaciente1 = function () {
 
 
 window.renderKpiPaciente2 = function () {
-    const el = document.getElementById("kpipaciente2");
+    const el = document.getElementById("kpi_paciente_2");
     if (!el) return;
 
     const valor = el.dataset.value || 0;
@@ -19,7 +19,7 @@ window.renderKpiPaciente2 = function () {
 
 
 window.renderKpiPaciente3 = function () {
-    const el = document.getElementById("kpipaciente3");
+    const el = document.getElementById("kpi_paciente_3");
     if (!el) return;
 
     el.innerHTML = `${el.dataset.value || 0} hrs`;
