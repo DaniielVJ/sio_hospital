@@ -46,9 +46,10 @@ body {
 }
 
 .welcome-subtitle {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     padding-bottom: 5rem;
     color: #540606;
+    margin-top: 1.5rem;
 
     opacity: 0;
     animation: slideFadeIn 4.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -58,7 +59,7 @@ body {
 .left-footer {
     position: absolute;
     bottom: 2rem;
-    left: 13rem;
+    left: 12.5rem;
 
     opacity: 0;
     animation: slideFadeIn 4.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -250,6 +251,7 @@ body {
     color: #000000;
     text-decoration: none;
     margin: 0 auto;
+    margin-top: 0.3rem;
     display: inline-block;     /* IMPORTANTE: evita que el flex lo estire */
     text-align: center;        /* Se asegura que el texto quede centrado */
 }
@@ -263,13 +265,14 @@ body {
 .login-footer {
     text-align: center;
     margin-bottom: 0.1rem;
-    margin-top: 0.5rem;
+    margin-top: 0.3rem;
 }
 
 .login-footer-text {
     color: #000000;
-    font-size: 0.81rem;
+    font-size: 0.75rem;
     margin: 0;
+    width: 100%;
 }
 
 /* ANIMACIÓN ENTRADA DESDE IZQUIERDA (SUAVE Y LIMPIA) */
