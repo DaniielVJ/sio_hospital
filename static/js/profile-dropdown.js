@@ -22,3 +22,36 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Obtenemos la ruta real actual (Ej: "/pacientes/listar" o "/")
+    const currentPath = window.location.pathname;
+
+    const navLinks = document.querySelectorAll(".sidebar .nav-link");
+
+    navLinks.forEach(link => {
+        // Limpiamos estados previos
+        link.classList.remove("active");
+
+        // Obtenemos el href que generó Django (Ej: "/" o "/pacientes/")
+        const linkHref = link.getAttribute("href");
+
+        // VALIDACIÓN DE SEGURIDAD: Si el href es nulo o vacío, saltamos
+        if (!linkHref) return;
+
+        // CASO 1: EL INICIO (Raíz)
+        // Si el botón lleva a la raíz, exigimos que la URL sea EXACTAMENTE la raíz.
+        // Así evitamos que se active cuando estás en "/pacientes"
+        if (linkHref === "/" || linkHref === "") {
+            if (currentPath === "/") {
+                link.classList.add("active");
+            }
+        } 
+        // CASO 2: LOS MÓDULOS (Pacientes, Partos, etc.)
+        // Si no es la raíz, usamos "startsWith" para que "/pacientes/crear" active "/pacientes/"
+        else if (currentPath.startsWith(linkHref)) {
+            link.classList.add("active");
+        }
+    });
+});
