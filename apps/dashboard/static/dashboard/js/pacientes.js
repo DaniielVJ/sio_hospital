@@ -68,7 +68,7 @@ window.renderChartPaciente1 = function () {
     chart.resize();
 };
 
-window.renderChartPaciente3 = function () {
+window.renderChartPaciente2 = function () {
     const div = document.getElementById("chart_paciente_2");
     if (!div) return;
 
