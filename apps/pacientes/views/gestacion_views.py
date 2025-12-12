@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, ListView, TemplateView, UpdateView
+from django.views.generic import CreateView, ListView, TemplateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import HttpResponse
 from django.db.models import Q, Value
@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from dal import autocomplete
 
+from core.forms import MotivoEliminacionForm
 from core.mixins import MatronaSupervisorRequiredMixin, MatronaRequiredMixin
 from ..models import Gestacion, Paciente
 from ..forms import GestacionForm
@@ -70,6 +71,25 @@ class ActualizarGestacionView(MatronaRequiredMixin, PermissionRequiredMixin, Upd
         return super().form_invalid(form)
 
 
+# view encargada de ejecutar la logica para eliminar un objeto del modelo
+class EliminarGestacionView(MatronaRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = Gestacion
+    template_name = "confirmar_eliminacion.html"
+    permission_required ="pacientes.delete_gestacion"
+    raise_exception = True
+    success_url = reverse_lazy("paciente:listar_gestaciones")
+    form_class = MotivoEliminacionForm
+
+
+    def form_valid(self, form):
+        messages.success(self.request, "Paciente eliminado correctamente !!")
+        motivo = form.cleaned_data.get('motivo')
+        self.object._change_reason = motivo
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        messages.error(self.request, "No se pudo eliminar correctamente el objeto")
+        return super().form_invalid(form)
 
 
 # View de autocompletado para el formulario de gestacion

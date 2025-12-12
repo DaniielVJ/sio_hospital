@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView, TemplateView, UpdateView
+from django.views.generic import ListView, CreateView, TemplateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from dal import autocomplete
 from django.db.models import Q, Value, F
@@ -6,6 +6,7 @@ from django.db.models.functions import Concat
 from django.urls import reverse_lazy
 from django.contrib import messages
 
+from core.forms import MotivoEliminacionForm
 from core.mixins import MatronaSupervisorRequiredMixin, MatronaRequiredMixin
 from ..models import Parto
 from apps.pacientes.models import Gestacion
@@ -94,6 +95,25 @@ class ActualizarPartoView(MatronaRequiredMixin, PermissionRequiredMixin, UpdateV
         return super().form_invalid(form)
 
 
+# view encargada de ejecutar la logica para eliminar un objeto del modelo
+class EliminarPartoView(MatronaRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = Parto
+    template_name = "confirmar_eliminacion.html"
+    permission_required ="partos.delete_parto"
+    raise_exception = True
+    success_url = reverse_lazy("parto:listar_partos")
+    form_class = MotivoEliminacionForm
+
+
+    def form_valid(self, form):
+        messages.success(self.request, "Paciente eliminado correctamente !!")
+        motivo = form.cleaned_data.get('motivo')
+        self.object._change_reason = motivo
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        messages.error(self.request, "No se pudo eliminar correctamente el objeto")
+        return super().form_invalid(form)
 
 
 # View para autocompletar la busqueda del formulario Partos para el campo gestacion/gestaciones

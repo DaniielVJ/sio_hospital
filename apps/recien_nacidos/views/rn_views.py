@@ -10,7 +10,7 @@ from ..forms import RecienNacidoForm
 from ..models import RecienNacido
 from apps.partos.models import Parto
 from core.mixins import MatronaRequiredMixin, MatronaSupervisorRequiredMixin
-
+from core.forms import MotivoEliminacionForm
 
 class MenuInicioRecienNacido(MatronaSupervisorRequiredMixin, TemplateView):
     template_name = "recien_nacidos/inicio_rn.html"
@@ -64,6 +64,28 @@ class ActualizarRecienNacidoView(MatronaRequiredMixin, PermissionRequiredMixin, 
         messages.error(self.request, "No se ha podido actualizar el Paciente")
         return super().form_invalid(form)
 
+
+
+
+# view encargada de ejecutar la logica para eliminar un objeto del modelo
+class EliminarRecienNacidoView(MatronaRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = RecienNacido
+    template_name = "confirmar_eliminacion.html"
+    permission_required ="recien_nacidos.delete_reciennacido"
+    raise_exception = True
+    success_url = reverse_lazy("recien_nacido:listar_recien_nacidos")
+    form_class = MotivoEliminacionForm
+
+
+    def form_valid(self, form):
+        messages.success(self.request, "Paciente eliminado correctamente !!")
+        motivo = form.cleaned_data.get('motivo')
+        self.object._change_reason = motivo
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        messages.error(self.request, "No se pudo eliminar correctamente el objeto")
+        return super().form_invalid(form)
 
 
 class AutoCompletadoDePartosView(MatronaRequiredMixin, autocomplete.Select2QuerySetView):

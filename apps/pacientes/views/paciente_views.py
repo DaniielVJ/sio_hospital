@@ -5,6 +5,7 @@ from django.db.models import Q, Value
 from django.db.models.functions import Concat
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from core.mixins import MatronaRequiredMixin, SupervisorRequiredMixin, MatronaSupervisorRequiredMixin
+from core.forms import MotivoEliminacionForm
 from ..forms import PacienteForm
 from ..models import Paciente
 
@@ -120,8 +121,24 @@ class ActualizarPacienteView(MatronaRequiredMixin, PermissionRequiredMixin, Upda
 
 
 # view encargada de ejecutar la logica para eliminar un objeto del modelo
-class EliminarPacienteView(DeleteView):
-    pass
+class EliminarPacienteView(MatronaRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = Paciente
+    template_name = "confirmar_eliminacion.html"
+    permission_required ="pacientes.delete_paciente"
+    raise_exception = True
+    success_url = reverse_lazy("paciente:listar_pacientes")
+    form_class = MotivoEliminacionForm
+
+
+    def form_valid(self, form):
+        messages.success(self.request, "Paciente eliminado correctamente !!")
+        motivo = form.cleaned_data.get('motivo')
+        self.object._change_reason = motivo
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        messages.error(self.request, "No se pudo eliminar correctamente el objeto")
+        return super().form_invalid(form)
 
 
 
