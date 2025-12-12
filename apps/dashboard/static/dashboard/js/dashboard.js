@@ -54,4 +54,18 @@ document.addEventListener("DOMContentLoaded", () => {
     if (window.renderChartProfesional3) renderChartProfesional3();
 
     if (window.renderTableProfesional) renderTableProfesional();
+
+    /* Re-renderizar charts de pacientes cuando cambie el tema (clase 'dark' en body) */
+    (function observeThemeChangeForPacienteCharts() {
+        if (!document.body) return;
+        const observer = new MutationObserver((mutations) => {
+            if (mutations.some(m => m.attributeName === 'class')) {
+                if (window.renderChartPaciente1) try { window.renderChartPaciente1(); } catch (e) {}
+                if (window.renderChartPaciente2) try { window.renderChartPaciente2(); } catch (e) {}
+                if (window.renderChartPaciente3) try { window.renderChartPaciente3(); } catch (e) {}
+            }
+        });
+        observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    })();
+
 });
