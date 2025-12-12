@@ -9,7 +9,7 @@ class LoginView(BaseLoginView):
     # Este es para redireccionar al usuario si ya esta autenticado, por defecto se usa el REDIRECT_LOGIN_URL
     redirect_authenticated_user = True
 
-
+    
 
     # Cargamos mensaje de error, para renderizar en el template del login.html cuando el formulario sea invalido
     # entonces este mensaje lo renderizaremos en el login junto a los datos del formulario

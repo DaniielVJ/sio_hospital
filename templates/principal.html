@@ -8,6 +8,7 @@
 
 {% block estilos_personalizados %}
     <link rel="stylesheet" href="{% static 'styles/cards.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/toastify.min.css' %}">
 {% endblock estilos_personalizados %}
     
 
@@ -140,5 +141,7 @@
 {% block scripts %}
     <script src="{% static 'js/htmx.min.js' %}" defer></script>
     <script src="{% static 'js/contador.js' %}"></script>
-{% endblock scripts %}
+    <script src="{% static 'js/toastify.min.js' %}"></script>
+    {% include 'includes/script_mensajes.html' %}
 
+{% endblock scripts %}

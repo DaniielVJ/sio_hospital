@@ -1,5 +1,6 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
+from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from core.mixins import MatronaRequiredMixin, SupervisorRequiredMixin, MatronaSupervisorRequiredMixin
 from ..forms import PacienteForm
@@ -18,7 +19,7 @@ class ListarPacientesView(MatronaSupervisorRequiredMixin, PermissionRequiredMixi
     raise_exception = True
     template_name = 'pacientes/listar_pacientes.html'
     context_object_name = 'pacientes'
-
+    paginate_by = 10    
 
     def get_queryset(self):
         # Por ahora se entregan todos los pacientes a todas las matronas, despues vemos si filtramos
@@ -50,8 +51,8 @@ class CrearPacienteView(MatronaRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.created_by = self.request.user
         form.instance.updated_by = self.request.user
+        messages.success(self.request, 'Paciente creado correctamente')
         return super().form_valid(form)
-    
 
     
 # view encargada se ejecutar la logica para actualizar los datos de un paciente

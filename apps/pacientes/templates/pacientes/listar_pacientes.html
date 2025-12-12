@@ -7,6 +7,11 @@
 {% endblock title %}
     
 
+{% block estilos_personalizados %}
+    <link rel="stylesheet" href="{% static 'styles/toastify.min.css' %}">
+{% endblock estilos_personalizados %}
+    
+
 
 {% block menus_navegacion %}
     {% include 'includes/topbar.html' %}
@@ -40,7 +45,9 @@
 
 
 {% block scripts %}
-<script src="{% static 'js/htmx.min.js' %}"></script>    
+<script src="{% static 'js/htmx.min.js' %}"></script>
+<script src="{% static 'js/toastify.min.js' %}"></script>
+{% include 'includes/script_mensajes.html' %}
 
 {% endblock scripts %}
     

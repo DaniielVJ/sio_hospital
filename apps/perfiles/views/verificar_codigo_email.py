@@ -81,6 +81,7 @@ class VerificarCodigoPorEmailView(LoginRequiredMixin, View):
                 # Aqui vericamos la session podra acceder a todas las funcionalidades que tenga permiso
                 request.session['verificado'] = True
                 codigo_obj.delete()
+                messages.success(request, "Has inicado sesion correctamente")
                 return redirect(settings.LOGIN_REDIRECT_URL)
 
         tiempo_restante = codigo_obj.expired_at - tiempo_consulta

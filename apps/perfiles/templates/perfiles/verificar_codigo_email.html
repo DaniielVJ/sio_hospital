@@ -7,33 +7,41 @@
 
 
 {% block estilos_personalizados %}
-    <link rel="stylesheet" href="{% static 'cssbase/toastify.min.css' %}">
+    <link rel="stylesheet" href="{% static 'perfiles/css/verificar_codigo.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/toastify.min.css' %}">
 {% endblock estilos_personalizados %}
     
 
 {% block content %}
-    
-    
-    {% for message in messages %}
-        {% if message.tags == "info" %}
-            <p>Puede solicitar un nuevo codigo luego de <span id="timer">{{message}}</span> minutos</p>
-        {% endif %}
-            
-    {% endfor %}
+    <div class="verify-card">
+        <header class="verify-header">
+            <h1 class="verify-title">Verificación de Correo</h1>
+            <p class="verify-subtitle">Hemos enviado un código de 6 dígitos a tu correo electrónico. Ingrésalo a continuación para continuar.</p>
+        </header>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{form.codigo}}
-        <div>
-            <input type="text" maxlength="1" class="otp-box" required>
-            <input type="text" maxlength="1" class="otp-box" required>
-            <input type="text" maxlength="1" class="otp-box" required>
-            <input type="text" maxlength="1" class="otp-box" required>
-            <input type="text" maxlength="1" class="otp-box" required>
-            <input type="text" maxlength="1" class="otp-box" required>    
-        </div>
-        <button type="submit">Enviar Codigo</button>
-    </form>
+        <form method="POST" id="otp-form">
+            {% csrf_token %}
+            <input type="hidden" name="{{ form.codigo.name }}" id="id_codigo">
+            
+            <div class="otp-inputs">
+                <input type="text" maxlength="1" class="otp-box" required>
+                <input type="text" maxlength="1" class="otp-box" required>
+                <input type="text" maxlength="1" class="otp-box" required>
+                <input type="text" maxlength="1" class="otp-box" required>
+                <input type="text" maxlength="1" class="otp-box" required>
+                <input type="text" maxlength="1" class="otp-box" required>    
+            </div>
+
+            <!-- El botón de envío se oculta porque el formulario se envía automáticamente, pero lo dejamos por si JS falla -->
+            <button type="submit" class="btn-submit-code" style="display: none;">Verificar Código</button>
+        </form>
+
+        {% for message in messages %}
+            {% if message.tags == "info" %}
+                <p class="timer-info">Puede solicitar un nuevo código en <span id="timer">{{message}}</span></p>
+            {% endif %}
+        {% endfor %}
+    </div>
 {% endblock content %}
     
 
@@ -44,41 +52,7 @@
     <script src="{% static 'perfiles/js/codigoOtp.js' %}"></script>
     <script src="{% static 'js/toastify.min.js' %}"></script>
     <script src="{% static 'perfiles/js/actualizarTiempoAutomatico.js' %}"></script>
-    {% for message in messages %}
-        {% if  message.tags == "success" %}
-            <script>
-                Toastify({
-                    text: "{{ message }}",
-                    duration: 2000,
-                    gravity: "top",
-                    position: "right",
-                    style: { background: "#6ecf76ff", borderRadius: "12px"}
-                }).showToast();
-            </script>
-        {% elif message.tags == "warning" %}
-            <script>
-                Toastify({
-                    text: "{{ message }}",
-                    duration: 2000,
-                    gravity: "top",
-                    position: "right",
-                    style: { background: "#ff9900ff", borderRadius: "12px"}
-                }).showToast();
-            </script>
-        {% elif message.tags == "error" %}
-            <script>
-                Toastify({
-                    text: "{{ message }}",
-                    duration: 2000,
-                    gravity: "top",
-                    position: "right",
-                    style: { background: "#fa0101ff", borderRadius: "12px"}
-                }).showToast();
-            </script>
-        {% endif %}
-            
-        
-{% endfor %}
+    {% include 'includes/script_mensajes.html' %}
 
 {% endblock scripts %}
     
