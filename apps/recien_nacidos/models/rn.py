@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
+from simple_history.models import HistoricalRecords
+
 from .detalle_rn import (ComplicacionPostParto, PresentacionFetal, ReanimacionNeonatal)
 from apps.partos.models import Parto
 
@@ -56,12 +58,16 @@ class RecienNacido(models.Model):
         choices=Sexo.choices,
         default=Sexo.OTRO
     )
+    
+    history = HistoricalRecords()
+    
     def save(self, *args, **kwargs):
         if not self.nombre_completo_madre:
             parto = Parto.objects.select_related('gestacion__paciente').get(pk=self.parto.pk)
             madre = parto.gestacion.paciente
             self.nombre_completo_madre = madre.obtener_nombre_completo()
         super().save()
+
 
 
 

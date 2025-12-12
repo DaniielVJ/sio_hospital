@@ -2,6 +2,7 @@ from decimal import Decimal, ROUND_UP
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
+from simple_history.models import HistoricalRecords
 
 
 # ESTE MODELO NO TIENE FORMULARIO
@@ -95,6 +96,9 @@ class Paciente(models.Model):
     actividad = models.CharField(max_length=9,
                                  choices=Actividad.choices,
                                  default=Actividad.BAJA)
+
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return f'{self.documento}: {self.identificacion} | Paciente: {self.obtener_nombre_completo()}'

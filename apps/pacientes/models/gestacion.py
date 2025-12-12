@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
+from simple_history.models import HistoricalRecords
+
 from .paciente import Paciente
 from ..fields import OrderField
 
@@ -32,7 +34,7 @@ class Gestacion(models.Model):
 
     paciente = models.ForeignKey(Paciente, 
                                  on_delete=models.CASCADE, 
-                                 related_name="gestaciones")
+                                 related_name="gestaciones", null=True)
     
     # ESTOS CAMPOS NO VAN EN EL FORMULARIO ******************************
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="gestaciones", null=True)
@@ -76,6 +78,9 @@ class Gestacion(models.Model):
     hipertension = models.BooleanField(default=False)
     diabetes = models.BooleanField(default=False)
     multiple = models.BooleanField(default=False)
+
+
+    history = HistoricalRecords()
 
 
     def __str__(self):

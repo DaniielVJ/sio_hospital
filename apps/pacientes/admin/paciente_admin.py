@@ -1,8 +1,9 @@
 from django.contrib import admin
+from simple_history.admin import SimpleHistoryAdmin
 from ..models import Paciente
 
 @admin.register(Paciente)
-class PacienteAdmin(admin.ModelAdmin):
+class PacienteAdmin(SimpleHistoryAdmin):
 
     list_display = (
         'documento',
@@ -16,7 +17,9 @@ class PacienteAdmin(admin.ModelAdmin):
         'fecha_nacimiento',
         'descapacitado',
     )
+    history_list_display = ['status']
 
+ 
     search_fields = (
         'identificacion',
         'nombre',
@@ -57,7 +60,7 @@ class PacienteAdmin(admin.ModelAdmin):
             'fields': (
                 'nombre', 'primer_apellido', 'segundo_apellido',
                 'fecha_nacimiento', 'nacionalidad',
-                'comuna', 'cesfam', 'direccion', 'telefono'
+                'comuna', 'cesfam', 'direccion', 'telefono', "tipo"
             )
         }),
 
@@ -83,3 +86,6 @@ class PacienteAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
+
+
+

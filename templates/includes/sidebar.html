@@ -52,7 +52,7 @@
         
         
         {% if request.user.is_staff %}
-             <a href="../Supervisor/Auditoria/auditoria.html" class="nav-link">
+             <a href="{% url 'auditoria:inicio' %}" class="nav-link">
                 <img src="{% static 'svg/auditoria.svg' %}" class="nav-svg" />
                 <span class="nav-text">Auditoría</span>
             </a>

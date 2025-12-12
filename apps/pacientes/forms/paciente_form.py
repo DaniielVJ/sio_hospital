@@ -19,6 +19,12 @@ valor como opcional.
 
 
 class PacienteForm(forms.ModelForm):   
+
+    motivo = forms.CharField(max_length=200, widget=forms.Textarea(attrs={
+        "placeholder": "Ingrese el motivo de la actualizacion"
+    }), required=False)
+
+
     class Meta:
         model = Paciente
         exclude = ['created_by', 'created_at', 'updated_by', 'updated_at']
@@ -62,6 +68,13 @@ class PacienteForm(forms.ModelForm):
             'direccion': 'Dirección',
             
         }
+
+
+    def clean_motivo(self):
+        motivo = self.cleaned_data.get('motivo')
+        if self.instance.pk and not motivo:
+            raise forms.ValidationError("Debe especificar el motivo de la actualizacion")
+        return motivo
 
 
     def clean_nombre(self):

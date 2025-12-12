@@ -17,6 +17,7 @@ db.sqlite3
 media/
 /staticfiles/
 
+# evitar subir migraciones
 
 
 # Cache y archivos temporales

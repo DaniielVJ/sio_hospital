@@ -1,0 +1,16 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{model_record | capfirst}} Creado por {{historico.history_user|default:"Sistema"}}</h3>
+    <button class="modal-close" data-modal-close>&times;</button>
+</div>
+<div class="modal-body">
+    {% for field in instancia %}
+        <p><strong>{{field.label|capfirst}}:</strong> {{field.value|default:"No especificado"}}</p>
+    {% endfor %}
+        
+
+</div>
+
+<div class="modal-footer">
+    <button class="btn-secondary" data-modal-close>Cerrar</button>
+    <button class="btn-primary">Restaurar</button>
+</div>

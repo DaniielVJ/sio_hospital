@@ -92,9 +92,31 @@ class CrearPacienteView(MatronaRequiredMixin, CreateView):
         messages.error(self.request, 'Error al registrar el paciente')
         return super().form_invalid(form
                                     )
+
+
+
 # view encargada se ejecutar la logica para actualizar los datos de un paciente
-class ActualizarPacienteView(UpdateView):
-    pass
+class ActualizarPacienteView(MatronaRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = Paciente
+    template_name = "pacientes/formulario_paciente.html"
+    form_class = PacienteForm
+    permission_required= "pacientes.change_paciente"
+    raise_exception = True
+    context_object_name = "paciente"
+    success_url = reverse_lazy("paciente:listar_pacientes")
+
+    def form_valid(self, form):
+        motivo = form.cleaned_data.get('motivo')
+        form.instance._change_reason = motivo
+        form.instance.updated_by = self.request.user
+        messages.success(self.request, "Paciente actualizado correctamente !!")
+        return super().form_valid(form)
+    
+
+    def form_invalid(self, form):
+        messages.error(self.request, "No se ha podido actualizar el Paciente")
+        return super().form_invalid(form)
+
 
 
 # view encargada de ejecutar la logica para eliminar un objeto del modelo
