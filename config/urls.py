@@ -7,9 +7,6 @@ from django.conf import settings
 from apps.perfiles.views import LoginView, MostrarPantallaPrincipalView
 
 
-
-
-
 urlpatterns = [
     path('', MostrarPantallaPrincipalView.as_view(), name="pantalla_principal"),
     path('admin/', admin.site.urls),

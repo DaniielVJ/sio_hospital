@@ -79,7 +79,7 @@ class Gestacion(models.Model):
     diabetes = models.BooleanField(default=False)
     multiple = models.BooleanField(default=False)
 
-
+    
     history = HistoricalRecords()
 
 

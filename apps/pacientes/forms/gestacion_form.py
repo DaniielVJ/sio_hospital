@@ -4,6 +4,10 @@ from ..models import Gestacion
 
 
 class GestacionForm(forms.ModelForm):
+    motivo = forms.CharField(max_length=200, widget=forms.Textarea(attrs={
+        "placeholder": "Ingrese el motivo de la actualizacion"
+    }), required=False)
+    
     class Meta:
         model = Gestacion
         exclude = ['created_by', 
@@ -40,6 +44,17 @@ class GestacionForm(forms.ModelForm):
             'origen_datacion': "El origen seleccionado es el que tomara el sistema para calcular la semanas de gestación"
 
         }
+
+
+
+
+    def clean_motivo(self):
+        motivo = self.cleaned_data.get('motivo')
+        if self.instance.pk and not motivo:
+            raise forms.ValidationError("Debe especificar el motivo de la actualizacion")
+        return motivo
+    
+
 
     def clean(self):
         cleaned_data = super().clean()

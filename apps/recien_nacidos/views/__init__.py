@@ -1,1 +1,1 @@
-from .rn_views import CrearRecienNacidoView, AutoCompletadoDePartosView, MenuInicioRecienNacido,ListarRecienNacidoView
+from .rn_views import CrearRecienNacidoView, AutoCompletadoDePartosView, MenuInicioRecienNacido,ListarRecienNacidoView,ActualizarRecienNacidoView

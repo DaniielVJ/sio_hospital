@@ -1,8 +1,10 @@
-from django.views.generic import CreateView, ListView, TemplateView
+from django.views.generic import CreateView, ListView, TemplateView, UpdateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import HttpResponse
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
+from django.contrib import messages
+from django.urls import reverse_lazy
 from dal import autocomplete
 
 from core.mixins import MatronaSupervisorRequiredMixin, MatronaRequiredMixin
@@ -42,6 +44,31 @@ class CrearGestacionView(MatronaRequiredMixin, PermissionRequiredMixin, CreateVi
         form.instance.updated_by = self.request.user
         form.save()
         return HttpResponse('<h1>Gestacion Almacenada correctamente</h1>')
+
+
+
+# view encargada se ejecutar la logica para actualizar los datos de un paciente
+class ActualizarGestacionView(MatronaRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = Gestacion
+    template_name = "pacientes/formulario_gestacion.html"
+    form_class = GestacionForm
+    permission_required= "pacientes.change_gestacion"
+    raise_exception = True
+    context_object_name = "gestacion"
+    success_url = reverse_lazy("gestacion:listar_gestaciones")
+
+    def form_valid(self, form):
+        motivo = form.cleaned_data.get('motivo')
+        form.instance._change_reason = motivo
+        form.instance.updated_by = self.request.user
+        messages.success(self.request, "Paciente actualizado correctamente !!")
+        return super().form_valid(form)
+    
+
+    def form_invalid(self, form):
+        messages.error(self.request, "No se ha podido actualizar el Paciente")
+        return super().form_invalid(form)
+
 
 
 

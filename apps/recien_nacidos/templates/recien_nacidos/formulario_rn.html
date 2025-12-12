@@ -43,7 +43,22 @@
     {{form.errors}}
     <form method="POST" class="main-form">
         {% csrf_token %}
-
+        {% if form.instance.pk %}
+            <fieldset class="form-section">
+                <legend class="section-legend">Justificar Actualizacion</legend>
+                <div class="form-group {% if form.motivo.errors %} has-error {% endif %}">
+                    <label for="{{form.motivo.id_for_label}}">Motivo de actualización</label>
+                    {{form.motivo}}
+                {% if form.motivo.errors %}
+                        <div class="error-message">
+                        {% for error in form.motivo.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %}
+                </div>
+            </fieldset>
+        {% endif %}
         <fieldset class="form-section">
             <legend class="section-legend">Datos Generales</legend>
 

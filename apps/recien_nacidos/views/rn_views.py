@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from dal import autocomplete
@@ -38,6 +40,29 @@ class CrearRecienNacidoView(MatronaRequiredMixin, PermissionRequiredMixin, Creat
         form.instance.updated_by = self.request.user
         return super().form_valid(form)
 
+
+
+# view encargada se ejecutar la logica para actualizar los datos de un paciente
+class ActualizarRecienNacidoView(MatronaRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = RecienNacido
+    template_name = "partos/formulario_parto.html"
+    form_class = RecienNacidoForm
+    permission_required= "recien_nacidos.change_reciennacido"
+    raise_exception = True
+    context_object_name = "recien_nacido"
+    success_url = reverse_lazy("recien_nacido:listar_recien_nacidos")
+
+    def form_valid(self, form):
+        motivo = form.cleaned_data.get('motivo')
+        form.instance._change_reason = motivo
+        form.instance.updated_by = self.request.user
+        messages.success(self.request, "Paciente actualizado correctamente !!")
+        return super().form_valid(form)
+    
+
+    def form_invalid(self, form):
+        messages.error(self.request, "No se ha podido actualizar el Paciente")
+        return super().form_invalid(form)
 
 
 
