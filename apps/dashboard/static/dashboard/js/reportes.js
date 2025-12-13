@@ -21,6 +21,11 @@ window.renderKpiReporte3 = function () {
     el.innerHTML = valor;
 };
 
+/* helper para color segun tema */
+function getChartTextColor() {
+    return document.body.classList.contains('dark') ? '#ffffff' : '#000000';
+}
+
 
 /* graficos */
 window.renderChartReporte1 = function () {
@@ -33,7 +38,7 @@ window.renderChartReporte1 = function () {
     const chart = echarts.init(div);
 
     const palette = ['#5470C6', '#91CC75', '#EE6666', '#FAC858', '#73C0DE', '#3BA272', '#E062AE'];
-    const textColor = 'white';
+    const textColor = getChartTextColor();
 
     const option = {
         textStyle: { color: textColor },
@@ -75,7 +80,7 @@ window.renderChartReporte2 = function () {
     const chart = echarts.init(div);
 
     const palette = ['#73C0DE', '#5470C6', '#91CC75', '#EE6666', '#FAC858'];
-    const textColor = 'white';
+    const textColor = getChartTextColor();
 
     const option = {
         textStyle: { color: textColor },
@@ -114,7 +119,7 @@ window.renderChartReporte3 = function () {
     const chart = echarts.init(div);
 
     const palette = ['#EE6666', '#5470C6', '#91CC75', '#FAC858', '#73C0DE'];
-    const textColor = 'white';
+    const textColor = getChartTextColor();
 
     const pieData = labels.map((name, i) => ({ value: values[i] || 0, name }));
 

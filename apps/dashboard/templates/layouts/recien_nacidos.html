@@ -16,10 +16,10 @@
 
         <!-- KPI 1 -->
         <div class="p-4 rounded-2xl shadow-xl
-                    bg-gradient-to-br from-red-500/40 to-pink-200/10
-                    backdrop-blur-xl border border-white/10">
+                    bg-gradient-to-br from-[#ffb3b32c] via-[#ffc6c617]  to-[#ffb3b32c]
+                    backdrop-blur-xl border border-white/10 hover:bg-red-600/30 transition-all duration-300">
             <h3 class="text-sm font-medium">
-                Total de RN sin complicaciones
+                Total de Recien Nacidos sin complicaciones
             </h3>
             <p id="kpi_rn_1" data-value="{{ kpirn1 |default:25 }}"
                class="text-4xl font-bold mt-3">0</p>
@@ -27,10 +27,10 @@
 
         <!-- KPI 2 -->
         <div class="p-4 rounded-2xl shadow-xl
-                    bg-gradient-to-br from-red-600/10 via-pink-200/10 to-pink-300/20 
-                    backdrop-blur-xl border border-white/10">
+                    bg-gradient-to-br from-[#ffb3b32c] via-[#ffc6c617]  to-[#ffb3b32c]
+                    backdrop-blur-xl border border-white/10 hover:bg-red-600/30 transition-all duration-300">
             <h3 class="text-sm font-medium">
-                RN con APGAR ≥7 al minuto 5
+                Recien Nacidos con APGAR ≥7 al minuto 5
             </h3>
             <p id="kpi_rn_2" data-value="{{kpirn2|default:50 }}"
                class="text-4xl font-bold mt-3">0</p>
@@ -38,10 +38,10 @@
 
         <!-- KPI 3 -->
         <div class="p-4 rounded-2xl shadow-xl
-                    bg-gradient-to-br from-pink-200/10 via-red-400/20 to-red-600/10
-                    backdrop-blur-xl border border-white/10">
+                    bg-gradient-to-br from-[#ffb3b32c] via-[#ffc6c617]  to-[#ffb3b32c]
+                    backdrop-blur-xl border border-white/10 hover:bg-red-600/30 transition-all duration-300">
             <h3 class="text-sm font-medium">
-                RN que requirieron reanimación
+                Recien Nacidos que requirieron reanimación
             </h3>
             <p id="kpi_rn_3" data-value="{{ kpirn3|default:10 }}"
                class="text-4xl font-bold mt-3">0</p>
@@ -55,16 +55,16 @@
     <section class="grid grid-cols-2 gap-[1rem]">
         <div class="grid grid-row-1 gap-[1rem]">
 <!-- 1 -->
-            <div class="rounded-2xl shadow-xl bg-[#131b2e65]  border border-white/10">
+            <div class="rounded-2xl shadow-xl bg-[#9471712c] border border-white/10">
                 <h2 class="text-lg font-semibold text-white text-center">
-                    Total de rns durante el mes
+                    Total de Recien Nacidos durante el mes
                 </h2>
                 <div id="chart_rn_1" 
                      data-value='{{ chartrn1|safe }}'
                     class="w-full h-80 rounded-xl"></div>
             </div>
 <!-- 2 -->
-            <div class="rounded-2xl shadow-xl bg-[#131b2e65]  border border-white/10">
+            <div class="rounded-2xl shadow-xl bg-[#9471712c]  border border-white/10">
                 <h2 class="text-lg font-semibold text-white text-center">
                     APGAR al minuto 5
                 </h2>
@@ -75,7 +75,7 @@
         </div>
 <!-- 3 -->
         <div class="grid grid-row-1 h-50">
-            <div class="p-[1rem] rounded-2xl shadow-xl bg-[#131b2e65] border border-white/10">
+            <div class="p-[1rem] rounded-2xl shadow-xl bg-[#9471712c] border border-white/10">
                 <h2 class="text-lg font-semibold text-white text-center">
                     Intervenciones neonatales
                 </h2>
@@ -84,14 +84,14 @@
                     class="w-full h-80 rounded-xl"></div>
             </div>
             <!--TABLA -->
-            <div class="p-6 rounded-2xl shadow-xl bg-[#131b2e65]  border border-white/10 mt-6">
+            <div class="p-6 rounded-2xl shadow-xl bg-[#9471712c]  border border-white/10 mt-6">
                 <h2 class="text-lg font-semibold text-center mb-4 text-white">
                     Últimos Recien Nacidos Registrados
                 </h2>
 
                 <div class="overflow-x-auto">
                     <table class="min-w-full table-auto rounded-xl text-left">
-                        <thead class="bg-[#18223575] text-gray-300">
+                        <thead class="bg-[#9471712c] text-gray-300">
                             <tr>
                                 <th class="p-3  border-white/10 text-center">Nombre RN</th>
                                 <th class="p-3  border-white/10 text-center">Peso</th>

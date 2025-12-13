@@ -25,87 +25,14 @@
                class="text-4xl font-bold mt-3">0</p>
         </div>
 
-        <!-- KPI 2 -->
-        <div class="p-4 rounded-2xl shadow-xl
-                    bg-gradient-to-br from-red-600/10 via-pink-200/10 to-pink-300/20 
-                    backdrop-blur-xl border border-white/10">
-            <h3 class="text-sm font-medium">
-                Tiempo promedio de respuesta a reportes
-            </h3>
-            <p id="kpi_reporte_2" data-value="{{kpireporte2|default:50 }}"
-               class="text-4xl font-bold mt-3">0</p>
-        </div>
-
-        <!-- KPI 3 -->
-        <div class="p-4 rounded-2xl shadow-xl
-                    bg-gradient-to-br from-pink-200/10 via-red-400/20 to-red-600/10
-                    backdrop-blur-xl border border-white/10">
-            <h3 class="text-sm font-medium">
-                Tasa de exito en resolución de reportes
-            </h3>
-            <p id="kpi_reporte_3" data-value="{{ kpireporte3|default:10 }}"
-               class="text-4xl font-bold mt-3">0</p>
-        </div>
-
     </section>
 
 <!-- ====================================================== -->
 <!--           GRÁFICOS        -->
 <!-- ====================================================== -->
     <section class="grid grid-cols-2 gap-[1rem]">
-        <div class="grid grid-row-1 gap-[1rem]">
-<!-- 1 -->
-            <div class="rounded-2xl shadow-xl bg-[#131b2e65]  border border-white/10">
-                <h2 class="text-lg font-semibold text-white text-center">
-                    Total de reportes durante el mes
-                </h2>
-                <div id="chart_reporte_1" 
-                     data-value='{{ chartreporte1|safe }}'
-                    class="w-full h-80 rounded-xl"></div>
-            </div>
-<!-- 2 -->
-            <div class="rounded-2xl shadow-xl bg-[#131b2e65]  border border-white/10">
-                <h2 class="text-lg font-semibold text-white text-center">
-                    Porcentaje de Cesáreas vs reportes Naturales
-                </h2>
-                <div id="chart_reporte_2" 
-                    data-value='{{ chartreporte2 |safe }}'
-                    class="w-full h-80 rounded-xl"></div>
-            </div>
-        </div>
-<!-- 3 -->
-        <div class="grid grid-row-1 h-50">
-            <div class="p-[1rem] rounded-2xl shadow-xl bg-[#131b2e65] border border-white/10">
-                <h2 class="text-lg font-semibold text-white text-center">
-                    Complicaciones por Tipo <!-- (%) = (nº reportes con complicación materna o neonatal en detalle_reporte/puerperio / total reportes) × 100. -->
-                </h2>
-                <div id="chart_reporte_3" 
-                    data-value='{{ chartreporte3|safe }}'
-                    class="w-full h-80 rounded-xl"></div>
-            </div>
-            <!--TABLA -->
-            <div class="p-6 rounded-2xl shadow-xl bg-[#131b2e65]  border border-white/10 mt-6">
-                <h2 class="text-lg font-semibold text-center mb-4 text-white">
-                    Últimos reportes Registrados
-                </h2>
 
-                <div class="overflow-x-auto">
-                    <table class="min-w-full table-auto rounded-xl text-left">
-                        <thead class="bg-[#18223575] text-gray-300">
-                            <tr>
-                                <th class="p-3  border-white/10 text-center">Profesional a cargo</th>
-                                <th class="p-3  border-white/10 text-center">Nombre RN</th>
-                                <th class="p-3  border-white/10 text-center">Tipo reporte</th>
-                                <th class="p-3  border-white/10 text-center">APGAR</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabla_reporte" data-value='{{ tablareporte }}'
-                            class="border-b-1 text-center">
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+    
     </section>
 
 
@@ -116,12 +43,9 @@
     <div id="data-values"
          data-kpi1='{{ kpireporte1| safe}}'
          data-kpi2='{{ kpireporte2| safe}}'
-         data-kpi3='{{ kpireporte3| safe}}'
-         data-tabla='{{ tablareporte| safe }}'
-         data-chart1='{{ chartreporte1| safe }}'
-         data-chart2='{{ chartreporte2| safe }}'
-         data-chart3='{{ chartreporte3| safe }}'>
+         data-chart1='{{ chartreporte1| safe }}' >
     </div>
+
 
 </body>
 

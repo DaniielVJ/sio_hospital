@@ -37,15 +37,6 @@
                     <img class="h-10 mr-[0.5rem] w-auto object-contain"  src="{% static 'dashboard/imagenes//reciennacido.png' %}">
                     Recien Nacidos
                 </a>
-                <a href="{% url 'dashboard_reportes' %}"
-                    class="{% if request.resolver_match.url_name == 'dashboard_reportes' %} bg-[#ff5959cc] {% endif %}
-                    flex flex-row justify-center items-center
-                    lg:py-4 lg:px-[6rem] rounded-xl shadow-lg
-                    text-xl lg:text-[1rem] font-semibold tracking-wide text-center
-                    transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:scale-105">
-                    <img class="h-10 w-auto object-contain" src="{% static 'dashboard/imagenes/reportes.png' %}">
-                    Reportes
-                </a>
                 <a href="{% url 'dashboard_profesionales' %}"
                     class="{% if request.resolver_match.url_name == 'dashboard_profesionales' %} bg-[#ff5959cc] {% endif %}
                     flex flex-row justify-center items-center
@@ -54,6 +45,15 @@
                     transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:scale-105">
                     <img class="h-10 w-auto object-contain" src="{% static 'dashboard/imagenes/profesionales.png' %}">
                     Profesionales
+                </a>
+                <a href="{% url 'dashboard_reportes' %}"
+                    class="{% if request.resolver_match.url_name == 'dashboard_reportes' %} bg-[#ff5959cc] {% endif %}
+                    flex flex-row justify-center items-center
+                    lg:py-4 lg:px-[6rem] rounded-xl shadow-lg
+                    text-xl lg:text-[1rem] font-semibold tracking-wide text-center
+                    transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:scale-105">
+                    <img class="h-10 w-auto object-contain" src="{% static 'dashboard/imagenes/reportes.png' %}">
+                    Reportes
                 </a>
             </div>
 
