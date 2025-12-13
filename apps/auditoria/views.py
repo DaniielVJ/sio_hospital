@@ -275,27 +275,3 @@ class RestauracionDeObjetoView(FormView):
         return context_data
 
 
-
-
-'''
-FUNCION QUE PODRIA USAR ASI QUE LA DEJARE AHI POR SI ACASO:
-
-    def obtener_datos_instancia(self, instancia):
-        datos = []
-        # _meta.fields te da la definición de cada columna
-        for field in instancia._meta.fields:
-            # Ignoramos el ID si queremos
-            if field.name == 'history_id':
-                continue
-
-
-            nombre_campo = field.verbose_name  # "Fecha de Nacimiento"
-            valor = getattr(instancia, field.name) # "1990-05-20"
-            
-            datos.append({
-                'label': nombre_campo,
-                'value': valor
-            })
-        return datos
-
-'''

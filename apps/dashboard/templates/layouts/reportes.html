@@ -30,10 +30,66 @@
 <!-- ====================================================== -->
 <!--           GRÁFICOS        -->
 <!-- ====================================================== -->
-    <section class="grid grid-cols-2 gap-[1rem]">
+        
+    <section class="cards-container">
+        <div class="card">
+            <a href="{% url 'reportes:crear_reporte_caracteristicas_parto' %}" class="card-button">
+                <img alt="Estadística Partos" src="{% static 'icons/reporteicon.png' %}" class="card-icon"/>
+                <h3 class="third-title">Características Parto</h3>
+                <p class="subtitle">Detalle de características y tipos de parto.</p>
+            </a>
+        </div>
 
-    
+        <div class="card">
+            <a href="{% url 'reportes:crear_reporte_eutocico_distocico' %}" class="card-button">
+                <img alt="Vía Parto" src="{% static 'icons/reporteicon.png' %}" class="card-icon"/>
+                <h3 class="third-title">Partos Eutócicos</h3>
+                <p class="subtitle">Relación Eutócicos vs Distócicos.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="{% url 'reportes:crear_reporte_d1' %}" class="card-button">
+                <img alt="Reporte REM" src="{% static 'icons/reporteicon.png' %}" class="card-icon"/>
+                <h3 class="third-title">Reporte REM D1</h3>
+                <p class="subtitle">Estadística mensual D1 oficial.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="{% url 'reportes:crear_reporte_d2' %}" class="card-button">
+                <img alt="Reporte REM" src="{% static 'icons/reporteicon.png' %}" class="card-icon"/>
+                <h3 class="third-title">Reporte REM D2</h3>
+                <p class="subtitle">Estadística mensual D2 oficial.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="{% url 'reportes:crear_reporte_esterilizaciones_quirurgicas' %}" class="card-button">
+                <img alt="Cirugía" src="{% static 'icons/reporteicon.png' %}" class="card-icon"/>
+                <h3 class="third-title">Esterilizaciones</h3>
+                <p class="subtitle">Reporte de esterilizaciones quirúrgicas.</p>
+            </a>
+        </div>
+        
+        <div class="card">
+            <a href="{% url 'reportes:crear_reporte_hepatitis_b' %}" class="card-button">
+                <img alt="Vacunas" src="{% static 'icons/reporteicon.png' %}" class="card-icon"/>
+                <h3 class="third-title">Hepatitis B</h3>
+                <p class="subtitle">Control y seguimiento de Hepatitis B.</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <a href="{% url 'reportes:crear_reporte_modelo_atencion' %}" class="card-button">
+                <img alt="Atención" src="{% static 'icons/reporteicon.png' %}" class="card-icon"/>
+                <h3 class="third-title">Modelo Atención</h3>
+                <p class="subtitle">Indicadores del modelo de atención integral.</p>
+            </a>
+        </div>
+
     </section>
+
 
 
 
