@@ -5,7 +5,7 @@ from django.db.models import Q, Value
 from django.db.models.functions import Concat
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from core.mixins import MatronaRequiredMixin, SupervisorRequiredMixin, MatronaSupervisorRequiredMixin
-from core.forms import MotivoEliminacionForm
+from core.forms import MotivoForm
 from ..forms import PacienteForm
 from ..models import Paciente
 
@@ -127,7 +127,7 @@ class EliminarPacienteView(MatronaRequiredMixin, PermissionRequiredMixin, Delete
     permission_required ="pacientes.delete_paciente"
     raise_exception = True
     success_url = reverse_lazy("paciente:listar_pacientes")
-    form_class = MotivoEliminacionForm
+    form_class = MotivoForm
 
 
     def form_valid(self, form):

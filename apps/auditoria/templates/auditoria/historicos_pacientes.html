@@ -13,6 +13,19 @@
     <link rel="stylesheet" href="{% static 'styles/auditoria.css' %}">
     <link rel="stylesheet" href="{% static 'styles/table.css' %}">
     <link rel="stylesheet" href="{% static 'styles/form.css' %}">
+    <style>
+        /* Estilo tipo 'Ticket' para el ID */
+        .id-badge {
+            background-color: #edf2f7;
+            color: #4a5568;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace; /* Fuente monoespaciada para IDs */
+            font-weight: 700;
+            border: 1px solid #cbd5e0;
+            font-size: 0.9rem;
+        }
+    </style>
 {% endblock estilos_personalizados %}
     
 
@@ -68,8 +81,7 @@
             <table class="smart-table">
                 <thead>
                     <tr>
-                        <th>Identificador Unico</th>
-                        <th>Objeto</th>
+                        <th>ID Objeto Gestacion</th>
                         <th>Usuario</th>
                         <th>Fecha y Hora</th>
                         <th>Tipo de Cambio</th>
@@ -80,8 +92,7 @@
                    
                    {% for historico in historicos %}
                         <tr class="{% if historico.history_type == '+' %}creacion{% elif historico.history_type == '~' %}actualizacion{% else %}eliminacion{% endif %}">
-                            <td>{{historico.id}}</td>
-                            <td>{{historico.instance}}</td>
+                            <td><span class="id-badge" style="font-weight: 500; color: #2d3748;">#{{historico.id}}</span></td>
                             <td>
                                 <span class="text-bold">{{historico.history_user|default:"Sistema"}}</span>
                                 <span class="text-sub">{{historico.history_user.username}}</span>
@@ -96,7 +107,7 @@
                                     <button class="action-btn" 
                                             title="Ver Detalles" 
                                             data-modal-target="#base-modal"
-                                            hx-get="{% url 'auditoria:historico_paciente' id_paciente=historico.id pk=historico.history_id  tipo='creacion' %}"
+                                            hx-get=""
                                             hx-target="#modal-details-content"
                                             hx-swap="innerHTML">
                                         <img src="{% static 'svg/view.svg' %}" alt="Ver Detalles" class="nav-svg">
@@ -114,7 +125,7 @@
                                     <button class="action-btn" 
                                             title="Ver Detalles" 
                                             data-modal-target="#base-modal"
-                                            hx-get="{% url 'auditoria:historico_paciente' id_paciente=historico.id pk=historico.history_id tipo='actualizacion' %}"
+                                            hx-get="{% url 'auditoria:historico_actualizacion' model_name='paciente' history_id=historico.history_id %}"
                                             hx-target="#modal-details-content"
                                             hx-swap="innerHTML">
                                         <img src="{% static 'svg/view.svg' %}" alt="Ver Detalles" class="nav-svg">
@@ -130,7 +141,7 @@
                                         <button class="action-btn" 
                                                 title="Ver Detalles" 
                                                 data-modal-target="#base-modal"
-                                                hx-get="{% url 'auditoria:historico_paciente' id_paciente=historico.id pk=historico.history_id tipo='eliminacion' %}"
+                                                hx-get=""
                                                 hx-target="#modal-details-content"
                                                 hx-swap="innerHTML">
                                             <img src="{% static 'svg/view.svg' %}" alt="Ver Detalles" class="nav-svg">

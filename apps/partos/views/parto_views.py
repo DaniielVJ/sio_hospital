@@ -6,7 +6,7 @@ from django.db.models.functions import Concat
 from django.urls import reverse_lazy
 from django.contrib import messages
 
-from core.forms import MotivoEliminacionForm
+from core.forms import MotivoForm
 from core.mixins import MatronaSupervisorRequiredMixin, MatronaRequiredMixin
 from ..models import Parto
 from apps.pacientes.models import Gestacion
@@ -102,7 +102,7 @@ class EliminarPartoView(MatronaRequiredMixin, PermissionRequiredMixin, DeleteVie
     permission_required ="partos.delete_parto"
     raise_exception = True
     success_url = reverse_lazy("parto:listar_partos")
-    form_class = MotivoEliminacionForm
+    form_class = MotivoForm
 
 
     def form_valid(self, form):

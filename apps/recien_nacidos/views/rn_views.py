@@ -10,7 +10,7 @@ from ..forms import RecienNacidoForm
 from ..models import RecienNacido
 from apps.partos.models import Parto
 from core.mixins import MatronaRequiredMixin, MatronaSupervisorRequiredMixin
-from core.forms import MotivoEliminacionForm
+from core.forms import MotivoForm
 
 class MenuInicioRecienNacido(MatronaSupervisorRequiredMixin, TemplateView):
     template_name = "recien_nacidos/inicio_rn.html"
@@ -74,7 +74,7 @@ class EliminarRecienNacidoView(MatronaRequiredMixin, PermissionRequiredMixin, De
     permission_required ="recien_nacidos.delete_reciennacido"
     raise_exception = True
     success_url = reverse_lazy("recien_nacido:listar_recien_nacidos")
-    form_class = MotivoEliminacionForm
+    form_class = MotivoForm
 
 
     def form_valid(self, form):

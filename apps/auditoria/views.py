@@ -1,16 +1,29 @@
-from django.views.generic import TemplateView, ListView, View, DetailView
+from django.views.generic import TemplateView, ListView, View, DetailView, FormView
 from django.http import Http404
+from django.shortcuts import get_object_or_404
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib import messages
+from django.urls import reverse_lazy
 
-
-from core.mixins import AdminTiRequiredMixin
+from core.forms import MotivoForm
+from core.mixins import SupervisorRequiredMixin
 from .config import Gestacion, Paciente, Parto, RecienNacido
+
+MODELOS_AUDITADOS = {
+    'paciente': Paciente,
+    'gestacion': Gestacion,
+    'parto': Parto,
+    'recien_nacido': RecienNacido
+}
+
+
 
 class MenuInicioAuditoriaView(TemplateView):
     template_name = "auditoria/inicio_auditoria.html"
 
 
 
-class ListarHistoricoPaciente(AdminTiRequiredMixin, ListView):
+class ListarHistoricoPaciente(SupervisorRequiredMixin, ListView):
     model = Paciente
     template_name = "auditoria/historicos_pacientes.html"
     context_object_name = "historicos"
@@ -57,7 +70,7 @@ class ListarHistoricoPaciente(AdminTiRequiredMixin, ListView):
         return context_data
     
 
-class ListarHistoricoGestaciones(AdminTiRequiredMixin, ListView):
+class ListarHistoricoGestaciones(SupervisorRequiredMixin, ListView):
     model = Gestacion
     template_name = "auditoria/historicos_gestaciones.html"
     context_object_name = "historicos"
@@ -105,7 +118,7 @@ class ListarHistoricoGestaciones(AdminTiRequiredMixin, ListView):
     
 
 
-class ListarHistoricoPartos(AdminTiRequiredMixin, ListView):
+class ListarHistoricoPartos(SupervisorRequiredMixin, ListView):
     model = Parto
     template_name = "auditoria/historicos_partos.html"
     context_object_name = "historicos"
@@ -151,7 +164,7 @@ class ListarHistoricoPartos(AdminTiRequiredMixin, ListView):
         context_data['tipo'] = self.tipo
         return context_data
     
-class ListarHistoricoRecienNacidos(AdminTiRequiredMixin, ListView):
+class ListarHistoricoRecienNacidos(SupervisorRequiredMixin, ListView):
     model = RecienNacido
     template_name = "auditoria/historicos_gestaciones.html"
     context_object_name = "historicos"
@@ -199,39 +212,73 @@ class ListarHistoricoRecienNacidos(AdminTiRequiredMixin, ListView):
     
 
 
+class DetallesHistoricoActualizacionView(DetailView):
+    model = ""
+    template_name = "auditoria/detalles_auditoria_actualizacion.html"
 
 
-class HistoricoCreacionPacienteView(AdminTiRequiredMixin, View):
-    template_name = ""
+    slug_url_kwarg = 'history_id'
+    slug_field = 'history_id'
 
-
-
-class CargarInfoHistoricoPacienteView(DetailView):
-    model = Paciente.history.model
-    template_name = ""
-    context_object_name = "historico"
-
-    def dispatch(self, request, id_paciente=None, tipo=None, pk_history=None, *args, **kwargs):
-
-        if tipo and tipo == "creacion":
-            self.template_name = "auditoria/detalles_auditoria_creacion.html"
-        elif tipo and tipo == "actualizacion":
-            self.template_name = "auditoria/detalles_auditoria_actualizacion.html"
-        elif tipo and tipo == "eliminacion":
-            self.template_name = "auditoria/detalles_auditoria_eliminacion.html"
-        else:
+    def dispatch(self, request, model_name=None, *args, **kwargs):
+        self.modelo_a_auditar = MODELOS_AUDITADOS.get(model_name)
+        if not self.modelo_a_auditar:
             raise Http404()
-
+        self.model = self.modelo_a_auditar
         return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return self.model.history.select_related('history_user')
 
 
     def get_context_data(self, **kwargs):
-        context_data =  super().get_context_data(**kwargs)  
-        context_data['model_record'] = self.object.instance._meta.model_name
-        context_data['instancia'] = self.obtener_datos_instancia(self.object)
-
+        context_data = super().get_context_data(**kwargs)
+        prev_record_object = self.object.prev_record
+        delta = self.object.diff_against(prev_record_object)
+        context_data['delta'] = delta
+        context_data['model_name'] = self.modelo_a_auditar._meta.model_name
         return context_data
 
+
+
+
+class RestauracionDeObjetoView(FormView):
+    template_name ="auditoria/confirmar_restauracion.html"
+    form_class = MotivoForm
+    model = ""
+    success_url = reverse_lazy('auditoria:inicio')
+
+    def dispatch(self, request, model_name = None, history_id = None, *args, **kwargs):
+        self.model = MODELOS_AUDITADOS.get(model_name)
+        if not self.model or not history_id:
+            raise Http404()
+        
+        self.object = get_object_or_404(self.model.history.all(), history_id=history_id)
+        return super().dispatch(request, *args, **kwargs)
+    
+
+    def form_valid(self, form):
+        motivo = form.cleaned_data.get('motivo')
+        try:
+            recuperacion = self.object.instance
+            recuperacion._change_reason = motivo
+            recuperacion.save()
+        except ObjectDoesNotExist:
+            messages.error(self.request, "Fue imposible restaurar el objeto a esta version, porque ya no existe")
+
+        # formview no almacena nada en el modelo, solo genera una redireccion a la success url
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context_data =  super().get_context_data(**kwargs)
+        context_data['object'] = self.object
+        return context_data
+
+
+
+
+'''
+FUNCION QUE PODRIA USAR ASI QUE LA DEJARE AHI POR SI ACASO:
 
     def obtener_datos_instancia(self, instancia):
         datos = []
@@ -250,3 +297,5 @@ class CargarInfoHistoricoPacienteView(DetailView):
                 'value': valor
             })
         return datos
+
+'''

@@ -19,7 +19,7 @@ urlpatterns = [
     path('perfiles/', include('apps.perfiles.urls')),
     path('rn/', include('apps.recien_nacidos.urls.rn_urls')),
     path('reportes/', include('apps.reportes.urls')),
-    path('audiotiras/', include('apps.auditoria.urls'))
+    path('auditorias/', include('apps.auditoria.urls'))
     
 ]
 

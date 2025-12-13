@@ -46,16 +46,19 @@
             <a href="../Turnos/turnos.html" class="nav-link">
                 <img src="{% static 'svg/turnos.svg' %}" class="nav-svg" />
                 <span class="nav-text">Turnos</span>
+                
             </a>
+
+            <a href="{% url 'auditoria:inicio' %}" class="nav-link">
+                <img src="{% static 'svg/auditoria.svg' %}" class="nav-svg" />
+                <span class="nav-text">Auditoría</span>
+            </a>
+
         {% endif %}
             
         
         
         {% if request.user.is_staff %}
-             <a href="{% url 'auditoria:inicio' %}" class="nav-link">
-                <img src="{% static 'svg/auditoria.svg' %}" class="nav-svg" />
-                <span class="nav-text">Auditoría</span>
-            </a>
 
             <a href="../Usuarios/usuarios.html" class="nav-link">
                 <img src="{% static 'svg/usuarios.svg' %}" class="nav-svg" />

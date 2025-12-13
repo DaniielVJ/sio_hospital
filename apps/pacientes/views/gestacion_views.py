@@ -1,13 +1,13 @@
 from django.views.generic import CreateView, ListView, TemplateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import HttpResponse
-from django.db.models import Q, Value
+from django.db.models import Q, Value, F
 from django.db.models.functions import Concat
 from django.contrib import messages
 from django.urls import reverse_lazy
 from dal import autocomplete
 
-from core.forms import MotivoEliminacionForm
+from core.forms import MotivoForm
 from core.mixins import MatronaSupervisorRequiredMixin, MatronaRequiredMixin
 from ..models import Gestacion, Paciente
 from ..forms import GestacionForm
@@ -29,8 +29,36 @@ class ListarGestacionesView(MatronaSupervisorRequiredMixin, PermissionRequiredMi
 
     # Por cada una de las 10 o 15 gestaciones listadas en la pagina se precarga el paciente que tiene asociado
     def get_queryset(self):
-        return self.model.objects.select_related('paciente')
-    
+        qs = self.model.objects.select_related('paciente')
+        qs = qs.annotate(nombre_completo_paciente=Concat('paciente__nombre', Value(' '), 'paciente__primer_apellido', Value(' '), 'paciente__segundo_apellido'), 
+                         identificacion_paciente=F('paciente__identificacion'))
+
+        query_params = self.request.GET.copy()
+        if 'page' in query_params:
+            query_params.pop('page')
+        self.query_string = query_params.urlencode()
+
+        self.query = self.request.GET.get('query')
+
+        self.plan_de_parto = self.request.GET.get('pp')
+        
+        if self.query and '.' in self.query:
+            self.query = self.query.replace('.', '')
+
+
+
+
+        # Cabros si se manda desde el navegador un params llamado query filtramos si no, no lo hacemos
+        if self.query:
+            qs = qs.filter(Q(nombre_completo_paciente__icontains=self.query) | Q(identificacion_paciente__startswith=self.query))
+
+        return qs.order_by('-created_at')
+
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context['query_string'] = self.query_string
+        context['query'] = self.query
+        return context
 
 class CrearGestacionView(MatronaRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Gestacion
@@ -78,7 +106,7 @@ class EliminarGestacionView(MatronaRequiredMixin, PermissionRequiredMixin, Delet
     permission_required ="pacientes.delete_gestacion"
     raise_exception = True
     success_url = reverse_lazy("paciente:listar_gestaciones")
-    form_class = MotivoEliminacionForm
+    form_class = MotivoForm
 
 
     def form_valid(self, form):

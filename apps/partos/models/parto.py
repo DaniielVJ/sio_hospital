@@ -107,7 +107,10 @@ class Parto(models.Model):
 
 
    def __str__(self):
-      return f"Parto Gestacion: #{self.gestacion.pk} | Paciente: ({self.gestacion.paciente.obtener_nombre_completo()}) / ({self.gestacion.paciente.identificacion}) / ({self.estado})"
+      # Diseño optimizado para Auditoría: Tipo + ID + Paciente
+      paciente = self.gestacion.paciente
+      nombre = f"{paciente.nombre} {paciente.primer_apellido}"
+      return f"Parto #{self.pk} - {nombre} ({paciente.identificacion})"
 
 
    def save(self, *args, **kwargs):
