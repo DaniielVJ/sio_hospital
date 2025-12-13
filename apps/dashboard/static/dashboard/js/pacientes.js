@@ -21,8 +21,9 @@ window.renderKpiPaciente2 = function () {
 window.renderKpiPaciente3 = function () {
     const el = document.getElementById("kpi_paciente_3");
     if (!el) return;
-
-    el.innerHTML = `${el.dataset.value || 0} hrs`;
+    
+    const valor = el.dataset.value || 0;
+    el.innerHTML = valor;;
 };
 
 /* helper para color segun tema */
@@ -77,12 +78,12 @@ window.renderChartPaciente2 = function () {
     const div = document.getElementById("chart_paciente_2");
     if (!div) return;
 
-    const meses = JSON.parse(div.dataset.meses || `["18-25","26-35","36-45"]`);
-    const valores = JSON.parse(div.dataset.values || `[20,30,10]`);
+    const meses = JSON.parse(div.dataset.meses || `["18-25","26-35","36-45","56+"]`);
+    const valores = JSON.parse(div.dataset.values || `[20,30,10,5]`);
 
     const chart = echarts.init(div);
 
-    const palette = ['#73C0DE', '#5470C6', '#91CC75', '#EE6666', '#FAC858'];
+    const palette = ['#FAA18F', '#F863A8', '#C83737', '#DD7EB1'];
     const textColor = getChartTextColor();
 
     const option = {
@@ -116,41 +117,35 @@ window.renderChartPaciente3 = function () {
     const div = document.getElementById("chart_paciente_3");
     if (!div) return;
 
-    const labels = JSON.parse(div.dataset.labels || `["Hemorragia", "Preeclampsia", "Infección", "Parto Prematuro", "Otros"]`);
-    const values = JSON.parse(div.dataset.values || `[15, 8, 12, 5, 10]`);
-
     const chart = echarts.init(div);
 
     const palette = ['#EE6666', '#5470C6', '#91CC75', '#FAC858', '#73C0DE'];
     const textColor = getChartTextColor();
 
-    const pieData = labels.map((name, i) => ({ value: values[i] || 0, name }));
-
     const option = {
-        textStyle: { color: textColor },
-        tooltip: { trigger: 'item', textStyle: { color: textColor } },
-        legend: { orient: 'vertical', left: 'left', textStyle: { color: textColor } },
-        color: palette,
-        series: [
-          {
-            name: 'Complicaciones',
-            type: 'pie',
-            radius: '50%',
-            data: pieData,
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
-              }
-            },
-            label: {
-              formatter: '{b}: {c} ({d}%)',
-              color: textColor
+          textStyle: { color: textColor },
+          tooltip: { textStyle: { color: textColor } },
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+            axisLabel: { color: textColor }
+          },
+          yAxis: {
+            type: 'value',
+            axisLabel: { color: textColor }
+          },
+          series: [
+            {
+              data: [3,5,8,10,13,15,18,20],
+              type: 'line',
+              areaStyle: {},
+              lineStyle: { color: palette[0] },
+              itemStyle: { color: palette[0] }
             }
-          }
-        ]
-    };
+          ],
+          color: palette
+        };
     chart.setOption(option);
     chart.resize();
 };

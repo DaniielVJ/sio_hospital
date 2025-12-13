@@ -63,6 +63,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (window.renderChartPaciente1) try { window.renderChartPaciente1(); } catch (e) {}
                 if (window.renderChartPaciente2) try { window.renderChartPaciente2(); } catch (e) {}
                 if (window.renderChartPaciente3) try { window.renderChartPaciente3(); } catch (e) {}
+                if (window.renderChartParto1) try { window.renderChartParto1(); } catch (e) {}
+                if (window.renderChartParto2) try { window.renderChartParto2(); } catch (e) {}
+                if (window.renderChartParto3) try { window.renderChartParto3(); } catch (e) {}
+                if (window.renderChartRn1) try { window.renderChartRn1(); } catch (e) {}
+                if (window.renderChartRn2) try { window.renderChartRn2(); } catch (e) {}
+                if (window.renderChartRn3) try { window.renderChartRn3(); } catch (e) {}
+                if (window.renderChartProfesional1) try { window.renderChartProfesional1(); } catch (e) {}
+                if (window.renderChartProfesional2) try { window.renderChartProfesional2(); } catch (e) {}
+                if (window.renderChartProfesional3) try { window.renderChartProfesional3(); } catch (e) {}
+                if (window.renderChartReporte1) try { window.renderChartReporte1(); } catch (e) {}
+
+
             }
         });
         observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
