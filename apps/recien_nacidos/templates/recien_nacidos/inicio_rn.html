@@ -39,7 +39,11 @@
 
     <section class="cards-container">
         <div class="card">
+<<<<<<< HEAD
+            <a href="{% url 'recien_nacido:agregar_recien_nacido' %}" class="card-button">
+=======
             <a href="{% url 'recien_nacido:listar_recien_nacidos' %}" class="card-button">
+>>>>>>> 4d255ff98e7af22e4568cf67982d757be9a7fc5b
                 <img alt="Imagen listado de recién nacidos" src="{% static 'icons/listarreciennacidos.png' %}" class="card-icon"/>
                 <h3 class="third-title">Ver recién nacidos</h3>
                 <p class="subtitle">Confirma a tus recién nacidos registrados</p>
@@ -52,15 +56,6 @@
                 <h3 class="third-title">Agregar recién nacido</h3>
                 <p class="subtitle">Registra un nuevo recién nacido en el sistema.</p>
             </a>
-        </div>
-
-
-        <div class="card">
-            <button onclick="location.href='detallarGestacion.html'" class="card-button">
-                <img alt="generar excel" src="{% static 'icons/excelicon.png' %}" class="card-icon"/>
-                <h3 class="third-title">Generar excel</h3>
-                <p class="subtitle">Exporta la información de gestaciones en archivo Excel.</p>
-            </button>
         </div>
 
         <div class="card">

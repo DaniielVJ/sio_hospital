@@ -30,7 +30,7 @@
     <nav class="breadcrumbs">
         <a href="{% url 'pantalla_principal' %}" class="link-color">Inicio</a>
         <span>›</span>
-        <a href="{{request.META.HTTP_REFERER}}" class="link-color">Pacientes</a>
+        <a href="{% url 'paciente:inicio' %}" class="link-color">Pacientes</a>
         <span>›</span>
         <span>Listar pacientes</span>
     </nav>

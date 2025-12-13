@@ -38,7 +38,7 @@
 
         
         {% if request.user.es_supervisor %}
-            <a href="../Supervisor/Reportes/reportes.html" class="nav-link">
+            <a href="{% url 'reportes:inicio_reportes' %}" class="nav-link">
                 <img src="{% static 'svg/reporte.svg' %}" class="nav-svg" />
                 <span class="nav-text">Reportes</span>
             </a>

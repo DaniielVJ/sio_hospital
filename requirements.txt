@@ -50,7 +50,7 @@ ptyprocess==0.7.0
 pure_eval==0.2.3
 pydotplus==2.0.2
 Pygments==2.19.2
-# pygraphviz==1.14
+#pygraphviz==1.14
 pyparsing==3.2.5
 pytailwindcss==0.3.0
 python-dateutil==2.9.0.post0

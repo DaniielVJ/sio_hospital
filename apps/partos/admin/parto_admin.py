@@ -1,6 +1,7 @@
 from django.contrib import admin
 from ..models import Parto
 
+
 @admin.register(Parto)
 class PartoAdmin(admin.ModelAdmin):
     list_display = (
@@ -65,10 +66,6 @@ class PartoAdmin(admin.ModelAdmin):
 
         ('Analgesias y complicaciones', {
             'fields': ('complicaciones',)
-        }),
-
-        ('Profesionales presentes', {
-            'fields': ('profesionales',)
         }),
 
         ('Registro del Sistema', {

@@ -13,12 +13,12 @@
 {% block content %}
 <main class="login-layout">
 
-    <!-- PANEL IZQUIERDO -->
     <section class="login-left">
+
+        <img src="{% static 'perfiles/img/logotext.png' %}" alt="Logo del SIO" class="welcome-logo">
 
         <header class="left-header">
             <div class="left-header-container">
-                <h1 class="welcome-title">Menos pasos. Más eficiencia.</h1>
                 <p class="welcome-subtitle">Gestionar pacientes y enviar reportes nunca fue tan<strong> fácil.</strong></p>
             </div>
         </header>
@@ -61,7 +61,11 @@
 
                     <div class="form-field">
                        <label for="{{form.password.id_for_label}}">{{form.password.label}}</label>
+                       <div class="password-wrapper">
                         {{form.password}}
+                       <Button type="button" id="togglePassword" class="btn-eye" title="Mostrar contraseña">
+                            <img src="{% static 'perfiles/img/view.svg' %}" class="eye-icon" alt="Mostrar/Ocultar contraseña" />
+                       </Button>
                     </div>
                     
                                 
@@ -79,10 +83,6 @@
                     <button type="submit" class="btn btn-primary">Ingresar</button>
 
                 </fieldset>
-
-       
-                
-
             </form>
 
             <!-- Link recuperar contraseña -->
@@ -94,8 +94,9 @@
 
             <footer class="login-footer">
                 <p class="login-footer-text">
-                    Acceso autorizado sólo para <strong>personal médico.</strong> Contacta a TI para soporte.
+                    Acceso autorizado sólo para <strong>personal médico</strong>.
                 </p>
+                <p class="login-footer-text">Contacta a TI para soporte.</p>
             </footer>
 
         </div>
@@ -110,6 +111,7 @@
 
 {% block scripts %}
     <script src="{% static 'js/toastify.min.js' %}"></script>
+    <script src="{% static 'perfiles/js/togglePassword.js' %}"></script>
     {% include 'includes/script_mensajes.html' %}
         
 {% endblock scripts %}

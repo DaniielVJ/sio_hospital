@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'includes/sidebar.html' %}
+{% include 'includes/topbar.html' %}
+
+<body class="bodydashboard-container">
+
+    {% include 'nav/nav.html' %}
+
+    <!-- ====================================================== -->
+    <!--                             KPIs                        -->
+    <!-- ====================================================== -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-[1rem] text-center">
+
+        <!-- KPI 1 -->
+        <div class="p-4 rounded-2xl shadow-xl
+                    bg-gradient-to-br from-red-500/40 to-pink-200/10
+                    backdrop-blur-xl border border-white/10">
+            <h3 class="text-sm font-medium">
+                Total reportes enviados este mes
+            </h3>
+            <p id="kpi_reporte_1" data-value="{{ kpireporte1|default:25 }}"
+               class="text-4xl font-bold mt-3">0</p>
+        </div>
+
+    </section>
+
+<!-- ====================================================== -->
+<!--           GRÁFICOS        -->
+<!-- ====================================================== -->
+    <section class="grid grid-cols-2 gap-[1rem]">
+
+    
+    </section>
+
+
+
+    <!-- ====================================================== -->
+    <!--                   DATOS EMBEBIDOS                      -->
+    <!-- ====================================================== -->
+    <div id="data-values"
+         data-kpi1='{{ kpireporte1| safe}}'
+         data-kpi2='{{ kpireporte2| safe}}'
+         data-chart1='{{ chartreporte1| safe }}' >
+    </div>
+
+
+</body>
+
+{% block scripts %}
+<script src="{% static 'dashboard/js/reportes.js' %}"></script>
+{% endblock scripts %}
+
+{% endblock %}
