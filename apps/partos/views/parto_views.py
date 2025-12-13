@@ -1,9 +1,12 @@
-from django.views.generic import ListView, CreateView, TemplateView
+from django.views.generic import ListView, CreateView, TemplateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from dal import autocomplete
 from django.db.models import Q, Value, F
 from django.db.models.functions import Concat
+from django.urls import reverse_lazy
+from django.contrib import messages
 
+from core.forms import MotivoForm
 from core.mixins import MatronaSupervisorRequiredMixin, MatronaRequiredMixin
 from ..models import Parto
 from apps.pacientes.models import Gestacion
@@ -64,8 +67,54 @@ class CrearPartosView(MatronaRequiredMixin, PermissionRequiredMixin, CreateView)
     def form_valid(self, form):
         form.instance.created_by = self.request.user
         form.instance.updated_by = self.request.user
+        messages.success(self.request, "Parto creado exitosamente !!")
         return super().form_valid(form)
     
+
+
+# view encargada se ejecutar la logica para actualizar los datos de un paciente
+class ActualizarPartoView(MatronaRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = Parto
+    template_name = "partos/formulario_parto.html"
+    form_class = PartoForm
+    permission_required= "partos.change_parto"
+    raise_exception = True
+    context_object_name = "parto"
+    success_url = reverse_lazy("parto:listar_partos")
+
+    def form_valid(self, form):
+        motivo = form.cleaned_data.get('motivo')
+        form.instance._change_reason = motivo
+        form.instance.updated_by = self.request.user
+        messages.success(self.request, "Paciente actualizado correctamente !!")
+        return super().form_valid(form)
+    
+
+    def form_invalid(self, form):
+        messages.error(self.request, "No se ha podido actualizar el Paciente")
+        return super().form_invalid(form)
+
+
+# view encargada de ejecutar la logica para eliminar un objeto del modelo
+class EliminarPartoView(MatronaRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = Parto
+    template_name = "confirmar_eliminacion.html"
+    permission_required ="partos.delete_parto"
+    raise_exception = True
+    success_url = reverse_lazy("parto:listar_partos")
+    form_class = MotivoForm
+
+
+    def form_valid(self, form):
+        messages.success(self.request, "Paciente eliminado correctamente !!")
+        motivo = form.cleaned_data.get('motivo')
+        self.object._change_reason = motivo
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        messages.error(self.request, "No se pudo eliminar correctamente el objeto")
+        return super().form_invalid(form)
+
 
 # View para autocompletar la busqueda del formulario Partos para el campo gestacion/gestaciones
 class AutoCompletadoParaGestacion(MatronaRequiredMixin, autocomplete.Select2QuerySetView):

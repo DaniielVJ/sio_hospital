@@ -6,6 +6,11 @@ from ..models import RecienNacido
 
 
 class RecienNacidoForm(forms.ModelForm):
+    motivo = forms.CharField(max_length=200, widget=forms.Textarea(attrs={
+        "placeholder": "Ingrese el motivo de la actualizacion"
+    }), required=False)
+
+
     fecha_hora = forms.SplitDateTimeField( 
         input_date_formats=['%Y-%m-%d'],
         input_time_formats=['%H:%M:%S', '%H:%M'], # Aquí la flexibilidad
@@ -39,7 +44,11 @@ class RecienNacidoForm(forms.ModelForm):
 
 
 
-        
+    def clean_motivo(self):
+        motivo = self.cleaned_data.get('motivo')
+        if self.instance.pk and not motivo:
+            raise forms.ValidationError("Debe especificar el motivo de la actualizacion")
+        return motivo
 
 
    # ACORDARSE AÑADIR LAS VALIDACIONES LUEGO

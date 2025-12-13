@@ -32,10 +32,12 @@ INSTALLED_APPS = [
     'apps.perfiles',
     'apps.recien_nacidos',
     'apps.reportes',
+    'apps.auditoria',
     'theme',
     # Apps de terceros,
     'dal',
-    'dal_select2'
+    'dal_select2',
+    'simple_history'
 
 ]
 
@@ -51,7 +53,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # Middlewares Propios
     'apps.perfiles.middlewares.FirstLoginMiddleware',
-    'apps.perfiles.middlewares.VerificacionEmailMiddleware'
+    'apps.perfiles.middlewares.VerificacionEmailMiddleware',
+    # Middlewares de Terceros
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 

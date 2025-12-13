@@ -9,3 +9,5 @@ def generar_codigo_temporal():
     fecha = datetime.now().strftime("%Y%m%d")
     rnd = random.randint(100000, 99999999999999999999)
     return f"TMP-{fecha}-{rnd}"
+
+

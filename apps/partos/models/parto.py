@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.core.validators import MaxValueValidator
-
+from simple_history.models import HistoricalRecords
 
 from .detalle_parto import (Complicacion, 
                             GrupoRobson, TipoDeIngreso,
@@ -96,8 +96,21 @@ class Parto(models.Model):
    oxitocina_profilactica = models.BooleanField(default=False)
    uso_sala_saip = models.BooleanField(default=False)
    
+   # Un atributo o campo que tendran nuestros objetos del modelo Parto, que les otorgara un manager que les permitira realizar consultas
+   # sobre todos los registros que tengan asociados de la tabla espejo que se creara del modelo Parto, donde cada registro representa a una version
+   # del objeto del modelo Parto en cuestion. Ahora la asociacin no ocurre con un foreignkey estricto de BASE DE DATOS, si no que si efectivamente los registros
+   # de la tabla secundaria, espejo o historica tiene un field que contiene la clave primaria del objeto del cual es snapshot pero sin ser tipo foreignkey para evitar que si se elimina
+   # el objeto del modelo principal de Parto no se elimine su historico y asi podamos usar un historico para reconstruir un objeto eliminado del modelo Principal Parto 
+   # con todos los datos de ese registro historico o del que seleccionemos para restaurarlo.
+   history = HistoricalRecords()
+
+
+
    def __str__(self):
-      return f"Parto Gestacion: #{self.gestacion.pk} | Paciente: ({self.gestacion.paciente.obtener_nombre_completo()}) / ({self.gestacion.paciente.identificacion}) / ({self.estado})"
+      # Diseño optimizado para Auditoría: Tipo + ID + Paciente
+      paciente = self.gestacion.paciente
+      nombre = f"{paciente.nombre} {paciente.primer_apellido}"
+      return f"Parto #{self.pk} - {nombre} ({paciente.identificacion})"
 
 
    def save(self, *args, **kwargs):

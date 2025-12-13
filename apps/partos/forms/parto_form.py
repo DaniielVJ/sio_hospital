@@ -6,6 +6,11 @@ from ..models import Parto
 
 
 class PartoForm(forms.ModelForm):
+    motivo = forms.CharField(max_length=200, widget=forms.Textarea(attrs={
+        "placeholder": "Ingrese el motivo de la actualizacion"
+    }), required=False)
+
+
     # Sobreescribir el field por defecto que usa un form para los datetimefield de los modelos
     # en django, este permite un datetimefield del modelo dividirlo en 2 field input html diferentes
     # pero que luego se unen como un solo datetime para ser almacenado en el modelo
@@ -60,6 +65,14 @@ class PartoForm(forms.ModelForm):
             'hora_inicio': 'Proporcione la fecha y hora cuando inicio el parto. No al momento de registrarlo.',
             'grupo_robson': "Marque un grupo robson solo si la via de nacimiento es Cesarea"
         }
+
+
+    def clean_motivo(self):
+        motivo = self.cleaned_data.get('motivo')
+        if self.instance.pk and not motivo:
+            raise forms.ValidationError("Debe especificar el motivo de la actualizacion")
+        return motivo
+
 
     def clean_tiempo_membrana_rota(self):
         tiempo_membrana_rota = self.cleaned_data.get('tiempo_membrana_rota')

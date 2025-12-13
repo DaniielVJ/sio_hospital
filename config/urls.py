@@ -7,9 +7,6 @@ from django.conf import settings
 from apps.perfiles.views import LoginView, MostrarPantallaPrincipalView
 
 
-
-
-
 urlpatterns = [
     path('', MostrarPantallaPrincipalView.as_view(), name="pantalla_principal"),
     path('admin/', admin.site.urls),
@@ -22,6 +19,7 @@ urlpatterns = [
     path('perfiles/', include('apps.perfiles.urls')),
     path('rn/', include('apps.recien_nacidos.urls.rn_urls')),
     path('reportes/', include('apps.reportes.urls')),
+    path('auditorias/', include('apps.auditoria.urls'))
     
 ]
 
