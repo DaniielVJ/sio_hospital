@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'apps.reportes',
     'apps.auditoria',
     'theme',
+    'apps.dashboard',
     # Apps de terceros,
     'dal',
     'dal_select2',
