@@ -40,14 +40,14 @@
         <section class="cards-container">
             <div class="card">
                 <a href="{% url 'auditoria:historicos_pacientes' %}" class="card-button">
-                    <img alt="Imagen listado de pacientes" src="" class="card-icon"/>
+                    <img alt="Imagen listado de pacientes" src="{% static 'icons/listarpacientes.png' %}" class="card-icon"/>
                     <h3 class="third-title">Historico Paciente</h3>
                     <p class="subtitle">Ve todo el historial de cambios ocurrido sobre los pacientes</p>
                 </a>
             </div>
             <div class="card">
                 <a href="{% url 'auditoria:historicos_gestaciones' %}" class="card-button">
-                    <img alt="Imagen listado de pacientes" src="{% static 'icons/listarpacientes.png' %}" class="card-icon"/>
+                    <img alt="Imagen listado de pacientes" src="{% static 'icons/listargestaciones.png' %}" class="card-icon"/>
                     <h3 class="third-title">Historico Gestaciones</h3>
                     <p class="subtitle">Ve todo el historial de cambios ocurrido sobre los pacientes</p>
                 </a>
@@ -55,7 +55,7 @@
 
             <div class="card">
                 <a href="{% url 'auditoria:historicos_partos' %}" class="card-button">
-                    <img alt="Imagen listado de pacientes" src="{% static 'icons/listarpacientes.png' %}" class="card-icon"/>
+                    <img alt="Imagen listado de pacientes" src="{% static 'icons/listarpartos.png' %}" class="card-icon"/>
                     <h3 class="third-title">Historico Partos</h3>
                     <p class="subtitle">Ve todo el historial de cambios ocurrido sobre los pacientes</p>
                 </a>
@@ -63,7 +63,7 @@
 
         <div class="card">
             <a href="{% url 'auditoria:historicos_recien_nacidos' %}" class="card-button">
-                <img alt="Imagen listado de pacientes" src="{% static 'icons/listarpacientes.png' %}" class="card-icon"/>
+                <img alt="Imagen listado de pacientes" src="{% static 'icons/listarreciennacidos.png' %}" class="card-icon"/>
                 <h3 class="third-title">Historico Recien Nacidos</h3>
             <p class="subtitle">Ve todo el historial de cambios ocurrido sobre los pacientes</p>
             </a>
