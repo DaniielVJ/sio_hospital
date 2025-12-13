@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'includes/sidebar.html' %}
+{% include 'includes/topbar.html' %}
+
+<body class="bodydashboard-container">
+
+    {% include 'nav/nav.html' %}
+
+    <!-- ====================================================== -->
+    <!--                             KPIs                        -->
+    <!-- ====================================================== -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-[1rem] text-center">
+
+        <!-- KPI 1 -->
+        <div class="p-4 rounded-2xl shadow-xl
+                    bg-gradient-to-br from-red-500/40 to-pink-200/10
+                    backdrop-blur-xl border border-white/10">
+            <h3 class="text-sm font-medium">
+                Total de profesionales
+            </h3>
+            <p id="kpi_profesional_1" data-value="{{ kpiprofesional1|default:25 }}"
+               class="text-4xl font-bold mt-3">0</p>
+        </div>
+
+        <!-- KPI 2 -->
+        <div class="p-4 rounded-2xl shadow-xl
+                    bg-gradient-to-br from-red-600/10 via-pink-200/10 to-pink-300/20 
+                    backdrop-blur-xl border border-white/10">
+            <h3 class="text-sm font-medium">
+                Profesionales en turno
+            </h3>
+            <p id="kpi_profesional_2" data-value="{{kpiprofesional2|default:50 }}"
+               class="text-4xl font-bold mt-3">0</p>
+        </div>
+
+        <!-- KPI 3 -->
+        <div class="p-4 rounded-2xl shadow-xl
+                    bg-gradient-to-br from-pink-200/10 via-red-400/20 to-red-600/10
+                    backdrop-blur-xl border border-white/10">
+            <h3 class="text-sm font-medium">
+                ...
+            </h3>
+            <p id="kpi_profesional_3" data-value="{{ kpiprofesional3|default:10 }}"
+               class="text-4xl font-bold mt-3">0</p>
+        </div>
+
+    </section>
+
+<!-- ====================================================== -->
+<!--           GRÁFICOS        -->
+<!-- ====================================================== -->
+    <section class="grid grid-cols-2 gap-[1rem]">
+        <div class="grid grid-row-1 gap-[1rem]">
+<!-- 1 -->
+            <div class="rounded-2xl shadow-xl bg-[#131b2e65]  border border-white/10">
+                <h2 class="text-lg font-semibold text-white text-center">
+                    Total de profesionals durante el mes
+                </h2>
+                <div id="chart_profesional_1" 
+                     data-value='{{ chartprofesional1|safe }}'
+                    class="w-full h-80 rounded-xl"></div>
+            </div>
+<!-- 2 -->
+            <div class="rounded-2xl shadow-xl bg-[#131b2e65]  border border-white/10">
+                <h2 class="text-lg font-semibold text-white text-center">
+                    Porcentaje de Cesáreas vs profesionals Naturales
+                </h2>
+                <div id="chart_profesional_2" 
+                    data-value='{{ chartprofesional2 |safe }}'
+                    class="w-full h-80 rounded-xl"></div>
+            </div>
+        </div>
+<!-- 3 -->
+        <div class="grid grid-row-1 h-50">
+            <div class="p-[1rem] rounded-2xl shadow-xl bg-[#131b2e65] border border-white/10">
+                <h2 class="text-lg font-semibold text-white text-center">
+                    Complicaciones por Tipo <!-- (%) = (nº profesionals con complicación materna o neonatal en detalle_profesional/puerperio / total profesionals) × 100. -->
+                </h2>
+                <div id="chart_profesional_3" 
+                    data-value='{{ chartprofesional3|safe }}'
+                    class="w-full h-80 rounded-xl"></div>
+            </div>
+            <!--TABLA -->
+            <div class="p-6 rounded-2xl shadow-xl bg-[#131b2e65]  border border-white/10 mt-6">
+                <h2 class="text-lg font-semibold text-center mb-4 text-white">
+                    Últimos profesionals Registrados
+                </h2>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full table-auto rounded-xl text-left">
+                        <thead class="bg-[#18223575] text-gray-300">
+                            <tr>
+                                <th class="p-3  border-white/10 text-center">Nombre</th>
+                                <th class="p-3  border-white/10 text-center">Area</th>
+                                <th class="p-3  border-white/10 text-center">Tipo profesional</th>
+                                <th class="p-3  border-white/10 text-center">APGAR</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla_profesional" data-value='{{ tablaprofesional }}'
+                            class="border-b-1 text-center">
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- ====================================================== -->
+    <!--                   DATOS EMBEBIDOS                      -->
+    <!-- ====================================================== -->
+    <div id="data-values"
+         data-kpi1='{{ kpiprofesional1| safe}}'
+         data-kpi2='{{ kpiprofesional2| safe}}'
+         data-kpi3='{{ kpiprofesional3| safe}}'
+         data-tabla='{{ tablaprofesional| safe }}'
+         data-chart1='{{ chartprofesional1| safe }}'
+         data-chart2='{{ chartprofesional2| safe }}'
+         data-chart3='{{ chartprofesional3| safe }}'>
+    </div>
+
+</body>
+
+{% block scripts %}
+<script src="{% static 'dashboard/js/profesionales.js' %}"></script>
+{% endblock scripts %}
+
+{% endblock %}
