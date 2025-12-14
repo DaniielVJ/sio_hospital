@@ -107,7 +107,7 @@
                                     <button class="action-btn" 
                                             title="Ver Detalles" 
                                             data-modal-target="#base-modal"
-                                            hx-get=""
+                                            hx-get="{% url 'auditoria:historico_creacion' model_name='paciente' history_id=historico.history_id %}"
                                             hx-target="#modal-details-content"
                                             hx-swap="innerHTML">
                                         <img src="{% static 'svg/view.svg' %}" alt="Ver Detalles" class="nav-svg">
@@ -141,7 +141,7 @@
                                         <button class="action-btn" 
                                                 title="Ver Detalles" 
                                                 data-modal-target="#base-modal"
-                                                hx-get=""
+                                                hx-get="{% url 'auditoria:historico_eliminacion' model_name='paciente' history_id=historico.history_id %}"
                                                 hx-target="#modal-details-content"
                                                 hx-swap="innerHTML">
                                             <img src="{% static 'svg/view.svg' %}" alt="Ver Detalles" class="nav-svg">

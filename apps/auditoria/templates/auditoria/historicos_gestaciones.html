@@ -46,7 +46,7 @@
     </nav>
 
     <div class="welcome-header">
-        <h1 class="main-title">Historicos Paciente</h1>
+        <h1 class="main-title">Historicos Gestaciones</h1>
         <p class="subtitle">Gestione los expedientes clínicos registrados en el sistema. Resultados: {{page_obj.paginator.count}} pacientes totales</p>
     </div>
 
@@ -107,7 +107,7 @@
                                     <button class="action-btn" 
                                             title="Ver Detalles" 
                                             data-modal-target="#base-modal"
-                                            hx-get=""
+                                            hx-get="{% url 'auditoria:historico_creacion' model_name='gestacion' history_id=historico.history_id %}"
                                             hx-target="#modal-details-content"
                                             hx-swap="innerHTML">
                                         <img src="{% static 'svg/view.svg' %}" alt="Ver Detalles" class="nav-svg">
@@ -125,7 +125,7 @@
                                     <button class="action-btn" 
                                             title="Ver Detalles" 
                                             data-modal-target="#base-modal"
-                                            hx-get="{% url 'auditoria:historico_actualizacion' model_name='paciente' history_id=historico.history_id %}"
+                                            hx-get="{% url 'auditoria:historico_actualizacion' model_name='gestacion' history_id=historico.history_id %}"
                                             hx-target="#modal-details-content"
                                             hx-swap="innerHTML">
                                         <img src="{% static 'svg/view.svg' %}" alt="Ver Detalles" class="nav-svg">
@@ -141,7 +141,7 @@
                                         <button class="action-btn" 
                                                 title="Ver Detalles" 
                                                 data-modal-target="#base-modal"
-                                                hx-get=""
+                                                hx-get="{% url 'auditoria:historico_eliminacion' model_name='gestacion' history_id=historico.history_id %}"
                                                 hx-target="#modal-details-content"
                                                 hx-swap="innerHTML">
                                             <img src="{% static 'svg/view.svg' %}" alt="Ver Detalles" class="nav-svg">
@@ -167,22 +167,19 @@
     <!-- Modal Base para Detalles -->
     <div class="modal" id="base-modal">
         <div class="modal-dialog">
-            <form>
-                {% csrf_token %}
-                <div class="modal-content" id="modal-details-content">
-                    <!-- El contenido se cargará aquí a través de HTMX -->
-                    <div class="modal-header">
-                        <h3 class="modal-title">Cargando...</h3>
-                        <button class="modal-close" data-modal-close>&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Por favor espere mientras se cargan los detalles.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn-secondary" data-modal-close>Cerrar</button>
-                    </div>
+            <div class="modal-content" id="modal-details-content">
+                <!-- El contenido se cargará aquí a través de HTMX -->
+                <div class="modal-header">
+                    <h3 class="modal-title">Cargando...</h3>
+                    <button class="modal-close" data-modal-close>&times;</button>
                 </div>
-            </form>
+                <div class="modal-body">
+                    <p>Por favor espere mientras se cargan los detalles.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-secondary" data-modal-close>Cerrar</button>
+                </div>
+            </div>
         </div>
     </div>
 </main>

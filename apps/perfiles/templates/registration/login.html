@@ -85,7 +85,42 @@
                 </fieldset>
             </form>
 
-            <!-- Link recuperar contraseña -->
+            
+            {% if DEBUG %}
+                 <h3>Solo en desarrollo</h3>
+                <div style="display: flex; justify-content: space-between;">
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="juana@gmail.com" name="username">
+                        <input type="hidden" value="Matrona123@" name="password">
+                        <button type="submit">Matrona</button>
+                    </form>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="superstar@gmail.com" name="username">
+                        <input type="hidden" value="Matrona123@" name="password">
+                        <button type="submit">Supervisor</button>
+                    </form>
+
+
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="admin@gmail.com" name="username">
+                        <input type="hidden" value="Matrona123@" name="password">
+                        <button type="submit">Admin Ti</button>
+                    </form>            
+                </div>
+            {% endif %}
+                
+           
+            
+          
+        
+
+            <!-- Link recuperar contraseña -->      
             <div class="form-options">
                 <a class="forgot-link" href="NewPW/resetPassword.html">
                     ¿Olvidaste tu contraseña?
