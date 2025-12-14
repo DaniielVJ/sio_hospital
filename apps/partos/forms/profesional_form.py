@@ -1,6 +1,6 @@
 from django import forms
 from ..models.profesional import Profesional
-from core.utils import validar_rut
+from core.validators import validar_rut
 
 class ProfesionalForm(forms.ModelForm):
     """
@@ -74,11 +74,10 @@ class ProfesionalForm(forms.ModelForm):
         Normaliza el RUT: Lo convierte a mayúsculas y quita espacios extra.
         """
         rut = self.cleaned_data.get('rut')
-        if rut:
-            # Quitamos puntos para guardar limpio en BD (opcional, según tu preferencia)
-            # rut = rut.replace('.', '') 
+        if rut: 
             rut = validar_rut(rut)
-        return rut
+            if not rut[0]:
+                raise forms.ValidationError("rut invalido")
 
     def clean_correo(self):
         """
