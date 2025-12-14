@@ -34,6 +34,14 @@ def crear_tabla_d2_buffer():
         textColor=colors.white
     )
 
+    descripcion_rango_fechas = ParagraphStyle(
+        "descripcion_rango_fechas",
+        fontSize=12,
+        leading=8,
+        alignment=TA_CENTER
+    )
+
+
     header_sub = ParagraphStyle(
         "header_sub",
         fontSize=7,
@@ -48,7 +56,7 @@ def crear_tabla_d2_buffer():
     encabezado_n1 = [
         "TIPO",
         "PROFILAXIS", "PROFILAXIS",
-        "TIPO DE PARTO", "TIPO DE PARTO", "TIPO DE PARTO",
+        "TIPO DE PARTO", "TIPO DE PARTO", "TIPO DE PARTO", "TIPO DE PARTO"
         "APGAR", "APGAR",
         "Reanimación Básica",
         "Reanimación Avanzada",
@@ -83,7 +91,7 @@ def crear_tabla_d2_buffer():
 
     fila = [
         "NACIDOS VIVOS",
-        143, 143, 73, 4, 66, 0, 3, 3, 16, 6
+        143, 143, 73, 4, 66, 0, 3, 3, 16, 6, ""
     ]
 
     fila = [Paragraph(str(x), cell_center) for x in fila]
@@ -145,7 +153,8 @@ def crear_tabla_d2_buffer():
     t1 = Table(tabla_principal, colWidths=[col] * len(encabezado_n1))
 
     t1.setStyle(TableStyle([
-        ("BACKGROUND", (0,0), (-1,0), colors.coral),
+        ("BACKGROUND", (0,0), (-1,0), colors.HexColor(0xE63137)),
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white), 
         ("BACKGROUND", (0,1), (-1,1), colors.lightgrey),
         ("GRID", (0,0), (-1,-1), 1, colors.black),
         ("VALIGN", (0,0), (-1,-1), "MIDDLE"),

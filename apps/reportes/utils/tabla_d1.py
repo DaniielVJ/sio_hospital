@@ -11,7 +11,7 @@ from apps.reportes.utils.pdf_header import construir_header_logo
 # =====================================================================================
 # FUNCIÓN PARA CREAR LA TABLA D.1 EN MEMORIA (BUFFER)
 # =====================================================================================
-def crear_tabla_d1_buffer():
+def crear_tabla_d1_buffer(total_rn, rn_menor_500, rn_500_999, rn_1000_1499, rn_1500_1999, rn_2000_2499, rn_2500_2999, rn_3000_3999, rn_4000, rn_con_anomalia_congenita, start_date, end_date):
 
     # Cargamos estilos base (Title, Normal, etc.)
     styles = getSampleStyleSheet()
@@ -37,6 +37,13 @@ def crear_tabla_d1_buffer():
         textColor=colors.white
     )
 
+    descripcion_rango_fechas = ParagraphStyle(
+        "descripcion_rango_fechas",
+        fontSize=12,
+        leading=8,
+        alignment=TA_CENTER
+    )
+
     # =====================================================================================
     # DATOS DE LA TABLA — EXACTOS AL EXCEL
     # =====================================================================================
@@ -48,7 +55,7 @@ def crear_tabla_d1_buffer():
     ]
 
     fila_datos = [
-        "NACIDOS VIVOS", 143, 0, 2, 2, 4, 16, 23, 82, 14, 1
+        "NACIDOS VIVOS", total_rn, rn_menor_500, rn_500_999, rn_1000_1499, rn_1500_1999, rn_2000_2499, rn_2500_2999, rn_3000_3999, rn_4000, rn_con_anomalia_congenita
     ]
 
     # Convertimos cada celda a Paragraph
@@ -79,6 +86,15 @@ def crear_tabla_d1_buffer():
         "<b>''REM A 24''</b>",
         styles["Title"]
     ))
+    
+
+    texto = f"Desde {start_date}" if start_date else "" + f" - Hasta {end_date}" if end_date else ""
+    texto_decorado = "<p>" + texto + "</p>"
+
+    story.append(Paragraph(
+        texto_decorado,
+        descripcion_rango_fechas, 
+    ))
 
     story.append(Spacer(1, 12))
 
@@ -99,7 +115,7 @@ def crear_tabla_d1_buffer():
     # =====================================================================================
 
     t.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, 0), colors.red),
+        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor(0xE63137)),
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
 
         ("GRID", (0, 0), (-1, -1), 1, colors.black),
