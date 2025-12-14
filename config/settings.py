@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     # Apps de terceros,
     'dal',
     'dal_select2',
-    'simple_history'
+    'simple_history',
+    'formtools',
 
 ]
 
