@@ -34,6 +34,8 @@ class CrearRecienNacidoView(MatronaRequiredMixin, PermissionRequiredMixin, Creat
     form_class = RecienNacidoForm
     permission_required = "recien_nacidos.add_reciennacido"
     raise_exception = True
+    success_url = reverse_lazy('recien_nacido:listar_recien_nacidos')
+
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user

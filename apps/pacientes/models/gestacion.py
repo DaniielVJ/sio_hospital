@@ -71,7 +71,6 @@ class Gestacion(models.Model):
     # NO VA EN EL FORMULARIO
     fecha_inicio_gestacion = models.DateField(null=True, blank=True)
 
-
     numero_gestacion = OrderField(for_fields=['paciente'], blank=True)
 
     enfermedad_cardiaca = models.BooleanField(default=False)
@@ -98,7 +97,7 @@ class Gestacion(models.Model):
             if self.semanas_eco is not None and self.dias_eco is not None and self.fecha_eco:
                 dias_totales = self.semanas_eco * 7 + self.dias_eco
                 self.fecha_inicio_gestacion = self.fecha_eco - timezone.timedelta(days=dias_totales)
-        
+
         super().save(*args, **kwargs)
 
 
