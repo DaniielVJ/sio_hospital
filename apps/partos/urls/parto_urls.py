@@ -1,6 +1,8 @@
 from django.urls import path
-
-from ..views import ListarPartosView, CrearPartosView, AutoCompletadoParaGestacion, MenuInicioPartosView, ActualizarPartoView, EliminarPartoView
+from ..views import (
+    ListarPartosView, CrearPartosView, AutoCompletadoParaGestacion, 
+    MenuInicioPartosView, ActualizarPartoView, EliminarPartoView
+)
 
 app_name = "parto"
 
@@ -12,5 +14,3 @@ urlpatterns = [
     path('<int:pk>/eliminar/', EliminarPartoView.as_view(), name="eliminar_parto"),
     path('autocompletado/gestacion/', AutoCompletadoParaGestacion.as_view(), name="autocompletar_gestacion")
 ]
-
-

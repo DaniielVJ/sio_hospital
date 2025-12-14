@@ -19,7 +19,8 @@
                 <span class="nav-text">Gestaciones</span>
             </a>
 
-            <a href="{% url 'parto:inicio' %}" class="nav-link">
+            <a href="{% url 'parto:inicio' %}" 
+            class="nav-link {% if '/partos/' in request.path %}active{% endif %}">
                 <img src="{% static 'svg/parto.svg' %}" class="nav-svg" />
                 <span class="nav-text">Partos</span>
             </a>
@@ -29,7 +30,7 @@
                 <span class="nav-text">Recién Nacidos</span>
             </a>
 
-            <a href="../Profesionales/profesionales.html" class="nav-link">
+            <a href="{% url 'profesionales:inicio' %}" class="nav-link {% if '/profesionales/' in request.path %}active{% endif %}">
                 <img src="{% static 'svg/profesional.svg' %}" class="nav-svg" />
                 <span class="nav-text">Profesionales</span>
             </a>

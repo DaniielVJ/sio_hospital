@@ -21,7 +21,7 @@ urlpatterns = [
     path('reportes/', include('apps.reportes.urls')),
     path('auditorias/', include('apps.auditoria.urls')),
     path('dashboards/', include('apps.dashboard.urls')),
-    
+    path('profesionales/', include('apps.partos.urls.profesionales_urls')),    
 ]
 
 if settings.DEBUG:
