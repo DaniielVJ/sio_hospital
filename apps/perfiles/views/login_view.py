@@ -1,4 +1,5 @@
 from django.contrib.auth.views import LoginView as BaseLoginView
+from django.conf import settings
 from ..forms import LoginEmailForm
 from django.contrib import messages
 
@@ -18,4 +19,7 @@ class LoginView(BaseLoginView):
         return super().form_invalid(form)
         
     
-
+    def get_context_data(self, **kwargs):
+        context_data =  super().get_context_data(**kwargs)
+        context_data['DEBUG'] = settings.DEBUG
+        return context_data
