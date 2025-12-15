@@ -19,6 +19,13 @@ class Parto(models.Model):
       ARTIFICIAL = 'artificial', 'Artificial'
     
 
+   class InicioTrabajoParto(models.TextChoices):
+      ESPONTANEO = 'espontanea', 'Espontánea'
+      INDUCIDO_FARMACOLOGICA = 'inducido_far', 'Inducido Farmacologicamente'
+      INDUCIDO_MECANICA = 'inducido_mec', 'Inducido Mecanicamente'
+      CONDUCIDO = 'conducido', 'Conduccion Oxitóxica'
+
+
    class TipoRegimen(models.TextChoices):
       CERO = 'cero', 'Cero'
       LIQUIDO = 'liquido', 'Liquido'
@@ -34,6 +41,13 @@ class Parto(models.Model):
       ALUMBRAMIENTO = 'alumbramiento', 'Alumbramiento'
       PUERPERIO = 'puerperio', 'Puerperio Inmediato'
 
+
+   class TipoAcompaniante(models.TextChoices):
+      SIN_ACOMPANIANTE = 'sin', 'Sin Acompaniante'
+      DURANTE_TRABAJO_PARTO = 'trab_parto', 'Durante Trabajo de Parto'
+      SOLO_EXPULSIVO = 'solo_expul', 'Solo Expulsivo'
+
+
    class PosicionParto(models.TextChoices):
       SEMISENTADA = 'semisentada', 'Semisentada'
       SENTADA = 'sentada', 'Sentada'
@@ -44,6 +58,7 @@ class Parto(models.Model):
       DE_PIE = 'de pie', 'De Pie'
       CUCLILLAS = 'cuclillas', 'Cuclillas'
       OTRO = 'otro', 'Otro'
+
 
    # NO VAN EN EL FORMULARIO
    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT,
@@ -68,6 +83,7 @@ class Parto(models.Model):
    rotura_membrana = models.CharField(max_length=50,
                                     choices=TipoRotura.choices,
                                     default=TipoRotura.ESPONTANEA)
+   
    estado = models.CharField(max_length=30,
                            choices=EstadoParto.choices,
                            default=EstadoParto.INGRESO)
@@ -78,6 +94,9 @@ class Parto(models.Model):
    tipo_regimen = models.CharField(max_length=50,
                                    choices=TipoRegimen.choices,
                                    default=TipoRegimen.CERO)
+   inicio_parto = models.CharField(max_length=50, 
+                                   choices=InicioTrabajoParto.choices,
+                                   default=InicioTrabajoParto.ESPONTANEO)
 
    observaciones = models.TextField(blank=True, max_length=1000)
 
@@ -89,10 +108,18 @@ class Parto(models.Model):
    edad_madre = models.PositiveSmallIntegerField()
    monitor = models.BooleanField(default=False)
    entrega_placenta = models.BooleanField(default=False)
-   acompaniante = models.BooleanField(default=False)
+   tipo_acompaniante = models.CharField(max_length=50, 
+                                        choices=TipoAcompaniante.choices,
+                                        default=TipoAcompaniante.SIN_ACOMPANIANTE)
+   
+   libertad_movimiento = models.BooleanField(default=False)
+
+   # lo oculto y no lo exigo en el formulario ya que no hay tiempo para reconstruir database
+   acompaniante = models.BooleanField(default=False, blank=True, null=True)
    ttc = models.BooleanField(default=False)
-   induccion = models.BooleanField(default=False)
-   aceleracion = models.BooleanField(default=False)
+   # Field para no exigir en el db por el simple echo de que no quiero modificar la base de datos completas pq no queda tiempo
+   induccion = models.BooleanField(default=False, blank=True, null=True)
+   aceleracion = models.BooleanField(default=False, blank=True, null=True)
    oxitocina_profilactica = models.BooleanField(default=False)
    uso_sala_saip = models.BooleanField(default=False)
    

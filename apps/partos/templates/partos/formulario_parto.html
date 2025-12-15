@@ -133,7 +133,20 @@
                         </div>
                     {% endif %}
 
-                </div>
+                    </div>
+
+                    <div class="form-group {% if form.via_nacimiento.errors %} has-error{% endif %}">
+                        <label for="{{form.inicio_parto.id_for_label}}">Tipo Inicio de Parto<span class="obligatorio">*</span></label>
+                        {{form.inicio_parto}}
+                    {% if form.inicio_parto.errors %}
+                        <div class="error-message">
+                        {% for error in form.inicio_parto.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    </div>
             </fieldset>
  
             <fieldset class="form-section ">

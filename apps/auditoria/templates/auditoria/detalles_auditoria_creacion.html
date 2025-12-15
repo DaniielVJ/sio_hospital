@@ -1,7 +1,7 @@
 <div class="modal-header">
     <div style="display: flex; align-items: center; gap: 10px;">
         <span style="font-size: 1.5rem;">📋</span>
-        <h3 class="modal-title"><span class="id-badge">#{{object.history_id}}</span> Eliminacion del {{ model_name|capfirst }} con identificador <a href="{% if model_name == 'paciente' %}{% url 'paciente:listar_pacientes' %}{% endif %}"><span class="id-badge">#{{object.id}}</span></a></h3>
+        <h3 class="modal-title"><span class="id-badge">#{{object.history_id}}</span> Creacion del {{ model_name|capfirst }} con identificador <a href="{% if model_name == 'paciente' %}{% url 'paciente:listar_pacientes' %}{% endif %}"><span class="id-badge">#{{object.id}}</span></a></h3>
     </div>
     <button class="modal-close" type="button" data-modal-close>&times;</button>
 </div>
@@ -12,15 +12,16 @@
         <div style="margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
             <div>
                 <span style="font-weight: 600; color: #2d3748;">Usuario:</span> 
-                <span style="color: #4a5568;">                
+                <span style="color: #4a5568;">
                 {% if object.history_user %}
                     {{ object.history_user.get_full_name|default:object.history_user.username|default:"Sistema" }}
-                
                 {% else %}
                   Usuario no encontrado en el sistema
                 {% endif %}
-              </span>
-            </div>
+                 </span>
+                
+                    
+                    </div>
             <span style="color: #718096; font-size: 0.875rem; background: #edf2f7; padding: 2px 8px; border-radius: 12px;">
                 {{ object.history_date|date:"d M Y, H:i" }}
             </span>
@@ -40,7 +41,7 @@
             <thead>
                 <tr style="background-color: #edf2f7; color: #4a5568; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em;">
                     <th style="padding: 0.75rem 1rem; text-align: left; font-weight: 700;">Campo</th>
-                    <th style="padding: 0.75rem 1rem; text-align: left; font-weight: 700; width: 35%;">Valor Antes Eliminar</th>
+                    <th style="padding: 0.75rem 1rem; text-align: left; font-weight: 700; width: 35%;">Valor Campo al crearlo</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,8 +51,8 @@
                         {{ field_name|capfirst }}
                     </td>
                     <td style="padding: 0.75rem 1rem;">
-                        <div style="background-color: #fff5f5; color: #c53030; padding: 0.25rem 0.5rem; border-radius: 0.375rem; display: inline-block; font-family: monospace; font-size: 0.9em;">
-                            <span style="font-weight: bold; margin-right: 4px;">-</span>{{ field_value|default:"Vacío" }}
+                        <div style="background-color: #f0fff4; color: #2f855a; padding: 0.25rem 0.5rem; border-radius: 0.375rem; display: inline-block; font-family: monospace; font-size: 0.9em;">
+                            <span style="font-weight: bold; margin-right: 4px;">+</span>{{ field_value|default:"Vacío" }}
                         </div>
                     </td>
                 </tr>
