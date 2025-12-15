@@ -2,7 +2,7 @@ window.renderKpiParto1 = function () {
     const el = document.getElementById("kpi_parto_1");
     if (!el) return;
 
-    const valor = el.dataset.value || 10;
+    const valor = el.dataset.value || 2;
     el.innerHTML = valor;
 };
 
@@ -10,8 +10,8 @@ window.renderKpiParto2 = function () {
     const el = document.getElementById("kpi_parto_2");
     if (!el) return;
 
-    const valor = el.dataset.value || 15;
-    el.innerHTML = String(valor) + '%';
+    const valor = el.dataset.value || 2310;
+    el.innerHTML = valor;
 };
 
 window.renderKpiParto3 = function () {

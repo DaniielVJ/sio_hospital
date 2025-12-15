@@ -36,7 +36,7 @@ window.renderChartPaciente1 = function () {
     const div = document.getElementById("chart_paciente_1");
     if (!div) return;
 
-    val1= `["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]`
+    val1= `["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]` 
     val2= `[180,200,300,260,240,230,150,180,200,220,250,360]`
 
     const meses = JSON.parse(div.dataset.meses || val1);

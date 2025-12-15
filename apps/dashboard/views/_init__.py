@@ -1,5 +1,11 @@
-from .vistas_views import (index)    
+from .vistas_views import (index, PacientesView, PartosView, RecienNacidosView, ProfesionalesView, ReportesView, TestView)    
 
-from .kpis_views import ()
-
-from .graficos_views import ()
+__all__ = [
+    "index",
+    "PacientesView",
+    "PartosView",
+    "RecienNacidosView",
+    "ProfesionalesView",
+    "ReportesView",
+    "TestView",
+]

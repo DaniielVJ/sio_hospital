@@ -11,20 +11,12 @@ class PacientesView(TemplateView):
 class PartosView(TemplateView):
     template_name = 'layouts/partos.html'
 
-class PerfilesView(TemplateView):
-    template_name = 'layouts/perfiles.html'
-
 class RecienNacidosView(TemplateView):
     template_name = 'layouts/recien_nacidos.html'
-
-class ReportesView(TemplateView):
-    template_name = 'layouts/reportes.html'
 
 class ProfesionalesView(TemplateView):
     template_name = 'layouts/profesionales.html'
 
-
-class TestView(TemplateView):
-    template_name = '500.html'
-
+class ReportesView(TemplateView):
+    template_name = 'layouts/reportes.html'
 
