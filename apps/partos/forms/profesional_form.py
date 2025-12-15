@@ -77,7 +77,9 @@ class ProfesionalForm(forms.ModelForm):
         if rut: 
             rut = validar_rut(rut)
             if not rut[0]:
-                raise forms.ValidationError("rut invalido")
+                raise forms.ValidationError(rut[1])
+        return rut
+
 
     def clean_correo(self):
         """

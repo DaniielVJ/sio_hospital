@@ -1,50 +1,14 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "wizard/wizard_form.html" %}
 
-{% block title %}
-    {{ form.instance.pk|yesno:"Actualizar Puerperio, Registrar Puerperio" }}
-{% endblock title %}
 
-{% block estilos_personalizados %}
-    <link rel="stylesheet" href="{% static 'styles/form.css' %}">
-    {{ form.media }}    
-{% endblock estilos_personalizados %}
+{% block form_title %}
+    Puerperio del Parto
+{% endblock form_title %}
+    
 
-{% block menus_navegacion %}
-    {% include 'includes/topbar.html' %}
-    {% include 'includes/sidebar.html' %}
-{% endblock menus_navegacion %}
 
-{% block content %}
-<main class="main-container">
-
-    <nav class="breadcrumbs">
-        <a href="{% url 'pantalla_principal' %}" class="link-color">Inicio</a>
-        <span>›</span>
-        <a href="{% url 'parto:listar_partos' %}" class="link-color">Partos</a>
-        <span>›</span>
-        <span>Puerperio Inmediato</span>
-    </nav>
-
-    <section class="form-card">
-        
-        <div class="form-header">
-            <h2 class="form-title">{{ form.instance.pk|yesno:"Actualizar Puerperio, Registrar Puerperio" }}</h2>
-            <p class="form-subtitle">Registro de condiciones y complicaciones post-alumbramiento.</p>
-        </div>
-
-        {% if form.non_field_errors %}
-            <div class="alert alert-danger">
-                {% for error in form.non_field_errors %}
-                    <p>{{ error }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-
-        <form method="POST" class="main-form">
-            {% csrf_token %}
-
-            <div class="form-section">
+{% block form_fields %}
+    <div class="form-section">
                 <h3 class="section-legend">Estado del Canal del Parto</h3>
                     <div class="form-group {% if form.estado_perine.errors %} has-error{% endif %}">
                         <label for="{{ form.estado_perine.id_for_label }}">Estado del Periné <span class="obligatorio">*</span></label>
@@ -59,9 +23,6 @@
                         {% endif %}
                   </div>
             </div>
-                
-               
-
                 <fieldset class="form-section">
                     <legend class="section-legend">Intervenciones y Hallazgos</legend>
                      <p class="form-subtitle" style="margin-top: -1rem; margin-bottom: 1.5rem;">
@@ -105,34 +66,5 @@
                         </label>
                     </div>
                 </fieldset>
-                
-            <div class="form-actions">
-                <a class="btn-secondary" href="javascript:history.back()">Cancelar</a>
-                <button type="submit" class="btn-primary">Guardar Puerperio</button>
-            </div>
-
-        </form>
-    </section>
-</main>
-{% endblock content %}
-
-{% block scripts %}
-    <script src="{% static 'js/manejo-error-form.js' %}"></script>
+{% endblock form_fields %}
     
-    <script>
-        // Pequeño script para pre-seleccionar el parto si viene por URL (GET param)
-        // Ejemplo: .../crear/?parto=5
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const partoId = urlParams.get('parto');
-            const selectParto = document.getElementById('{{ form.parto.id_for_label }}');
-            
-            if (partoId && selectParto) {
-                selectParto.value = partoId;
-                // Opcional: Deshabilitar el select para que no lo cambien por error
-                // selectParto.style.pointerEvents = 'none'; 
-                // selectParto.style.background = '#f0f0f0';
-            }
-        });
-    </script>
-{% endblock scripts %}

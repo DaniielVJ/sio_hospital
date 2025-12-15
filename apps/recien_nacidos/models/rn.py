@@ -31,8 +31,8 @@ class RecienNacido(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     presentacion_fetal = models.ForeignKey(PresentacionFetal, on_delete=models.PROTECT, related_name='rns')
-    complicaciones_postparto = models.ManyToManyField(ComplicacionPostParto, related_name='rns')
-    reanimaciones_neonatales = models.ManyToManyField(ReanimacionNeonatal, related_name='rns')
+    complicaciones_postparto = models.ManyToManyField(ComplicacionPostParto, related_name='rns', blank=True)
+    reanimaciones_neonatales = models.ManyToManyField(ReanimacionNeonatal, related_name='rns', blank=True)
     fecha_hora = models.DateTimeField()
     nombre_completo_madre = models.CharField(max_length=150, blank=True)
     peso = models.PositiveIntegerField() # Se mide en gramos asi que es un valor numerico entero
