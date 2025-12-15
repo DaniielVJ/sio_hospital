@@ -38,6 +38,7 @@ class CrearRecienNacidoView(MatronaRequiredMixin, PermissionRequiredMixin, Creat
 
 
     def form_valid(self, form):
+        form.instance.parto.estado = "terminado"
         form.instance.created_by = self.request.user
         form.instance.updated_by = self.request.user
         return super().form_valid(form)

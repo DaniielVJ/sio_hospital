@@ -63,12 +63,21 @@ class CrearPartosView(MatronaRequiredMixin, PermissionRequiredMixin, CreateView)
     permission_required = "partos.add_parto"
     raise_exception = True
     form_class = PartoForm
+    success_url = reverse_lazy("parto:listar_partos")
 
     def form_valid(self, form):
+        form.instance.gestacion.estado = "terminada"
         form.instance.created_by = self.request.user
         form.instance.updated_by = self.request.user
         messages.success(self.request, "Parto creado exitosamente !!")
         return super().form_valid(form)
+    
+
+    def form_invalid(self, form):
+        messages.error(self.request, "No se pudo registrar el parto !!")
+        return super().form_invalid(form)
+        
+    
     
 
 
@@ -86,12 +95,12 @@ class ActualizarPartoView(MatronaRequiredMixin, PermissionRequiredMixin, UpdateV
         motivo = form.cleaned_data.get('motivo')
         form.instance._change_reason = motivo
         form.instance.updated_by = self.request.user
-        messages.success(self.request, "Paciente actualizado correctamente !!")
+        messages.success(self.request, "Parto actualizado correctamente !!")
         return super().form_valid(form)
     
 
     def form_invalid(self, form):
-        messages.error(self.request, "No se ha podido actualizar el Paciente")
+        messages.error(self.request, "No se ha podido actualizar el parto !!")
         return super().form_invalid(form)
 
 
@@ -106,7 +115,7 @@ class EliminarPartoView(MatronaRequiredMixin, PermissionRequiredMixin, DeleteVie
 
 
     def form_valid(self, form):
-        messages.success(self.request, "Paciente eliminado correctamente !!")
+        messages.success(self.request, "Parto eliminado correctamente !!")
         motivo = form.cleaned_data.get('motivo')
         self.object._change_reason = motivo
         return super().form_valid(form)

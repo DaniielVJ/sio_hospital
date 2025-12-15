@@ -74,7 +74,7 @@ class GestacionForm(forms.ModelForm):
         enfermedad_cardiaca = cleaned_data.get('enfermedad_cardiaca')
         riesgo = cleaned_data.get('riesgo')
 
-        if diabetes or hipertesion or enfermedad_cardiaca and riesgo == "bajo":
+        if (diabetes or hipertesion or enfermedad_cardiaca) and riesgo == "bajo":
             self.add_error("riesgo", "El riesgo no puede ser bajo si se ha marcado un factor de riesgo")
 
 

@@ -25,17 +25,37 @@ class GenerarReporteCesarea(SupervisorRequiredMixin, View):
 
 class GenerarReporteCaracteristicasParto(SupervisorRequiredMixin, View):
     def get(self , *args, **kwargs):
-        
-        pass
+        # Aqui se cuentan todos los partos que hayan sido o dado a luz a un recien nacido con un peso mayor o igual a 2500gramos y que 
+        # hayan recibido lactancia antes de los 60 minutos.
+        qs = Parto.objects.filter(rns__peso__gte=2500, rns__lactante_60=True).distinct()
+        eutocico = get_object_or_404(ViaNacimiento, pk=3, tipo="EUTOCICO")
+        distocico = get_object_or_404(ViaNacimiento, pk=4, tipo="DISTOCICO")
+        ces_electiva = get_object_or_404(ViaNacimiento, pk=1, tipo="CES.ELECTIVA")
+        ces_urgencia = get_object_or_404(ViaNacimiento, pk=2, tipo="CES. URGENCIA")
 
+        start_date = self.request.GET.get('start_date')
+        end_date = self.request.GET.get('end_date')
         
+        if start_date:
+            qs = qs.filter(hora_inicio__date__gte=start_date)
+        
+        if end_date:
+            qs = qs.filter(hora_inicio__date__lte=end_date)
+
+
+        total_partos = qs.count()
+        vaginal = qs.filter(via_nacimiento=eutocico).count()
+        instrumental = qs.filter(via_nacimiento=distocico).count()
+        ces_electiva_total = qs.filter(via_nacimiento=ces_electiva).count()
+        ces_urgencia_total = qs.filter(via_nacimiento=ces_urgencia).count()
+
 
         buffer_pdf = crear_tabla_caracteristicas_parto_buffer(
-            total_partos=122,
-            vaginal=65,
-            instrumental=0,
-            cesarea_electiva=26,
-            cesarea_urgencia=31)
+            total_partos,
+            vaginal,
+            instrumental,
+            ces_electiva_total,
+            ces_urgencia_total)
         return FileResponse(buffer_pdf, as_attachment=True, filename="tabla_caracteristicas_parto(REM A 24).pdf")
     
 
@@ -43,7 +63,7 @@ class GenerarReporteCaracteristicasParto(SupervisorRequiredMixin, View):
 
 class GenerarReporteD1(SupervisorRequiredMixin, View):
     def get(self, *args, **kwargs):
-        anomalia_congenita_object = get_object_or_404(ComplicacionPostParto, Q(nombre="Malformación congénita") | Q(pk=6))
+        anomalia_congenita_object = get_object_or_404(ComplicacionPostParto, Q(nombre="Malformación congénita") & Q(pk=6))
         qs = RecienNacido.objects.all()
 
         start_date = self.request.GET.get('start_date')
@@ -55,7 +75,6 @@ class GenerarReporteD1(SupervisorRequiredMixin, View):
 
         if end_date:
             qs = qs.filter(fecha_hora__date__lte=end_date)
-
 
 
         rn_con_anomalia_congenita = RecienNacido.objects.filter(complicaciones_postparto=anomalia_congenita_object).count()

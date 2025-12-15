@@ -34,6 +34,7 @@ class WizardFormView(MatronaRequiredMixin, SessionWizardView):
                 # storage of gestation
                 gestation = form_list[1].save(commit=False)
                 gestation.paciente = patient
+                gestation.estado = "terminada"
                 gestation.created_by = self.request.user
                 gestation.updated_by = self.request.user
                 gestation.save()
@@ -42,6 +43,7 @@ class WizardFormView(MatronaRequiredMixin, SessionWizardView):
                 # storage of childbirth
                 childbirth = form_list[2].save(commit=False)
                 childbirth.gestacion = gestation
+                childbirth.estado = "terminado"
                 childbirth.created_by = self.request.user
                 childbirth.updated_by = self.request.user
                 childbirth.save()
