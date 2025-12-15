@@ -1,0 +1,123 @@
+{% load static %}
+
+<div class="main-form" style="padding: 0; margin: 0; box-shadow: none;">
+
+    <div class="form-header" style="margin-bottom: 1.5rem;">
+        <h2 class="form-title">Ficha Clínica de Parto</h2>
+        <div class="form-subtitle">
+            <span>{{ object.hora_inicio|date:"d M Y, H:i" }} hrs</span>
+            <span> | Estado: {{ object.estado }}</span>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h4 class="section-legend">Resumen Obstétrico</h4>
+        <div class="detalle-grid-3">
+            <div class="dato-box">
+                <span class="dato-label">Gestación</span>
+                <span class="dato-valor">{{ object.gestacion }}</span>
+            </div>
+            <div class="dato-box">
+                <span class="dato-label">Vía</span>
+                <span class="dato-valor">{{ object.via_nacimiento }}</span>
+            </div>
+            <div class="dato-box">
+                <span class="dato-label">T. Expulsivo</span>
+                <span class="dato-big">{{ object.tiempo_expulsivo }}'</span>
+            </div>
+        </div>
+    </div>
+
+    <details class="finexy-accordion">
+        <summary class="finexy-summary">
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+                <img src="{% static 'icons/stetoscopio.png' %}" class="chip-icon">
+                <span>Equipo Médico</span>
+            </div>
+        </summary>
+        <div class="accordion-content">
+            {% if object.participaciones.exists %}
+                <ul class="lista-clean">
+                    {% for part in object.participaciones.all %}
+                    <li>
+                        <div class="chip-dato">
+                            <span>{{ part.profesional.get_tipo_display }}</span>
+                        </div>
+                        <span class="dato-valor">{{ part.profesional.nombre_completo }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div style="margin-top: 1rem; text-align: right;">
+                    <a href="{% url 'parto:actualizar_parto' object.pk %}" class="btn-secondary" style="font-size: 0.8rem;">
+                        Editar Equipo
+                    </a>
+                </div>
+            {% else %}
+                <div style="text-align: center; padding: 1rem;">
+                    <p class="form-subtitle">No hay profesionales vinculados.</p>
+                    <a href="{% url 'parto:actualizar_parto' object.pk %}" class="btn-primary" style="margin-top:0.5rem;">
+                        + Vincular Profesionales
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </details>
+
+    <details class="finexy-accordion" {% if object.puerperio %}open{% endif %}>
+        <summary class="finexy-summary">
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+                <img src="{% static 'icons/baby_feet.png' %}" class="chip-icon">
+                <span>Puerperio Inmediato</span>
+            </div>
+        </summary>
+        
+        <div class="accordion-content">
+            {% if object.puerperio %} <div class="detalle-grid-3">
+                    <div class="dato-box">
+                        <span class="dato-label">Periné</span>
+                        <span class="dato-valor">{{ object.puerperio.estado_perine }}</span>
+                    </div>
+                    <div class="dato-box">
+                        <span class="dato-label">Esterilización</span>
+                        <span class="dato-valor">{{ object.puerperio.esterilizacion|yesno:"SÍ,NO" }}</span>
+                    </div>
+                </div>
+
+                <div class="checkbox-grid">
+                     {% if object.puerperio.inercia_uterina %}
+                        <div class="chip-dato active"><span>Inercia Uterina</span></div>
+                     {% endif %}
+                     {% if object.puerperio.trauma %}
+                        <div class="chip-dato active"><span>Trauma Canal</span></div>
+                     {% endif %}
+                     {% if not object.puerperio.inercia_uterina and not object.puerperio.trauma %}
+                        <span class="form-subtitle">Sin complicaciones registradas.</span>
+                     {% endif %}
+                </div>
+
+                <div style="margin-top: 1rem; text-align: right;">
+                    <a href="{% url 'puerperio:actualizar' pk=object.puerperio.pk %}" class="btn-secondary" style="font-size: 0.8rem;">
+                        Editar Puerperio
+                    </a>
+                </div>
+
+            {% else %} 
+                <div style="text-align: center; padding: 1.5rem;">
+                    <p class="form-subtitle" style="margin-bottom: 1rem;">
+                        Aún no se ha registrado la evolución del puerperio para este parto.
+                    </p>
+                    <a href="{% url 'puerperio:crear' %}?parto={{ object.pk }}" class="btn-primary">
+                        Registrar Puerperio
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </details>
+
+    <div class="form-actions" style="border-top:none; padding-top:0;">
+        <a href="{% url 'parto:actualizar_parto' object.pk %}" class="btn-primary" style="width: 100%;">
+            Editar Ficha Completa
+        </a>
+    </div>
+
+</div>

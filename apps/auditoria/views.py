@@ -5,20 +5,17 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.urls import reverse_lazy
 
+
+
 from core.forms import MotivoForm
 from core.mixins import SupervisorRequiredMixin
-from .config import Gestacion, Paciente, Parto, RecienNacido
-
-MODELOS_AUDITADOS = {
-    'paciente': Paciente,
-    'gestacion': Gestacion,
-    'parto': Parto,
-    'recien_nacido': RecienNacido
-}
+from .config import Gestacion, Paciente, Parto, RecienNacido, DeterminarModeloAuditarMixin, MODELOS_AUDITADOS
 
 
 
-class MenuInicioAuditoriaView(TemplateView):
+
+
+class MenuInicioAuditoriaView(SupervisorRequiredMixin,TemplateView):
     template_name = "auditoria/inicio_auditoria.html"
 
 
@@ -166,7 +163,7 @@ class ListarHistoricoPartos(SupervisorRequiredMixin, ListView):
     
 class ListarHistoricoRecienNacidos(SupervisorRequiredMixin, ListView):
     model = RecienNacido
-    template_name = "auditoria/historicos_gestaciones.html"
+    template_name = "auditoria/historicos_rn.html"
     context_object_name = "historicos"
     paginate_by = 20
 
@@ -212,20 +209,13 @@ class ListarHistoricoRecienNacidos(SupervisorRequiredMixin, ListView):
     
 
 
-class DetallesHistoricoActualizacionView(DetailView):
+class DetallesHistoricoActualizacionView(SupervisorRequiredMixin, DeterminarModeloAuditarMixin, DetailView):
     model = ""
     template_name = "auditoria/detalles_auditoria_actualizacion.html"
 
 
     slug_url_kwarg = 'history_id'
     slug_field = 'history_id'
-
-    def dispatch(self, request, model_name=None, *args, **kwargs):
-        self.modelo_a_auditar = MODELOS_AUDITADOS.get(model_name)
-        if not self.modelo_a_auditar:
-            raise Http404()
-        self.model = self.modelo_a_auditar
-        return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
         return self.model.history.select_related('history_user')
@@ -240,9 +230,47 @@ class DetallesHistoricoActualizacionView(DetailView):
         return context_data
 
 
+class DetallesHistoricoEliminacionView(SupervisorRequiredMixin, DeterminarModeloAuditarMixin, DetailView):
+    model = ""
+    template_name = "auditoria/detalles_auditoria_eliminacion.html"
 
 
-class RestauracionDeObjetoView(FormView):
+    slug_url_kwarg = 'history_id'
+    slug_field = 'history_id'
+
+
+    def get_queryset(self):
+        return self.model.history.select_related('history_user')
+
+    
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['model_name'] = self.modelo_a_auditar._meta.model_name
+        context_data['fields_to_display'] = self.fields_to_display().items()
+        return context_data
+    
+
+    def fields_to_display(self):
+
+        instance_field = dict()
+        fields_to_hide = ['history_id', 'history_user', 'history_change_reason', 'history_date', 'history_type', 'updated_by']
+        
+        for field in self.object._meta.fields:
+            try:
+                if field.name in fields_to_hide:
+                    continue
+                instance_field[field.name] = getattr(self.object, field.name)
+            except ObjectDoesNotExist:
+                instance_field[field.name] = getattr(self.object, field.attname)
+        
+        return instance_field
+
+
+class DetallesHistoricoCreacionView(DetallesHistoricoEliminacionView):
+    template_name = "auditoria/detalles_auditoria_creacion.html"
+
+
+class RestauracionDeObjetoView(SupervisorRequiredMixin, FormView):
     template_name ="auditoria/confirmar_restauracion.html"
     form_class = MotivoForm
     model = ""

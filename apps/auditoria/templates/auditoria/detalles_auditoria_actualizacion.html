@@ -12,7 +12,13 @@
         <div style="margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
             <div>
                 <span style="font-weight: 600; color: #2d3748;">Usuario:</span> 
-                <span style="color: #4a5568;">{{ object.history_user.get_full_name|default:object.history_user.username|default:"Sistema" }}</span>
+                <span style="color: #4a5568;">                
+                {% if object.history_user %}
+                    {{ object.history_user.get_full_name|default:object.history_user.username|default:"Sistema" }}
+                {% else %}
+                  Usuario no encontrado en el sistema
+                {% endif %}
+              </span>
             </div>
             <span style="color: #718096; font-size: 0.875rem; background: #edf2f7; padding: 2px 8px; border-radius: 12px;">
                 {{ object.history_date|date:"d M Y, H:i" }}
