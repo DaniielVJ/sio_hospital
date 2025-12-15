@@ -58,21 +58,21 @@
     <section class="grid grid-cols-2 gap-[1rem]">
         <div class="grid grid-row-1 gap-[1rem]">
 <!-- 1 -->
-            <div class="rounded-2xl shadow-xl bg-[#9471712c] border border-white/10">
+            {% comment %} <div class="rounded-2xl shadow-xl bg-[#9471712c] border border-white/10">
                 <h2 class="text-[1rem] font-semibold  text-center">
                     Tasa de aumentos en pacientes criticos
                 </h2>
                 <div id="chart_paciente_3" 
                     data-value='{{ chartpaciente3|safe }}'
                     class="w-full h-80 rounded-xl p-[1rem]"></div>
-            </div>
+            </div> {% endcomment %}
 <!-- 2 -->
             <div class="rounded-2xl shadow-xl bg-[#9471712c]  border border-white/10">
                 <h2 class="text-[1rem] font-semibold  text-center">
-                    Distribución de embarazos por rango de edad
+                    Distribución de partos por rango de edad
                 </h2>
                 <div id="chart_paciente_2" 
-                    data-value='{{ chartpaciente2|safe }}'
+                    data-value='{{ chartpaciente2 }}'
                     class="w-full h-80 rounded-xl"></div>
             </div>
         </div>
@@ -81,7 +81,7 @@
 <!-- 3 -->
             <div class="rounded-2xl shadow-xl bg-[#9471712c] border border-white/10">
                 <h2 class="text-[1rem] font-semibold  text-center">
-                    Cantidad de embarazos durante el año
+                    Cantidad de Gestaciones registradas en el año
                 </h2>
                 <div id="chart_paciente_1" 
                      data-value='{{ chartpaciente1|safe }}'
@@ -92,7 +92,7 @@
             <!--TABLA -->
             <div class="rounded-2xl shadow-xl bg-[#9471712c]   border border-white/10 mt-6">
                 <h2 class="text-[1rem] font-semibold  text-center border-2 rounded-t-xl">
-                    Ultimos Pacientes Registrados
+                    Ultimos Pacientes Registrados en el mes actual
                 </h2>
 
                 <div class="overflow-x-auto">
@@ -103,9 +103,18 @@
                                 <th class="p-3 border-x-2 text-center">Edad</th>
                             </tr>
                         </thead>
-                        <tbody id="tabla_paciente" data-value='{{ tablapaciente }}'
-                            class="border-b-1 text-center">
-                    </tbody>
+                        <tbody id="tabla_paciente"class="border-b-1 text-center">
+                            
+                            
+                            {% for paciente in pacientes %}
+                                <tr>
+                                    <td>{{paciente.obtener_nombre_completo}}</td>
+                                    <td>{{paciente.calcular_edad_paciente}}</td>
+                                </tr>
+                            {% endfor %}
+                                
+                    
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -120,7 +129,7 @@
          data-kpi1='{{ kpipaciente1| safe}}'
          data-kpi2='{{ kpipaciente2| safe}}'
          data-kpi3='{{ kpipaciente3| safe}}'
-         data-tabla='{{ tablapaciente| safe }}'
+         data-tabla='{{ pacientes | safe }}'
          data-chart1='{{ chartpaciente1| safe }}'
          data-chart2='{{ chartpaciente2| safe }}'
          data-chart3='{{ chartpaciente3| safe }}'>
