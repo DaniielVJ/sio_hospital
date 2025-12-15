@@ -27,13 +27,17 @@
             <span>›</span>
             <a href="partos.html" class="link-color">Wizard Form</a>
             <span>›</span>
-            <span>Flujo de Datos</span>
+            <span>Crear Registro Medico Completo</span>
         </nav>
 
         <section class="form-card">
             
             <div class="form-header">
-                <h2 class="form-title">Crear Registro Medico Completo</h2>
+                <h2 class="form-title">
+                {% block form_title %}
+                    
+                {% endblock form_title %}
+                    </h2>
                 <p class="form-subtitle">Los campos marcados con <span class="obligatorio">*</span> son obligatorios</p>
             </div>
             {{ wizard.form.errors }}.

@@ -1,23 +1,14 @@
 {% extends "wizard/wizard_form.html" %}
 
+
+{% block form_title %}
+    Ingrese la Gestacion
+{% endblock form_title %}
+    
+
 {% block form_fields %}
     <fieldset class="form-section">
             <legend class="section-legend">Vinculación y Estado</legend>
-
-            <div class="form-row">
-                <div class="form-group {% if form.paciente.errors %}has-error{% endif %}">
-                    <label for="{{form.paciente.id_for_label}}">{{form.paciente.label}} <span class="obligatorio">*</span></label>
-                    {{form.paciente}}
-                    <span class="field-help">{{form.paciente.help_text}}</span>
-                    {% if form.paciente.errors %}
-                        <div class="error-message">
-                        {% for error in form.paciente.errors %}
-                            <p>{{ error }}</p> 
-                        {% endfor %}
-                        </div>                   
-                    {% endif %} 
-                </div>
-
                 <div class="form-group {% if form.estado.errors %}has-error{% endif %}">
                     <label for="{{form.estado.id_for_label}}">{{form.estado.label}} de la Gestación <span class="obligatorio">*</span></label>
                     {{form.estado}}

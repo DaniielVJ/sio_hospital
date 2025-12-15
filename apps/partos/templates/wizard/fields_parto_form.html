@@ -1,23 +1,12 @@
 {% extends "wizard/wizard_form.html" %}
 
+{% block form_title %}
+    Ingrese el Parto
+{% endblock form_title %}
+    
 {% block form_fields %}
         <fieldset class="form-section">
         <legend class="section-legend">Antecedentes e Ingreso</legend>
-
-        <div class="form-row">
-            <div class="form-group {% if form.gestacion.errors %} has-error{% endif %}">
-                <label for="{{form.gestacion.id_for_label}}">Gestación Asociada <span class="obligatorio">*</span></label>
-                {{form.gestacion}}
-                <span class="field-help">{{form.gestacion.help_text}}</span>
-            {% if form.gestacion.errors %}
-                <div class="error-message">
-                {% for error in form.gestacion.errors %}
-                    <p>{{ error }}</p> 
-                {% endfor %}
-                </div>                   
-            {% endif %}
-            </div>
-
             <div class="form-group {% if form.hora_inicio.errors %} has-error{% endif %}">
                 <label for="{{form.hora_inicio.id_for_label}}">Fecha y Hora de Inicio del trabajo de Parto <span class="obligatorio">*</span></label>
                 {{form.hora_inicio}}

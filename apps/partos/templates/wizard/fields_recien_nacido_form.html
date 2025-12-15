@@ -1,23 +1,17 @@
 {% extends "wizard/wizard_form.html" %}
 
+
+
+{% block form_title %}
+    Ingrese el Recien Nacido
+{% endblock form_title %}
+    
+
+
 {% block form_fields %}
      <fieldset class="form-section">
             <legend class="section-legend">Datos Generales</legend>
-
-            <div class="form-row">
-                <div class="form-group {% if form.parto.errors %} has-error{% endif %}">
-                    <label for="{{form.parto.id_for_label}}">Parto Asociado  <span class="obligatorio">*</span></label>
-                   {{form.parto}}
-                   {% if form.parto.errors %}
-                        <div class="error-message">
-                        {% for error in form.parto.errors %}
-                            <p>{{ error }}</p> 
-                        {% endfor %}
-                        </div>                   
-                    {% endif %}
-                </div>
-
-                <div class="form-group {% if form.fecha_hora.errors %} has-error{% endif %}">
+            <div class="form-group {% if form.fecha_hora.errors %} has-error{% endif %}">
                     <label for="fecha_hora">Fecha y Hora de Nacimiento  <span class="obligatorio">*</span></label>
                     {{form.fecha_hora}}
                     {% if form.fecha_hora.errors %}
