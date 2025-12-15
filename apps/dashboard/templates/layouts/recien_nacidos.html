@@ -56,8 +56,8 @@
         <div class="grid grid-row-1 gap-[1rem]">
 <!-- 1 -->
             <div class="rounded-2xl shadow-xl bg-[#9471712c] border border-white/10">
-                <h2 class="text-lg font-semibold text-white text-center">
-                    Total de Recien Nacidos durante el mes
+                <h2 class="text-[1rem] font-semibold text-center">
+                    Complicaciones durante el mes:<br/>Diciembre
                 </h2>
                 <div id="chart_rn_1" 
                      data-value='{{ chartrn1|safe }}'
@@ -65,7 +65,7 @@
             </div>
 <!-- 2 -->
             <div class="rounded-2xl shadow-xl bg-[#9471712c]  border border-white/10">
-                <h2 class="text-lg font-semibold text-white text-center">
+                <h2 class="text-[1rem] font-semibold text-center">
                     APGAR al minuto 5
                 </h2>
                 <div id="chart_rn_2" 
@@ -75,28 +75,29 @@
         </div>
 <!-- 3 -->
         <div class="grid grid-row-1 h-50">
-            <div class="p-[1rem] rounded-2xl shadow-xl bg-[#9471712c] border border-white/10">
-                <h2 class="text-lg font-semibold text-white text-center">
-                    Intervenciones neonatales
+            <div class="rounded-2xl shadow-xl bg-[#9471712c] border border-white/10">
+                <h2 class="text-[1rem] font-semibold text-center">
+                    Intervenciones Neonatales
                 </h2>
                 <div id="chart_rn_3" 
                     data-value='{{ chartrn3|safe }}'
                     class="w-full h-80 rounded-xl"></div>
             </div>
             <!--TABLA -->
-            <div class="p-6 rounded-2xl shadow-xl bg-[#9471712c]  border border-white/10 mt-6">
-                <h2 class="text-lg font-semibold text-center mb-4 text-white">
+            <div class="rounded-2xl shadow-xl bg-[#9471712c]   border border-white/10 mt-6">
+                <h2 class="text-[1rem] font-semibold  text-center border-2 rounded-t-xl">
                     Últimos Recien Nacidos Registrados
                 </h2>
 
                 <div class="overflow-x-auto">
-                    <table class="min-w-full table-auto rounded-xl text-left">
-                        <thead class="bg-[#9471712c] text-gray-300">
+                    <table class="min-w-full table-auto rounded-xl text-[1rem] text-left">
+                        <thead class="bg-[#9471712c] text-[1rem] font-bold">
                             <tr>
-                                <th class="p-3  border-white/10 text-center">Nombre RN</th>
-                                <th class="p-3  border-white/10 text-center">Peso</th>
-                                <th class="p-3  border-white/10 text-center">edad gestacional</th>
-                                <th class="p-3  border-white/10 text-center">Reanimacion</th>
+                                <th class="p-3 border-x-2 text-center">Nombre RN</th>
+                                <th class="p-3 border-x-2 text-center">Peso</th>
+                                <th class="p-3 border-x-2 text-center">edad gestacional</th>
+                                <th class="p-3 border-x-2 text-center">APGAR</th>
+                                <th class="p-3 border-x-2 text-center">Reanimacion</th>
                             </tr>
                         </thead>
                         <tbody id="tabla_rn" data-value='{{ tablarn }}'

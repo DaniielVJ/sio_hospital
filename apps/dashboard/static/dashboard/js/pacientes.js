@@ -36,8 +36,11 @@ window.renderChartPaciente1 = function () {
     const div = document.getElementById("chart_paciente_1");
     if (!div) return;
 
-    const meses = JSON.parse(div.dataset.meses || `["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]`);
-    const valores = JSON.parse(div.dataset.values || `[180,200,300,260,240,230,150,180,200,220,250,360]`);
+    val1= `["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]`
+    val2= `[180,200,300,260,240,230,150,180,200,220,250,360]`
+
+    const meses = JSON.parse(div.dataset.meses || val1);
+    const valores = JSON.parse(div.dataset.values || val2);
 
     const chart = echarts.init(div);
 
@@ -78,8 +81,11 @@ window.renderChartPaciente2 = function () {
     const div = document.getElementById("chart_paciente_2");
     if (!div) return;
 
-    const meses = JSON.parse(div.dataset.meses || `["18-25","26-35","36-45","56+"]`);
-    const valores = JSON.parse(div.dataset.values || `[20,30,10,5]`);
+    val1= `["18-25","26-35","36-45","56+"]`
+    val2= `[20,30,10,5]`
+
+    const meses = JSON.parse(div.dataset.meses || val1);
+    const valores = JSON.parse(div.dataset.values || val2);
 
     const chart = echarts.init(div);
 
@@ -119,6 +125,9 @@ window.renderChartPaciente3 = function () {
 
     const chart = echarts.init(div);
 
+    val1= ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
+    val2= [3,5,8,10,13,15,18,20]
+    
     const palette = ['#EE6666', '#5470C6', '#91CC75', '#FAC858', '#73C0DE'];
     const textColor = getChartTextColor();
 
@@ -128,7 +137,7 @@ window.renderChartPaciente3 = function () {
           xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+            data: val1,
             axisLabel: { color: textColor }
           },
           yAxis: {
@@ -137,7 +146,7 @@ window.renderChartPaciente3 = function () {
           },
           series: [
             {
-              data: [3,5,8,10,13,15,18,20],
+              data: val2,
               type: 'line',
               areaStyle: {},
               lineStyle: { color: palette[0] },
