@@ -145,6 +145,17 @@
     </section>
     </div>
 
+
+<div id="modalUniversal" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title">Detalle del Registro</h3>
+            <button type="button" class="btn-close-modal">×</button>
+        </div>
+        <div class="modal-body" id="contenidoModal"></div>
+    </div>
+</div>
+
 </main>
 
 
@@ -157,6 +168,7 @@
 
 {% block scripts %}
 <script src="{% static 'js/toastify.min.js' %}"></script>
+<script src="{% static 'js/modal.js' %}"></script>
 {% include 'includes/script_mensajes.html' %}
 
 {% endblock scripts %}
