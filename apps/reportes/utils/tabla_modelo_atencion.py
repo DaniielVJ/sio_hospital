@@ -11,7 +11,15 @@ from apps.reportes.utils.pdf_header import construir_header_logo
 # =====================================================================================
 # FUNCIÓN PARA GENERAR PDF EN BUFFER
 # =====================================================================================
-def crear_tabla_modelo_atencion_buffer():
+def crear_tabla_modelo_atencion_buffer(espontaneo: dict, 
+                                       inducidos: dict, 
+                                       conduccion_oxitocica: dict, 
+                                       libertad_movimiento: dict,
+                                       regimen_hidrico_amplio: dict,
+                                       analgesias: dict,
+                                       posiciones: dict,
+                                       episiotomia: dict,
+                                       acompaniamiente: dict):
 
     # ------------------ ESTILOS ------------------
     styles = getSampleStyleSheet()
@@ -53,29 +61,84 @@ def crear_tabla_modelo_atencion_buffer():
     tabla = [
         encabezado,
 
-        [Paragraph("ESPONTANEO", cell_left), "57", "1", "20", "36"],
+        [
+            Paragraph("ESPONTANEO", cell_left), 
+            espontaneo.get('total'), 
+            espontaneo.get('28_sem'), 
+            espontaneo.get('28_37_sem'),
+            espontaneo.get('partos_38_sem')],
 
         [Paragraph("INDUCIDOS", cell_left), "", "", "", ""],
-        ["      MECÁNICA", "0", "0", "0", "0"],
-        ["      FARMACOLÓGICA", "20", "0", "4", "16"],
+        ["      MECÁNICA", 
+            inducidos.get('mecanicamente').get('total'), 
+            inducidos.get('mecanicamente').get('28_sem'),  
+            inducidos.get('mecanicamente').get('28_37_sem'), 
+            inducidos.get('mecanicamente').get('partos_38_sem')],
+        ["      FARMACOLÓGICA", 
+            inducidos.get('farmacologicamente').get('total'), 
+            inducidos.get('farmacologicamente').get('28_sem'), 
+            inducidos.get('farmacologicamente').get('28_37_sem'), 
+            inducidos.get('farmacologicamente').get('partos_38_sem')],
 
-        [Paragraph("CONDUCCIÓN OXITÓCICA", cell_left), "68", "1", "20", "50"],
-        [Paragraph("LIBERTAD DE MOVIMIENTO", cell_left), "65", "1", "20", "46"],
-        [Paragraph("RÉGIMEN HÍDRICO AMPLIO", cell_left), "56", "0", "17", "42"],
+        [Paragraph("CONDUCCIÓN OXITÓCICA", cell_left), 
+         conduccion_oxitocica.get('total'), 
+         conduccion_oxitocica.get('28_sem'), 
+         conduccion_oxitocica.get('28_37_sem'), 
+         conduccion_oxitocica.get('partos_38_sem')],
+
+        [Paragraph("LIBERTAD DE MOVIMIENTO", cell_left), 
+         libertad_movimiento.get('total'), 
+         libertad_movimiento.get('28_sem'), 
+         libertad_movimiento.get('28_37_sem'), 
+         libertad_movimiento.get('partos_38_sem')],
+
+        [Paragraph("RÉGIMEN HÍDRICO AMPLIO", cell_left), 
+         regimen_hidrico_amplio.get('total'), 
+         regimen_hidrico_amplio.get('28_sem'), 
+         regimen_hidrico_amplio.get('28_37_sem'), 
+         regimen_hidrico_amplio.get('partos_38_sem')],
 
         [Paragraph("Manejo del dolor", cell_left), "", "", "", ""],
-        ["      No farmacológico", "40", "0", "10", "30"],
-        ["      Farmacológico", "39", "0", "9", "30"],
+        ["      No farmacológico", 
+         analgesias.get('no_farmacologico').get('total'), 
+         analgesias.get('no_farmacologico').get('28_sem'), 
+         analgesias.get('no_farmacologico').get('28_37_sem'), 
+         analgesias.get('no_farmacologico').get('partos_38_sem')],
+        ["      Farmacológico", 
+         analgesias.get('farmacologico').get('total'), 
+         analgesias.get('farmacologico').get('28_sem'), 
+         analgesias.get('farmacologico').get('28_37_sem'), 
+         analgesias.get('farmacologico').get('partos_38_sem')],
 
         [Paragraph("POSICIÓN AL MOMENTO DEL EXPULSIVO", cell_left), "", "", "", ""],
-        ["      LITOTOMÍA", "1", "1", "", ""],
-        ["      OTRAS POSICIONES", "103", "0", "29", "74"],
+        ["      LITOTOMÍA", 
+         posiciones.get('litotomia').get('total'), 
+         posiciones.get('litotomia').get('28_sem'), 
+         posiciones.get('litotomia').get('28_37_sem'), 
+         posiciones.get('litotomia').get('partos_38_sem')],
+        ["      OTRAS POSICIONES",
+         posiciones.get('otras').get('total'), 
+         posiciones.get('otras').get('28_sem'), 
+         posiciones.get('otras').get('28_37_sem'), 
+         posiciones.get('otras').get('partos_38_sem')],
 
-        [Paragraph("EPISIOTOMIA", cell_left), "0", "0", "0", "0"],
+        [Paragraph("EPISIOTOMIA", cell_left), 
+        episiotomia.get('total'), 
+         episiotomia.get('28_sem'), 
+         episiotomia.get('28_37_sem'), 
+         episiotomia.get('partos_38_sem')],
 
         [Paragraph("ACOMPAÑAMIENTO", cell_left), "", "", "", ""],
-        ["      DURANTE EL TRABAJO DE PARTO", "64", "0", "19", "47"],
-        ["      SOLO EN EL EXPULSIVO", "68", "0", "22", "48"],
+        ["      DURANTE EL TRABAJO DE PARTO",
+        acompaniamiente.get('trabajo_parto').get('total'), 
+         acompaniamiente.get('trabajo_parto').get('28_sem'), 
+         acompaniamiente.get('trabajo_parto').get('28_37_sem'), 
+         acompaniamiente.get('trabajo_parto').get('partos_38_sem')],
+        ["      SOLO EN EL EXPULSIVO", 
+        acompaniamiente.get('expulsivo').get('total'), 
+         acompaniamiente.get('expulsivo').get('28_sem'), 
+         acompaniamiente.get('expulsivo').get('28_37_sem'), 
+         acompaniamiente.get('expulsivo').get('partos_38_sem')],
     ]
 
 

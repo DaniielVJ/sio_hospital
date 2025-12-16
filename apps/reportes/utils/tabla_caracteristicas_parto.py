@@ -103,7 +103,7 @@ def crear_tabla_caracteristicas_parto_buffer(
     t = Table(tabla, colWidths=col_widths)
 
     t.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, 0), colors.blueviolet),
+        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor(0xE63137)),
         ("GRID", (0, 0), (-1, -1), 1, colors.black),
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
     ]))

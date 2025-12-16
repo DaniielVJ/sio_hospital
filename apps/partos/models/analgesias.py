@@ -60,6 +60,8 @@ class AnalgesiaParto(models.Model):
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='analgesias', null=True)
 
 
+    class Meta:
+         unique_together = ('parto', 'tipo')
     def __str__(self):
         return f"{self.tipo.nombre} ({self.parto.id})"
 

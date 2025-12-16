@@ -3,7 +3,7 @@ from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
-from apps.partos.models import Parto, ViaNacimiento
+from apps.partos.models import Parto, ViaNacimiento, TipoAnalgesia, Puerperio
 from apps.recien_nacidos.models import ComplicacionPostParto, RecienNacido
 
 
@@ -147,11 +147,136 @@ class GenerarReporteHepatitisB(SupervisorRequiredMixin, View):
 
 class GenerarReporteModeloAtencion( SupervisorRequiredMixin, View):
     def get(self, *args, **kwargs):
+        partos = Parto.objects.prefetch_related('analgesias').select_related('puerperio')
         
-        pass
+        start_date = self.request.GET.get('start_date')
+        end_date = self.request.GET.get('end_date')
+
+        if start_date:
+            partos = partos.filter(hora_inicio__date__gte=start_date)
+        
+        if end_date:
+            partos = partos.filter(hora_inicio__date__lte=end_date)
+
+
+        partos_28_sem = partos.filter(semanas_gestacion__lt=28)
+        partos_28_37_sem = partos.filter(semanas_gestacion__gte=28, semanas_gestacion__lte=37)
+        partos_38_sem = partos.filter(semanas_gestacion__gte=38)
+
+        espontaneo = {
+            'total': partos.filter(inicio_parto=Parto.InicioTrabajoParto.ESPONTANEO).count(),
+            '28_sem': partos_28_sem.filter(inicio_parto=Parto.InicioTrabajoParto.ESPONTANEO).count(),
+            '28_37_sem': partos_28_37_sem.filter(inicio_parto=Parto.InicioTrabajoParto.ESPONTANEO).count(),
+            'partos_38_sem': partos_38_sem.filter(inicio_parto=Parto.InicioTrabajoParto.ESPONTANEO).count()
+        }
+
+        inducidos = {
+            'mecanicamente': {
+                'total': partos.filter(inicio_parto=Parto.InicioTrabajoParto.INDUCIDO_MECANICA).count(),
+                '28_sem': partos_28_sem.filter(inicio_parto=Parto.InicioTrabajoParto.INDUCIDO_MECANICA).count(),
+                '28_37_sem': partos_28_37_sem.filter(inicio_parto=Parto.InicioTrabajoParto.INDUCIDO_MECANICA).count(),
+                'partos_38_sem': partos_38_sem.filter(inicio_parto=Parto.InicioTrabajoParto.INDUCIDO_MECANICA).count()
+            },
+            'farmacologicamente': {
+                'total': partos.filter(inicio_parto=Parto.InicioTrabajoParto.INDUCIDO_FARMACOLOGICA).count(),
+                '28_sem': partos_28_sem.filter(inicio_parto=Parto.InicioTrabajoParto.INDUCIDO_FARMACOLOGICA).count(),
+                '28_37_sem': partos_28_37_sem.filter(inicio_parto=Parto.InicioTrabajoParto.INDUCIDO_FARMACOLOGICA).count(),
+                'partos_38_sem': partos_38_sem.filter(inicio_parto=Parto.InicioTrabajoParto.INDUCIDO_FARMACOLOGICA).count()
+            }
+        }
+
+        conduccion_oxitocica = {
+            'total': partos.filter(inicio_parto=Parto.InicioTrabajoParto.CONDUCIDO).count(),
+            '28_sem': partos_28_sem.filter(inicio_parto=Parto.InicioTrabajoParto.CONDUCIDO).count(),
+            '28_37_sem': partos_28_37_sem.filter(inicio_parto=Parto.InicioTrabajoParto.CONDUCIDO).count(),
+            'partos_38_sem': partos_38_sem.filter(inicio_parto=Parto.InicioTrabajoParto.CONDUCIDO).count()
+        }
+
+        libertad_movimiento = {
+            'total': partos.filter(libertad_movimiento=True).count(),
+            '28_sem': partos_28_sem.filter(libertad_movimiento=True).count(),
+            '28_37_sem': partos_28_37_sem.filter(libertad_movimiento=True).count(),
+            'partos_38_sem': partos_38_sem.filter(libertad_movimiento=True).count()
+        }
 
         
-        buffer_pdf = crear_tabla_modelo_atencion_buffer()
+        regimen_hidrico_amplio = {
+            'total': partos.filter(tipo_regimen=Parto.TipoRegimen.LIQUIDO).count(),
+            '28_sem': partos_28_sem.filter(tipo_regimen=Parto.TipoRegimen.LIQUIDO).count(),
+            '28_37_sem': partos_28_37_sem.filter(tipo_regimen=Parto.TipoRegimen.LIQUIDO).count(),
+            'partos_38_sem': partos_38_sem.filter(tipo_regimen=Parto.TipoRegimen.LIQUIDO).count()
+        }
+
+
+        analgesia_no_farmacologica = get_object_or_404(TipoAnalgesia, pk=8, nombre="Analgesia NO farmacológica")
+
+        manejo_dolor = {
+            'no_farmacologico': {
+                'total': partos.filter(analgesias__tipo=analgesia_no_farmacologica).count(),
+                '28_sem': partos_28_sem.filter(analgesias__tipo=analgesia_no_farmacologica).count(),
+                '28_37_sem': partos_28_37_sem.filter(analgesias__tipo=analgesia_no_farmacologica).count(),
+                'partos_38_sem': partos_38_sem.filter(analgesias__tipo=analgesia_no_farmacologica).count()
+            }, 
+            'farmacologico': {
+                'total': partos.filter(~Q(analgesias__tipo=analgesia_no_farmacologica)).count(),
+                '28_sem': partos_28_sem.filter(~Q(analgesias__tipo=analgesia_no_farmacologica)).count(),
+                '28_37_sem': partos_28_37_sem.filter(~Q(analgesias__tipo=analgesia_no_farmacologica)).count(),
+                'partos_38_sem': partos_38_sem.filter(~Q(analgesias__tipo=analgesia_no_farmacologica)).count()
+            }
+        }   
+        
+
+        posiciones = {
+            'litotomia': {
+                'total': partos.filter(posicion=Parto.PosicionParto.LITOTOMIA).count(),
+                '28_sem': partos_28_sem.filter(posicion=Parto.PosicionParto.LITOTOMIA).count(),
+                '28_37_sem': partos_28_37_sem.filter(posicion=Parto.PosicionParto.LITOTOMIA).count(),
+                'partos_38_sem': partos_38_sem.filter(posicion=Parto.PosicionParto.LITOTOMIA).count()
+            },
+            'otras': {
+                'total': partos.filter(~Q(posicion=Parto.PosicionParto.LITOTOMIA)).count(),
+                '28_sem': partos_28_sem.filter(~Q(posicion=Parto.PosicionParto.LITOTOMIA)).count(),
+                '28_37_sem': partos_28_37_sem.filter(~Q(posicion=Parto.PosicionParto.LITOTOMIA)).count(),
+                'partos_38_sem': partos_38_sem.filter(~Q(posicion=Parto.PosicionParto.LITOTOMIA)).count()
+            }
+        }
+
+
+        episiotomia = {
+            'total': partos.filter(puerperio__estado_perine=Puerperio.EstadoPerine.EPISIOTOMIA).count(),
+            '28_sem': partos_28_sem.filter(puerperio__estado_perine=Puerperio.EstadoPerine.EPISIOTOMIA).count(),
+            '28_37_sem': partos_28_37_sem.filter(puerperio__estado_perine=Puerperio.EstadoPerine.EPISIOTOMIA).count(),
+            'partos_38_sem': partos_38_sem.filter(puerperio__estado_perine=Puerperio.EstadoPerine.EPISIOTOMIA).count()
+        }
+
+
+        acompaniamiente = {
+            'trabajo_parto': {
+                'total': partos.filter(tipo_acompaniante=Parto.TipoAcompaniante.DURANTE_TRABAJO_PARTO).count(),
+                '28_sem': partos_28_sem.filter(tipo_acompaniante=Parto.TipoAcompaniante.DURANTE_TRABAJO_PARTO).count(),
+                '28_37_sem': partos_28_37_sem.filter(tipo_acompaniante=Parto.TipoAcompaniante.DURANTE_TRABAJO_PARTO).count(),
+                'partos_38_sem': partos_38_sem.filter(tipo_acompaniante=Parto.TipoAcompaniante.DURANTE_TRABAJO_PARTO).count()
+            },
+            'expulsivo': {
+                'total': partos.filter(tipo_acompaniante=Parto.TipoAcompaniante.SOLO_EXPULSIVO).count(),
+                '28_sem': partos_28_sem.filter(tipo_acompaniante=Parto.TipoAcompaniante.SOLO_EXPULSIVO).count(),
+                '28_37_sem': partos_28_37_sem.filter(tipo_acompaniante=Parto.TipoAcompaniante.SOLO_EXPULSIVO).count(),
+                'partos_38_sem': partos_38_sem.filter(tipo_acompaniante=Parto.TipoAcompaniante.SOLO_EXPULSIVO).count()
+            }
+        }
+
+
+        buffer_pdf = crear_tabla_modelo_atencion_buffer(espontaneo, 
+                                                        inducidos, 
+                                                        conduccion_oxitocica,
+                                                        libertad_movimiento,
+                                                        regimen_hidrico_amplio,
+                                                        manejo_dolor,
+                                                        posiciones,
+                                                        episiotomia,
+                                                        acompaniamiente)
+        
+
         return FileResponse(buffer_pdf, as_attachment=True, filename="tabla_modelo_atencion.pdf")
     
 
