@@ -128,7 +128,7 @@
                             </td>
                             <td class="action-group">
                                 <div class="action-buttons">
-                                <a href="#{{paciente.pk}}" class="action-btn" title="Ver Ficha">
+                                <a href="{% url 'parto:detalles_parto' pk=parto.pk %}" class="action-btn" title="Ver Ficha">
                                     <img src="{% static 'svg/view.svg' %}" alt="Ver" class="nav-svg">
                                 </a>
                             </div>
@@ -150,39 +150,12 @@
 </main>
 
 
-{% comment %} MODAL {% endcomment %}
-  <div id="modal-reporte-caracteristicas-parto" class="modal fixed inset-0 hidden items-center justify-center bg-black/60 z-50" role="dialog" aria-modal="true">
-      <div class="bg-[#ffffffd8] card rounded-lg p-6 max-w-lg w-full mx-4 relative h-auto">
-        <button type="button" class="modal-close absolute top-3 right-3 text-gray-700" aria-label="Cerrar">✕</button>
-        <h3 class="text-[1.2rem] font-semibold text-center">Generar Archivo CSV de Partos</h3>
-          <p class="mt-2 text-[1rem] text-center">Centra todos los datos de parto para un paciente en particular</p>
-
-              <div class="mt-4 grid grid-cols-2 gap-3">
-                <label class="block text-[1rem] text-center form-group form-group ">
-                  Fecha inicio
-                  <input type="date" id="start-modal-reporte-caracteristicas-parto" name="start" class="mt-1 w-full border rounded px-2 py-1">
-                </label>
-                <label class="block text-[1rem] text-center form-group form-group">
-                  Fecha fin
-                  <input type="date" id="end-modal-reporte-caracteristicas-parto" name="end" class="mt-1 w-full border rounded px-2 py-1">
-                </label>
-              </div>
-          
-
-        <div class="mt-4 flex gap-2 grid grid-cols-2">
-          <button type="button" class="modal-close px-2 py-2 border rounded text-center">Cerrar</button>
-          <a href="{% url 'reportes:parto_csv' %}" class="btn-download px-4 py-2  border rounded text-center">Descargar</a>
-          
-        </div>
-      </div>
-    </div>
 
 {% endblock content %}
     
 
 
 {% block scripts %}
-<script src="{% static 'dashboard/js/modal.js' %}"></script>
 <script src="{% static 'js/toastify.min.js' %}"></script>
 {% include 'includes/script_mensajes.html' %}
 
