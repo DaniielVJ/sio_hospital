@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView, TemplateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, TemplateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from dal import autocomplete
 from django.db.models import Q, Value, F
@@ -55,7 +55,11 @@ class ListarPartosView(MatronaSupervisorRequiredMixin, PermissionRequiredMixin, 
         context['query'] = self.query
         return context
 
+class DetallesPartoView(MatronaSupervisorRequiredMixin, DetailView):
+    model = Parto
+    template_name = "partos/detalles_parto.html"
     
+
 
 class CrearPartosView(MatronaRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Parto
