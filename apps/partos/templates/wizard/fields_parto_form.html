@@ -1,12 +1,16 @@
 {% extends "wizard/wizard_form.html" %}
+{% load static %}
 
 {% block form_title %}
     Ingrese el Parto
 {% endblock form_title %}
     
 {% block form_fields %}
-        <fieldset class="form-section">
+    <fieldset class="form-section">
         <legend class="section-legend">Antecedentes e Ingreso</legend>
+
+        <div class="form-row">
+
             <div class="form-group {% if form.hora_inicio.errors %} has-error{% endif %}">
                 <label for="{{form.hora_inicio.id_for_label}}">Fecha y Hora de Inicio del trabajo de Parto <span class="obligatorio">*</span></label>
                 {{form.hora_inicio}}
@@ -18,7 +22,20 @@
                 {% endfor %}
                 </div>                   
             {% endif %}
+            </div>
 
+            
+            <div class="form-group {% if form.tipo_acompaniante.errors %} has-error{% endif %}">
+                <label for="{{form.tipo_acompaniante.id_for_label}}">Tipo de Acompañante<span class="obligatorio">*</span></label>
+                {{form.tipo_acompaniante}}
+                <span class="field-help">{{form.tipo_acompaniante.help_text}}</span>
+            {% if form.tipo_acompaniante.errors %}
+                <div class="error-message">
+                {% for error in form.tipo_acompaniante.errors %}
+                    <p>{{ error }}</p> 
+                {% endfor %}
+                </div>                   
+            {% endif %}
             </div>
         </div>
 
@@ -205,10 +222,12 @@
         <legend class="section-legend">Procedimientos y Factores</legend>
 
         <div class="checkbox-grid">
+            
             <label class="checkbox-card">
-                {{form.acompaniante}}
-                <span class="checkbox-text">Acompañante</span>
+                {{form.libertad_movimiento}}
+                <span class="checkbox-text">Libertad Movimiento</span>
             </label>
+
 
             <label class="checkbox-card">
                 {{form.monitor}}
@@ -218,16 +237,6 @@
             <label class="checkbox-card">
                 {{form.ttc}}
                 <span class="checkbox-text">TTC</span>
-            </label>
-
-            <label class="checkbox-card">
-                {{form.induccion}}
-                <span class="checkbox-text">Inducción</span>
-            </label>
-
-            <label class="checkbox-card">
-                {{form.aceleracion}}
-                <span class="checkbox-text">Aceleración</span>
             </label>
 
             <label class="checkbox-card">

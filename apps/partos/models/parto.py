@@ -74,7 +74,7 @@ class Parto(models.Model):
    grupo_robson = models.ForeignKey(GrupoRobson, on_delete=models.PROTECT, related_name="partos", blank=True, null=True)
    via_nacimiento = models.ForeignKey(ViaNacimiento, on_delete=models.PROTECT, related_name="partos")
    gestacion = models.OneToOneField(Gestacion, on_delete=models.PROTECT, related_name="parto")
-   complicaciones = models.ManyToManyField(Complicacion, related_name="partos")
+   complicaciones = models.ManyToManyField(Complicacion, related_name="partos", blank=True)
    hora_inicio = models.DateTimeField()
    numero_aro = models.PositiveSmallIntegerField(default=0)
    
@@ -114,6 +114,8 @@ class Parto(models.Model):
    
    libertad_movimiento = models.BooleanField(default=False)
 
+   semanas_gestacion = models.PositiveSmallIntegerField(blank=True, null=True) # Este field se obtiene de el calculo de semanas de la gestacion con su metodo
+
    # lo oculto y no lo exigo en el formulario ya que no hay tiempo para reconstruir database
    acompaniante = models.BooleanField(default=False, blank=True, null=True)
    ttc = models.BooleanField(default=False)
@@ -143,6 +145,12 @@ class Parto(models.Model):
    def save(self, *args, **kwargs):
       if not self.edad_madre:
          self.edad_madre = self.gestacion.paciente.calcular_edad_paciente()
+      
+      if not self.semanas_gestacion:
+         self.semanas_gestacion = self.gestacion.obtener_semanas_gestacion()
+         if self.semanas_gestacion:
+            self.semanas_gestacion = self.semanas_gestacion.get('semanas')
+
       super().save(*args, **kwargs)
 
 

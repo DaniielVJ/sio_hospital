@@ -1,5 +1,6 @@
 from django.urls import path
 
+<<<<<<< HEAD
 # 1. Vistas Generales de Parto (desde parto_views.py)
 from ..views.parto_views import ( 
     ListarPartosView, 
@@ -16,6 +17,12 @@ from ..views.wizard_form_view import (
     WizardFormView,
 )
 
+=======
+from ..views import (ListarPartosView, CrearPartosView, 
+                     AutoCompletadoParaGestacion, MenuInicioPartosView, 
+                     ActualizarPartoView, EliminarPartoView, WizardFormView,
+                     CreatePuerperioView)
+>>>>>>> main
 
 app_name = "parto"
 
@@ -29,6 +36,7 @@ urlpatterns = [
     path('<int:pk>/actualizar/', ActualizarPartoView.as_view(), name="actualizar_parto"),
     
     path('<int:pk>/eliminar/', EliminarPartoView.as_view(), name="eliminar_parto"),
+<<<<<<< HEAD
     
     # URL de Autocompletado
     path('autocompletado/gestacion/', AutoCompletadoParaGestacion.as_view(), name="autocompletar_gestacion"),
@@ -36,3 +44,13 @@ urlpatterns = [
     # URL Adicional (Wizard Form)
     path('wizard-form/', WizardFormView.as_view(), name="wizard_form"),
 ]
+=======
+    path('autocompletado/gestacion/', AutoCompletadoParaGestacion.as_view(), name="autocompletar_gestacion"),
+    # puerperio
+    path('<int:pk_parto>/add/puerperio/', CreatePuerperioView.as_view(), name="agregar_puerperio"),
+    # wizard_url
+    path('wizard-form/', WizardFormView.as_view(), name="wizard_form"),
+]
+
+
+>>>>>>> main

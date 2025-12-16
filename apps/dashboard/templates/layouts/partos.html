@@ -19,7 +19,7 @@
                     bg-gradient-to-br from-[#ffb3b32c] via-[#ffc6c617]  to-[#ffb3b32c]
                     backdrop-blur-xl border border-white/10 hover:bg-red-600/30 transition-all duration-300">
             <h3 class="text-sm font-medium">
-                Total de partos este mes
+                Total de partos en el año
             </h3>
             <p id="kpi_parto_1" data-value="{{ kpiparto1|default:25 }}"
                class="text-4xl font-bold mt-3">0</p>
@@ -41,7 +41,7 @@
                     bg-gradient-to-br from-[#ffb3b32c] via-[#ffc6c617]  to-[#ffb3b32c]
                     backdrop-blur-xl border border-white/10 hover:bg-red-600/30 transition-all duration-300">
             <h3 class="text-sm font-medium">
-                Complicaciones en partos
+                Complicaciones en partos totales
             </h3>
             <p id="kpi_parto_3" data-value="{{ kpiparto3|default:10 }}"
                class="text-4xl font-bold mt-3">0</p>
@@ -56,8 +56,8 @@
         <div class="grid grid-row-1 gap-[1rem]">
 <!-- 1 -->
             <div class="rounded-2xl shadow-xl bg-[#9471712c] border border-white/10">
-                <h2 class="text-lg font-semibold text-white text-center">
-                    Total de Partos durante el mes
+                <h2 class="text-[1rem] font-semibold text-center">
+                    Número de Partos durante el año:<br/>2025
                 </h2>
                 <div id="chart_parto_1" 
                      data-value='{{ chartparto1|safe }}'
@@ -65,7 +65,7 @@
             </div>
 <!-- 2 -->
             <div class="rounded-2xl shadow-xl bg-[#9471712c] border border-white/10">
-                <h2 class="text-lg font-semibold text-white text-center">
+                <h2 class="text-[1rem] font-semibold text-center">
                     Porcentaje de Cesáreas vs Partos Naturales
                 </h2>
                 <div id="chart_parto_2" 
@@ -75,8 +75,8 @@
         </div>
 <!-- 3 -->
         <div class="grid grid-row-1 h-50">
-            <div class="p-[1rem] rounded-2xl shadow-xl bg-[#9471712c] border border-white/10">
-                <h2 class="text-lg font-semibold text-white text-center">
+            <div class="rounded-2xl shadow-xl bg-[#9471712c] border border-white/10">
+                <h2 class="text-[1rem] font-semibold text-center">
                     Complicaciones por Tipo <!-- (%) = (nº partos con complicación materna o neonatal en detalle_parto/puerperio / total partos) × 100. -->
                 </h2>
                 <div id="chart_parto_3" 
@@ -94,9 +94,8 @@
                         <thead class="bg-[#9471712c] text-[1rem] font-bold">
                             <tr>
                                 <th class="p-3 border-x-2 text-center">Profesional a cargo</th>
-                                <th class="p-3 border-x-2 text-center">Nombre RN</th>
                                 <th class="p-3 border-x-2 text-center">Tipo Parto</th>
-                                <th class="p-3 border-x-2 text-center">APGAR</th>
+                                <th class="p-3 border-x-2 text-center">Hora</th>
                             </tr>
                         </thead>
                         <tbody id="tabla_parto" data-value='{{ tablaparto }}'

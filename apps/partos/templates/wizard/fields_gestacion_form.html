@@ -21,7 +21,6 @@
                     {% endif %} 
                 </div>
             </div>
-
             <div class="form-row">
                 <div class="form-group  {% if form.riesgo.errors %}has-error{% endif %}">
                     <label for="{{form.riesgo.id_for_label}}">Riesgo del Embarazo/Gestación <span class="obligatorio">*</span></label>
@@ -34,12 +33,10 @@
                         </div>                   
                     {% endif %} 
                 </div>
-
                 <div class="form-group {% if form.numero_fetos.errors %}has-error{% endif %}">
                     <label for="{{form.numero_fetos.id_for_label}}">{{form.numero_fetos.label}} <span class="obligatorio">*</span></label>
                     {{form.numero_fetos}}
                     <span class="field-help">{{form.numero_fetos.help_text}}</span>
-
                     {% if form.numero_fetos.errors %}
                         <div class="error-message">
                         {% for error in form.numero_fetos.errors %}

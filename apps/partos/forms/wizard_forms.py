@@ -24,3 +24,4 @@ class PartoFormWizard(PartoForm):
 class RecienNacidoFormWizard(RecienNacidoForm):
     class Meta(RecienNacidoForm.Meta):
         exclude = list(RecienNacidoForm.Meta.exclude) + ['parto']
+

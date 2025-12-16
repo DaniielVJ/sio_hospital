@@ -47,6 +47,11 @@ class Cesfam(models.Model):
 
 class Paciente(models.Model):
 
+    class Sexo(models.TextChoices):
+        MASCULINO = 'M', 'Masculino'
+        FEMENINO = 'F', 'Femenino'
+        OTRO = 'O', 'otro'
+
     class Actividad(models.TextChoices):
         BAJA = 'baja', 'Baja'
         MODERADA = 'moderada', 'Moderada'
@@ -96,7 +101,9 @@ class Paciente(models.Model):
     actividad = models.CharField(max_length=9,
                                  choices=Actividad.choices,
                                  default=Actividad.BAJA)
-
+    sexo = models.CharField(max_length=10,
+                            choices=Sexo.choices,
+                            default=Sexo.FEMENINO)
 
     history = HistoricalRecords()
 

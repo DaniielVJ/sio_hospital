@@ -7,3 +7,5 @@ from .enviar_reportes_views import GenerarReporteEutocicoDistocico
 from .enviar_reportes_views import GenerarReporteHepatitisB
 from .enviar_reportes_views import GenerarReporteModeloAtencion
 from .enviar_reportes_views import GenerarReporteProfilaxisGonorrea
+
+from .excel import parto_csv, paciente_csv

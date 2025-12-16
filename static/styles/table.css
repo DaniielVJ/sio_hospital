@@ -18,6 +18,19 @@
     }
 }
 
+     /* Estilo tipo 'Ticket' para el ID */
+.id-badge {
+    background-color: #edf2f7;
+    color: #4a5568;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace; /* Fuente monoespaciada para IDs */
+    font-weight: 700;
+    border: 1px solid #cbd5e0;
+    font-size: 0.9rem;
+}
+
+
 /* =========================================
    SIDEBAR IZQUIERDO (Búsquedas)
    ========================================= */

@@ -23,11 +23,10 @@
 
         <!-- Breadcrumb -->
         <nav class="breadcrumbs">
-            <a href="../inicioMatrona.html" class="link-color">Inicio</a>
+            <a href="{% url 'pantalla_principal' %}" class="link-color">Inicio</a>
             <span>›</span>
-            <a href="partos.html" class="link-color">Wizard Form</a>
-            <span>›</span>
-            <span>Crear Registro Medico Completo</span>
+            <span>Wizard Form</span>
+
         </nav>
 
         <section class="form-card">
@@ -40,16 +39,19 @@
                     </h2>
                 <p class="form-subtitle">Los campos marcados con <span class="obligatorio">*</span> son obligatorios</p>
             </div>
-            {{ wizard.form.errors }}.
+            {{ wizard.form.errors }}
             <form method="POST" class="main-form">
                 {% csrf_token %}
                 {{wizard.management_form}}
                 
                 {% comment %} Fields Here !!!! {% endcomment %}
-                
-                {% block form_fields %}
+                <!--JAJAJA CUANDO ALGO SE COLOQUE FUERA DEL BLOQUE USAR UN DIV Y AHI SE COLOCA SIN PROBLEMA
+                -->
+                <div>
+                    {% block form_fields %}
                     
-                {% endblock  %}
+                    {% endblock form_fields %}
+                </div>
                     
 
                 <div class="form-actions">

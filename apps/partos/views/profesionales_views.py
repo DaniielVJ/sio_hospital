@@ -1,19 +1,22 @@
 from django.views.generic import TemplateView, ListView, CreateView
 from django.urls import reverse_lazy
+from core.mixins import MatronaRequiredMixin, MatronaSupervisorRequiredMixin
+
+
 from apps.partos.models.profesional import Profesional
 # Importa el form que acabamos de crear
 from apps.partos.forms.profesional_form import ProfesionalForm
 
-class MenuInicioProfesionalesView(TemplateView):
+class MenuInicioProfesionalesView(MatronaSupervisorRequiredMixin, TemplateView):
     """Renderiza el menú de opciones de Profesionales"""
     template_name = 'partos/inicio_profesionales.html'
 
-class ListarProfesionalesView(TemplateView):
+class ListarProfesionalesView(MatronaSupervisorRequiredMixin, TemplateView):
     """Renderiza la tabla de profesionales"""
     # Cuando conectemos la BD, cambiaremos esto a ListView
     template_name = 'partos/listar_profesionales.html'
 
-class CrearProfesionalView(CreateView):
+class CrearProfesionalView(MatronaRequiredMixin, CreateView):
     model = Profesional
     form_class = ProfesionalForm
     template_name = 'partos/formulario_profesionales.html'

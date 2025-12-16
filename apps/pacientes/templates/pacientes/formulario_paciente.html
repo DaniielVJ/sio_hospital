@@ -152,6 +152,20 @@
                     {% endif %} 
                 </div>
             </div>
+            <div class="form-row">
+                <div class="form-group {% if form.sexo.errors %} has-error{% endif %}">
+                    <label for="nacionalidad">{{form.sexo.label}} <span class="obligatorio">*</span></label>
+                    {{form.sexo}}
+                    <span class="field-help">{{form.sexo.help_text}}</span> 
+                    {% if form.sexo.errors %}
+                        <div class="error-message">
+                        {% for error in form.sexo.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>                   
+                    {% endif %} 
+                </div>
+            </div>
         </fieldset>
 
         <fieldset class="form-section">

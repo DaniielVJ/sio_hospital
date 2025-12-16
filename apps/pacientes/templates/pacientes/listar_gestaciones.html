@@ -92,6 +92,7 @@
             <table class="smart-table">
                 <thead>
                     <tr>
+                        <th>Codigo Objeto</th>
                         <th>Paciente</th>
                         <th>Tipo de Embarazo/Gestacion</th>
                         <th>Estado</th>
@@ -104,6 +105,9 @@
                    
                    {% for gestacion in gestaciones %}
                         <tr>
+                            <td>
+                               <span class="id-badge"  style="font-weight: 500; color: #2d3748;"> #{{gestacion.pk}}</span> 
+                            </td>
                             <td>
                                 <span class="text-bold">{{ gestacion.paciente.obtener_nombre_completo }}</span>
                                 <span class="text-sub">{{gestacion.paciente.documento}} / {{gestacion.paciente.identificacion}}</span>

@@ -92,6 +92,7 @@
             <table class="smart-table">
                 <thead>
                     <tr>
+                        <th>Codigo Objeto</th>
                         <th>Paciente</th>
                         <th>F/H Inicio Trabajo de Parto</th>
                         <th>Estado</th>
@@ -104,6 +105,9 @@
                    
                    {% for parto in partos %}
                         <tr>
+                            <td>
+                               <span class="id-badge"  style="font-weight: 500; color: #2d3748;"> #{{parto.pk}}</span> 
+                            </td>
                             <td>
                                 <span class="text-bold">{{parto.gestacion.paciente.obtener_nombre_completo}}</span>
                                 <span class="text-sub">{{parto.gestacion.paciente.documento}} / {{parto.gestacion.paciente.identificacion}} </span>
@@ -146,14 +150,39 @@
 </main>
 
 
+{% comment %} MODAL {% endcomment %}
+  <div id="modal-reporte-caracteristicas-parto" class="modal fixed inset-0 hidden items-center justify-center bg-black/60 z-50" role="dialog" aria-modal="true">
+      <div class="bg-[#ffffffd8] card rounded-lg p-6 max-w-lg w-full mx-4 relative h-auto">
+        <button type="button" class="modal-close absolute top-3 right-3 text-gray-700" aria-label="Cerrar">✕</button>
+        <h3 class="text-[1.2rem] font-semibold text-center">Generar Archivo CSV de Partos</h3>
+          <p class="mt-2 text-[1rem] text-center">Centra todos los datos de parto para un paciente en particular</p>
 
+              <div class="mt-4 grid grid-cols-2 gap-3">
+                <label class="block text-[1rem] text-center form-group form-group ">
+                  Fecha inicio
+                  <input type="date" id="start-modal-reporte-caracteristicas-parto" name="start" class="mt-1 w-full border rounded px-2 py-1">
+                </label>
+                <label class="block text-[1rem] text-center form-group form-group">
+                  Fecha fin
+                  <input type="date" id="end-modal-reporte-caracteristicas-parto" name="end" class="mt-1 w-full border rounded px-2 py-1">
+                </label>
+              </div>
+          
 
+        <div class="mt-4 flex gap-2 grid grid-cols-2">
+          <button type="button" class="modal-close px-2 py-2 border rounded text-center">Cerrar</button>
+          <a href="{% url 'reportes:parto_csv' %}" class="btn-download px-4 py-2  border rounded text-center">Descargar</a>
+          
+        </div>
+      </div>
+    </div>
 
 {% endblock content %}
     
 
 
 {% block scripts %}
+<script src="{% static 'dashboard/js/modal.js' %}"></script>
 <script src="{% static 'js/toastify.min.js' %}"></script>
 <script src="{% static 'js/modal.js' %}"></script>
 {% include 'includes/script_mensajes.html' %}

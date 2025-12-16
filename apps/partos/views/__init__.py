@@ -1,0 +1,3 @@
+from .parto_views import ListarPartosView, CrearPartosView, AutoCompletadoParaGestacion, MenuInicioPartosView, ActualizarPartoView, EliminarPartoView
+from .puerperio_views import CreatePuerperioView
+from .wizard_form_view import WizardFormView

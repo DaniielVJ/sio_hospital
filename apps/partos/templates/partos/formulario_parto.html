@@ -135,12 +135,24 @@
 
                     </div>
 
-                    <div class="form-group {% if form.via_nacimiento.errors %} has-error{% endif %}">
+                    <div class="form-group {% if form.inicio_parto.errors %} has-error{% endif %}">
                         <label for="{{form.inicio_parto.id_for_label}}">Tipo Inicio de Parto<span class="obligatorio">*</span></label>
                         {{form.inicio_parto}}
                     {% if form.inicio_parto.errors %}
                         <div class="error-message">
                         {% for error in form.inicio_parto.errors %}
+                            <p>{{ error }}</p> 
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    </div>
+                    <div class="form-group {% if form.tipo_acompaniante.errors %} has-error{% endif %}">
+                        <label for="{{form.inicio_parto.id_for_label}}">Tipo de Acompañante<span class="obligatorio">*</span></label>
+                        {{form.tipo_acompaniante}}
+                    {% if form.tipo_acompaniante.errors %}
+                        <div class="error-message">
+                        {% for error in form.tipo_acompaniante.errors %}
                             <p>{{ error }}</p> 
                         {% endfor %}
                         </div>
@@ -278,10 +290,12 @@
                 <legend class="section-legend">Procedimientos y Factores</legend>
 
                 <div class="checkbox-grid">
+                    
                     <label class="checkbox-card">
-                        {{form.acompaniante}}
-                        <span class="checkbox-text">Acompañante</span>
+                        {{form.libertad_movimiento}}
+                        <span class="checkbox-text">Libertad Movimiento</span>
                     </label>
+
 
                     <label class="checkbox-card">
                         {{form.monitor}}
@@ -291,16 +305,6 @@
                     <label class="checkbox-card">
                         {{form.ttc}}
                         <span class="checkbox-text">TTC</span>
-                    </label>
-
-                    <label class="checkbox-card">
-                        {{form.induccion}}
-                        <span class="checkbox-text">Inducción</span>
-                    </label>
-
-                    <label class="checkbox-card">
-                        {{form.aceleracion}}
-                        <span class="checkbox-text">Aceleración</span>
                     </label>
 
                     <label class="checkbox-card">

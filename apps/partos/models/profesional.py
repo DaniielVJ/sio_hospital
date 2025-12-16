@@ -15,7 +15,7 @@ class Profesional(models.Model):
     nombre = models.CharField(max_length=45)
     primer_apellido = models.CharField(max_length=45)
     segundo_apellido = models.CharField(max_length=45)
-    rut = models.CharField(max_length=11, unique=True)
+    rut = models.CharField(max_length=30, unique=True)
     tipo = models.CharField(max_length=30,
                             choices=Tipo.choices,
                             default=Tipo.ENFERMERA)
