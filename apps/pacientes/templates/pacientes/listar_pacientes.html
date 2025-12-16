@@ -92,6 +92,7 @@
             <table class="smart-table">
                 <thead>
                     <tr>
+                        <th>Codigo Objeto</th>
                         <th>Identificación</th>
                         <th>Nombre Completo</th>
                         <th>Tipo paciente</th>
@@ -104,6 +105,9 @@
                    
                    {% for paciente in  pacientes%}
                         <tr>
+                            <td>
+                               <span class="id-badge"  style="font-weight: 500; color: #2d3748;"> #{{paciente.pk}}</span> 
+                            </td>
                             <td>
                                 <span class="text-sub">{{paciente.documento}}</span>
                                 <span class="text-bold">{{paciente.identificacion}}</span>
