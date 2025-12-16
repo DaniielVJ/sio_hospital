@@ -1,10 +1,13 @@
-from django.views.generic import ListView, CreateView, TemplateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.views.generic import ListView, CreateView, TemplateView, UpdateView, DeleteView, DetailView 
+# Asegúrate de que PermissionRequiredMixin también esté importado si lo usas
+from django.contrib.auth.mixins import PermissionRequiredMixin 
+# Si PermissionRequiredMixin no está en esta línea, asegúrate de que esté en una línea separada arriba.from dal import autocomplete
 from dal import autocomplete
 from django.db.models import Q, Value, F
 from django.db.models.functions import Concat
 from django.urls import reverse_lazy
 from django.contrib import messages
+
 
 from core.forms import MotivoForm
 from core.mixins import MatronaSupervisorRequiredMixin, MatronaRequiredMixin
@@ -115,6 +118,17 @@ class EliminarPartoView(MatronaRequiredMixin, PermissionRequiredMixin, DeleteVie
         messages.error(self.request, "No se pudo eliminar correctamente el objeto")
         return super().form_invalid(form)
 
+# View encargada de mostrar el detalle de un Parto dentro de un Modal
+class DetallePartoModalView(MatronaSupervisorRequiredMixin, DetailView):
+    model = Parto
+    template_name = 'partos/modal_detalle_parto.html' # El template limpio que creamos
+    context_object_name = 'object'
+    permission_required = "partos.view_parto"
+    raise_exception = True
+    
+    # Nota: Si necesitas la vista de Wizard aquí, muévela del archivo wizard_form_view.py a este, 
+    # o asegúrate de que esté definida correctamente en su propio archivo y que tu urls.py 
+    # la importe desde el lugar correcto (como resolvimos en el mensaje anterior).
 
 # View para autocompletar la busqueda del formulario Partos para el campo gestacion/gestaciones
 class AutoCompletadoParaGestacion(MatronaRequiredMixin, autocomplete.Select2QuerySetView):
@@ -128,3 +142,4 @@ class AutoCompletadoParaGestacion(MatronaRequiredMixin, autocomplete.Select2Quer
             # Aqui igual puede ser: paciente__identificacion__startswith=self.q
             return gestaciones.filter(Q(nombre_completo_paciente__icontains=self.q) | Q(identificacion_paciente__startswith=self.q) | Q(pk__startswith=self.q)).order_by('nombre_completo_paciente')
         return gestaciones.none()
+    
