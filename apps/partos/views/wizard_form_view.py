@@ -1,6 +1,8 @@
 from django.shortcuts import redirect
 from formtools.wizard.views import SessionWizardView
 from django.db import transaction
+from django.contrib import messages
+
 
 from ..forms import GestacionFormWizard, PacienteFormWizard, PartoFormWizard, RecienNacidoFormWizard
 from ..forms import PuerperioForm as PuerperioFormWizard
@@ -34,19 +36,21 @@ class WizardFormView(MatronaRequiredMixin, SessionWizardView):
                 # storage of gestation
                 gestation = form_list[1].save(commit=False)
                 gestation.paciente = patient
-                gestation.estado = "terminada"
                 gestation.created_by = self.request.user
                 gestation.updated_by = self.request.user
                 gestation.save()
-
+                gestation.estado = "terminada"
+                gestation.save()
 
                 # storage of childbirth
                 childbirth = form_list[2].save(commit=False)
                 childbirth.gestacion = gestation
-                childbirth.estado = "terminado"
                 childbirth.created_by = self.request.user
                 childbirth.updated_by = self.request.user
                 childbirth.save()
+                childbirth.estado = "terminado"
+                childbirth.save()
+
 
                 # storage of puerperio
                 puerperium = form_list[3].save(commit=False)
@@ -61,10 +65,11 @@ class WizardFormView(MatronaRequiredMixin, SessionWizardView):
                 baby.created_by = self.request.user
                 baby.updated_by = self.request.user
                 baby.save()
-
+                messages.success(self.request, "Ingreso de datos realizado con exito")
                 return redirect('pantalla_principal')
         except Exception as e:
             print(f"Error al guardar el wizard: {e}")
+            messages.error(self.request, f"Error al guardar el wizard: {e}")
             return redirect('pantalla_principal')
 
     # Método OBLIGATORIO para que el diccionario de arriba funcione
