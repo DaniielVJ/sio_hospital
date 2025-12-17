@@ -11,11 +11,13 @@ class MenuInicioProfesionalesView(MatronaSupervisorRequiredMixin, TemplateView):
     """Renderiza el menú de opciones de Profesionales"""
     template_name = 'partos/inicio_profesionales.html'
 
-class ListarProfesionalesView(MatronaSupervisorRequiredMixin, TemplateView):
+class ListarProfesionalesView(MatronaSupervisorRequiredMixin, ListView):
     """Renderiza la tabla de profesionales"""
-    # Cuando conectemos la BD, cambiaremos esto a ListView
+    model = Profesional
     template_name = 'partos/listar_profesionales.html'
-
+    context_object_name = 'profesionales' # Al ser ListView, ahora sí enviará esta variable
+    paginate_by = 10
+    
 class CrearProfesionalView(MatronaRequiredMixin, CreateView):
     model = Profesional
     form_class = ProfesionalForm
