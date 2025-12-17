@@ -10,7 +10,9 @@ from core.utils import generar_password_aleatoria
 
 class ListarUsuarios(AdminTiRequiredMixin, ListView):
     template_name = "perfiles/listar_usuarios.html"
-
+    model = get_user_model()
+    context_object_name = "usuarios"
+    paginate_by = 10
 
 class RegistrarUsuarioView(AdminTiRequiredMixin, CreateView):
     template_name = "perfiles/registrar_usuario.html"

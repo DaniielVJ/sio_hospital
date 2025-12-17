@@ -61,7 +61,7 @@
         
         {% if request.user.is_staff %}
 
-            <a href="../Usuarios/usuarios.html" class="nav-link">
+            <a href="{% url 'perfiles:listar_usuarios' %}" class="nav-link">
                 <img src="{% static 'svg/usuarios.svg' %}" class="nav-svg" />
                 <span class="nav-text">Usuarios</span>
             </a>     

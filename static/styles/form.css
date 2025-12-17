@@ -384,6 +384,7 @@ textarea.input-field {
     cursor: pointer;
     transition: all 0.2s ease;
     border: 1px solid transparent;
+    margin-top: 0.7rem;
 }
 
 .checkbox-card:hover {

@@ -126,7 +126,7 @@
                             </td>
                             <td class="action-group">
                                 <div class="action-buttons">
-                                <a href="#{{paciente.pk}}" class="action-btn" title="Ver Ficha">
+                                <a href="{% url 'paciente:detalle_paciente' pk=paciente.pk %}" class="action-btn" title="Ver Ficha">
                                     <img src="{% static 'svg/view.svg' %}" alt="Ver" class="nav-svg">
                                 </a>
                             </div>

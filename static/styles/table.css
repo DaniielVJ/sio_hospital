@@ -148,7 +148,7 @@
 
 .text-sub {
     display: block;
-    font-size: 0.75rem;
+    font-size: 1rem;
     color: var(--text-muted);
 }
 
