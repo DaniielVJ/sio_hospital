@@ -75,9 +75,9 @@ class ProfesionalForm(forms.ModelForm):
         """
         rut = self.cleaned_data.get('rut')
         if rut: 
-            rut = validar_rut(rut)
-            if not rut[0]:
-                raise forms.ValidationError(rut[1])
+            verificacion_rut = validar_rut(rut)
+            if not verificacion_rut[0]:
+                raise forms.ValidationError(verificacion_rut[1])
         return rut
 
 
